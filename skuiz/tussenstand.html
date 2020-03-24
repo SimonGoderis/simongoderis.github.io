@@ -46,7 +46,7 @@
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col">Team</th>
-                        <th scope="col">Score</th>
+                        <th scope="col" class="text-right">Score</th>
                       </tr>
                     </thead>
                     <tbody id="tablebody">
@@ -84,7 +84,7 @@
     lengte = data.length;
     for (i = 0; i < lengte; i++) {
         if (data[i].Team != "") {
-            document.getElementById('tablebody').insertAdjacentHTML('beforeend', "<tr><th scope='row'>" + (i+1) + "</th><td>" + data[i].Team + "</td><td>" + data[i].Totaal + "</td></tr>");
+            document.getElementById('tablebody').insertAdjacentHTML('beforeend', "<tr><th scope='row'>" + (i+1) + "</th><td>" + data[i].Team + "</td><td class='text-right'>" + data[i].Totaal + "</td></tr>");
         }
     }
 

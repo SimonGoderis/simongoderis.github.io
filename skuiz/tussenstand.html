@@ -12,7 +12,10 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
   <!-- JS -->
-
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container-fluid">
@@ -29,8 +32,8 @@
         <div class="mt-2"></div>
         <div class="row">
             <div class="col-5 col-md-4 col-lg-3"><a href="./index.html" class="btn btn-outline-primary btn-block">← Links</a></div>
-            <div class="col-5 col-md-6 col-lg-7"></div>
-            <div class="col-2 col-lg-2"><button type="button" class="btn btn-outline-primary btn-block">10</button></div>
+            <div class="col-4 col-md-6 col-lg-7"></div>
+            <div class="col-3 col-md-2"><button type="button" class="btn btn-outline-primary btn-block" id="counter">60</button></div>
         </div>
         <div class="mt-2"></div>
         <div class="list-group">
@@ -38,6 +41,7 @@
                 Tussenstand
             </a>
                 <table class="table table-hover">
+                    <caption id="caption"></caption>
                     <thead class="thead-dark"> 
                       <tr>
                         <th scope="col">#</th>
@@ -56,7 +60,37 @@
           </div>
         </div>
         <div class="col-lg-3"></div>
+        <div class="mt-2"></div>
         </div>
     </div>
 </body>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+<script type='text/javascript'>    
+  var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1oFHAUBxUSEpRxUcdiMr2SW9hnz7jDXEN1lFC40hKpVo/edit?usp=sharing';
+
+  function init() {
+    Tabletop.init( { key: publicSpreadsheetUrl,
+                     callback: showInfo,
+                     simpleSheet: true } )
+  }
+
+  function showInfo(data, tabletop) {
+    console.log(data);
+    // Hier zal de nodige bewerking toegevoegd worden.
+
+    // De caption zal getoond worden telkens de data ververst wordt. 
+    document.getElementById("caption").innerHTML = "Laatste update: " + (new Date()).toLocaleTimeString();
+  }
+
+  // Countdown timer
+  var count = 60, timer = setInterval(function() {
+    $("#counter").html(count--);
+    if(count == 0){
+        count = 60;
+        init();
+    }
+  }, 1000)
+
+  window.addEventListener('DOMContentLoaded', init)
+</script>
 </html>

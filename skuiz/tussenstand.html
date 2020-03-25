@@ -16,6 +16,8 @@
   src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <div class="container-fluid">
@@ -59,15 +61,63 @@
                     </tbody>
                   </table>
           </div>
+          <!-- Knop om de modal te openen -->
+          
+          <div class="row" style="display: none;" id="rondebuttons">
+            <div class="col-2"></div>
+            <div class="col-1"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="rondes(this.id)" id="1" disabled>1</button></div>
+            <div class="col-1"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="rondes(this.id)" id="2" disabled>2</button></div>
+            <div class="col-1"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="rondes(this.id)" id="3" disabled>3</button></div>
+            <div class="col-1"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="rondes(this.id)" id="4" disabled>4</button></div>
+            <div class="col-1"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="rondes(this.id)" id="5" disabled>5</button></div>
+            <div class="col-1"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="rondes(this.id)" id="6" disabled>6</button></div>
+            <div class="col-1"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="rondes(this.id)" id="7" disabled>7</button></div>
+            <div class="col-1"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="rondes(this.id)" id="8" disabled>8</button></div>
+            <div class="col-2"></div>
+          </div>
         </div>
         <div class="col-lg-3"></div>
         <div class="mt-2"></div>
         </div>
     </div>
+
+    <!-- Modal voor punten van de rondes -->
+    <div class="modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-hover">
+              <caption id="caption"></caption>
+              <thead class="thead-dark"> 
+                <tr>
+                  <th scope="col">Ronde</th>
+                  <th scope="col">Score</th>
+                </tr>
+              </thead>
+              <tbody id="tablebodymodal">
+                  <!-- Wordt dynamisch gevuld. Hieronder wel een warning dat dit aangevuld wordt -->
+                  <tr>
+                      <th colspan="2" class="table-warning text-center">
+                          Gegevens worden opgehaald!
+                      </th>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
 <script type='text/javascript'>    
   var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1oFHAUBxUSEpRxUcdiMr2SW9hnz7jDXEN1lFC40hKpVo/edit?usp=sharing';
+  var arr1 = [];
 
   function init() {
     Tabletop.init( { key: publicSpreadsheetUrl,
@@ -76,20 +126,41 @@
   }
 
   function showInfo(data, tabletop) {
+    arr1 = data.slice();
+    arr1 = arr1.sort(function(a, b) {
+    return a['#'] - b['#'];
+    });
     data = data.sort(function(a, b) {
     return b.Totaal - a.Totaal;
     });
     console.log(data);
     document.getElementById('tablebody').innerHTML = "";
     lengte = data.length;
+    var spelers = 0;
     for (i = 0; i < lengte; i++) {
         if (data[i].Team != "") {
             document.getElementById('tablebody').insertAdjacentHTML('beforeend', "<tr><th scope='row'>" + (i+1) + "</th><td>" + data[i].Team + "</td><td class='text-right'>" + data[i].Totaal + "</td></tr>");
+            spelers = spelers + 1
         }
     }
+    for (i=1; i < (spelers + 1); i++){
+      document.getElementById(i).disabled = false;
+    }
+    $("#rondebuttons").show();
+
+    // TODO: buttons onderaan dynamisch toevoegen op basis van het aantal spelers die meedoen. Of zorgen dat er disabled zijn. 
 
     // De caption zal getoond worden telkens de data ververst wordt. 
     document.getElementById("caption").innerHTML = "Laatste update: " + (new Date()).toLocaleTimeString();
+  }
+
+  function rondes(i) {
+      console.log(arr1[i-1]);
+      document.getElementById('tablebodymodal').innerHTML = "";
+      document.getElementById('exampleModalLongTitle').innerHTML = arr1[i-1].Team;
+      document.getElementById('tablebodymodal').insertAdjacentHTML('beforeend', "<tr id='r1'><td>Ronde 1</td><td>" + arr1[i-1]['Ronde 1'] + "</td></tr><tr id='r2'><td>Ronde 2</td><td>" + arr1[i-1]['Ronde 2'] + "</td></tr id='r3'><tr><td>Ronde 3</td><td>" + arr1[i-1]['Ronde 3'] + "</td></tr id='r4'><tr><td>Ronde 4</td><td>" + arr1[i-1]['Ronde 4'] + "</td></tr><tr><td>Tussenronde</td><td>" + arr1[i-1]['Tussenronde'] + "</td></tr><tr id='r5'><td>Ronde 5</td><td>" + arr1[i-1]['Ronde 5'] + "</td></tr><tr id='r6'><td>Ronde 6</td><td>" + arr1[i-1]['Ronde 6'] + "</td></tr><tr id='r7'><td>Ronde 7</td><td>" + arr1[i-1]['Ronde 7'] + "</td></tr><tr class='bg-dark text-white'><td>Totaal</td><td>" + arr1[i-1]['Totaal'] + "</td></tr>");
+      $("#r" + arr1[i-1].Groen).addClass("table-success");
+      $("#r" + arr1[i-1].Rood).addClass("table-danger");
   }
 
   // Countdown timer

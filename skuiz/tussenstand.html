@@ -158,7 +158,7 @@
       console.log(arr1[i-1]);
       document.getElementById('tablebodymodal').innerHTML = "";
       document.getElementById('exampleModalLongTitle').innerHTML = arr1[i-1].Team;
-      document.getElementById('tablebodymodal').insertAdjacentHTML('beforeend', "<tr id='r1'><td>Ronde 1</td><td>" + arr1[i-1]['Ronde 1'] + "</td></tr><tr id='r2'><td>Ronde 2</td><td>" + arr1[i-1]['Ronde 2'] + "</td></tr><tr id='r3'><td>Ronde 3</td><td>" + arr1[i-1]['Ronde 3'] + "</td></tr><tr d='r4'><td>Ronde 4</td><td>" + arr1[i-1]['Ronde 4'] + "</td></tr><tr><td>Tussenronde</td><td>" + arr1[i-1]['Tussenronde'] + "</td></tr><tr id='r5'><td>Ronde 5</td><td>" + arr1[i-1]['Ronde 5'] + "</td></tr><tr id='r6'><td>Ronde 6</td><td>" + arr1[i-1]['Ronde 6'] + "</td></tr><tr id='r7'><td>Ronde 7</td><td>" + arr1[i-1]['Ronde 7'] + "</td></tr><tr class='bg-dark text-white'><td>Totaal</td><td>" + arr1[i-1]['Totaal'] + "</td></tr>");
+      document.getElementById('tablebodymodal').insertAdjacentHTML('beforeend', "<tr id='r1'><td>Ronde 1</td><td>" + arr1[i-1]['Ronde 1'] + "</td></tr><tr id='r2'><td>Ronde 2</td><td>" + arr1[i-1]['Ronde 2'] + "</td></tr><tr id='r3'><td>Ronde 3</td><td>" + arr1[i-1]['Ronde 3'] + "</td></tr><tr id='r4'><td>Ronde 4</td><td>" + arr1[i-1]['Ronde 4'] + "</td></tr><tr><td>Tussenronde</td><td>" + arr1[i-1]['Tussenronde'] + "</td></tr><tr id='r5'><td>Ronde 5</td><td>" + arr1[i-1]['Ronde 5'] + "</td></tr><tr id='r6'><td>Ronde 6</td><td>" + arr1[i-1]['Ronde 6'] + "</td></tr><tr id='r7'><td>Ronde 7</td><td>" + arr1[i-1]['Ronde 7'] + "</td></tr><tr class='bg-dark text-white'><td>Totaal</td><td>" + arr1[i-1]['Totaal'] + "</td></tr>");
       $("#r" + arr1[i-1].Groen).addClass("table-success");
       $("#r" + arr1[i-1].Rood).addClass("table-danger");
   }

@@ -73,7 +73,8 @@
           </div>
           <div class="card">
             <div class="card-body">
-              <p class="card-text">Om de scores per ronde te zien, kan je klikken op de rijen in bovenstaande tabel. Zo kan je ook zien voor welke rondes de groene en rode kaart werd ingezet.</p>
+              <p class="card-text">Om de scores per ronde te zien, kan je klikken op de rijen in bovenstaande tabel. Zo
+                kan je ook zien voor welke rondes de groene en rode kaart werd ingezet.</p>
             </div>
           </div>
         </div>
@@ -94,7 +95,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <table class="table table-hover table-sm">
+            <table class="table table-hover">
               <caption id="caption"></caption>
               <thead class="thead-dark">
                 <tr>
@@ -143,13 +144,17 @@
       lengte = data.length;
       var spelers = 0;
       for (i = 0; i < lengte; i++) {
-        rood = "";
         groen = "";
-        if (data[i].Rood != "") {rood = "<span style='color:green'>&#8226;</span>"};
-        if (data[i].Groen != "") {groen = "<span style='color:red '>&#8226;</span>"};
+        rood = "";
+        if (data[i].Groen != "") {
+          groen = "<span style='color:green'>&#10687;</span>"
+        };
+        if (data[i].Rood != "") {
+          rood = "<span style='color:red'>&#10687;</span>"
+        };
         if (data[i].Team != "") {
           document.getElementById('tablebody').insertAdjacentHTML('beforeend', "<tr onclick='rondes(this.id)' id='" +
-            data[i]['#'] + "'><th scope='row'>" + (i + 1) + "</th><td>" + data[i].Team + " " + rood + groen +
+            data[i]['#'] + "'><th scope='row'>" + (i + 1) + "</th><td>" + data[i].Team + " " + groen + rood +
             "</td><td class='text-right'>" + data[i].Totaal + "</td></tr>");
           spelers = spelers + 1
         }

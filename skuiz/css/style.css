@@ -1,0 +1,5 @@
+/* Eigen stijl-elementen zijn hierin aan te vullen */
+
+.klikrondes tr:hover {
+    cursor: pointer;
+}

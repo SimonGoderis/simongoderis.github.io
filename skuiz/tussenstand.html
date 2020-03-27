@@ -100,13 +100,13 @@
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">Ronde</th>
-                  <th scope="col">Score</th>
+                  <th colspan="2" scope="col">Score</th>
                 </tr>
               </thead>
               <tbody id="tablebodymodal">
                 <!-- Wordt dynamisch gevuld. Hieronder wel een warning dat dit aangevuld wordt -->
                 <tr>
-                  <th colspan="2" class="table-info text-center">
+                  <th colspan="3" class="table-info text-center">
                     Als je dit ziet, liep er iets fout bij het ophalen van de data.
                   </th>
                 </tr>
@@ -122,6 +122,7 @@
     var publicSpreadsheetUrl =
       'https://docs.google.com/spreadsheets/d/1oFHAUBxUSEpRxUcdiMr2SW9hnz7jDXEN1lFC40hKpVo/edit?usp=sharing';
     var arr1 = [];
+    var max_score = [];
 
     function init() {
       Tabletop.init({
@@ -132,6 +133,8 @@
     }
 
     function showInfo(data, tabletop) {
+      max_score = data.pop();
+      console.log(max_score);
       arr1 = data.slice();
       arr1 = arr1.sort(function (a, b) {
         return a['#'] - b['#'];
@@ -167,18 +170,19 @@
     }
 
     function rondes(i) {
+      console.log(max_score);
       console.log(arr1[i - 1]);
       document.getElementById('tablebodymodal').innerHTML = "";
       document.getElementById('exampleModalLongTitle').innerHTML = arr1[i - 1].Team;
       document.getElementById('tablebodymodal').insertAdjacentHTML('beforeend', "<tr id='r1'><td>Ronde 1</td><td>" +
-        arr1[i - 1]['Ronde 1'] + "</td></tr><tr id='r2'><td>Ronde 2</td><td>" + arr1[i - 1]['Ronde 2'] +
-        "</td></tr><tr id='r3'><td>Ronde 3</td><td>" + arr1[i - 1]['Ronde 3'] +
-        "</td></tr><tr id='r4'><td>Ronde 4</td><td>" + arr1[i - 1]['Ronde 4'] +
-        "</td></tr><tr><td>Tussenronde</td><td>" + arr1[i - 1]['Tussenronde'] +
-        "</td></tr><tr id='r5'><td>Ronde 5</td><td>" + arr1[i - 1]['Ronde 5'] +
-        "</td></tr><tr id='r6'><td>Ronde 6</td><td>" + arr1[i - 1]['Ronde 6'] +
-        "</td></tr><tr id='r7'><td>Ronde 7</td><td>" + arr1[i - 1]['Ronde 7'] +
-        "</td></tr><tr class='bg-dark text-white'><td>Totaal</td><td>" + arr1[i - 1]['Totaal'] + "</td></tr>");
+        arr1[i - 1]['Ronde 1'] + "</td><td><small>/" + max_score['Ronde 1'] + "</small></td></tr><tr id='r2'><td>Ronde 2</td><td>" + arr1[i - 1]['Ronde 2'] +
+        "</td><td><small>/" + max_score['Ronde 2'] + "</small></td></tr><tr id='r3'><td>Ronde 3</td><td>" + arr1[i - 1]['Ronde 3'] +
+        "</td><td><small>/" + max_score['Ronde 3'] + "</small></td></tr><tr id='r4'><td>Ronde 4</td><td>" + arr1[i - 1]['Ronde 4'] +
+        "</td><td><small>/" + max_score['Ronde 4'] + "</small></td></tr><tr><td>Tussenronde</td><td>" + arr1[i - 1]['Tussenronde'] +
+        "</td><td><small>/" + max_score['Tussenronde'] + "</small></td></tr><tr id='r5'><td>Ronde 5</td><td>" + arr1[i - 1]['Ronde 5'] +
+        "</td><td><small>/" + max_score['Ronde 5'] + "</small></td></tr><tr id='r6'><td>Ronde 6</td><td>" + arr1[i - 1]['Ronde 6'] +
+        "</td><td><small>/" + max_score['Ronde 6'] + "</small></td></tr><tr id='r7'><td>Ronde 7</td><td>" + arr1[i - 1]['Ronde 7'] +
+        "</td><td><small>/" + max_score['Ronde 7'] + "</small></td></tr><tr class='bg-dark text-white'><td>Totaal</td><td>" + arr1[i - 1]['Totaal'] + "</td><td><small>/" + max_score['Totaal'] + "</small></td></tr>");
       $("#r" + arr1[i - 1].Groen).addClass("table-success");
       $("#r" + arr1[i - 1].Rood).addClass("table-danger");
       $("#exampleModalCenter").modal('show');

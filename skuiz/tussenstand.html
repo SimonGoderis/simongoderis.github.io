@@ -173,7 +173,7 @@
       console.log(max_score);
       console.log(arr1[i - 1]);
       document.getElementById('tablebodymodal').innerHTML = "";
-      document.getElementById('exampleModalLongTitle').innerHTML = arr1[i - 1].Team;
+      document.getElementById('exampleModalLongTitle').innerHTML = arr1[i - 1].Team + " <small>(team-nummer: " + arr1[i-1]['#'] + ")</small>";
       document.getElementById('tablebodymodal').insertAdjacentHTML('beforeend', "<tr id='r1'><td>Ronde 1</td><td>" +
         arr1[i - 1]['Ronde 1'] + "</td><td><small>/" + max_score['Ronde 1'] + "</small></td></tr><tr id='r2'><td>Ronde 2</td><td>" + arr1[i - 1]['Ronde 2'] +
         "</td><td><small>/" + max_score['Ronde 2'] + "</small></td></tr><tr id='r3'><td>Ronde 3</td><td>" + arr1[i - 1]['Ronde 3'] +

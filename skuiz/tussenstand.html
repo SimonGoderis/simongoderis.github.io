@@ -89,7 +89,7 @@
       aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header bg-primary text-white">
             <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -174,7 +174,7 @@
       console.log(max_score);
       console.log(arr1[i - 1]);
       document.getElementById('tablebodymodal').innerHTML = "";
-      document.getElementById('exampleModalLongTitle').innerHTML = arr1[i - 1].Team + " <small><span class='badge badge-dark'>team-nummer: " + arr1[i-1]['#'] + "</span></small>";
+      document.getElementById('exampleModalLongTitle').innerHTML = arr1[i - 1].Team + " </br><small><span class='badge badge-light'>team-nummer: " + arr1[i-1]['#'] + "</span></small>";
       document.getElementById('tablebodymodal').insertAdjacentHTML('beforeend', "<tr id='r1'><td>Ronde 1</td><td>" +
         arr1[i - 1]['Ronde 1'] + "</td><td><small>/" + max_score['Ronde 1'] + "</small></td></tr><tr id='r2'><td>Ronde 2</td><td>" + arr1[i - 1]['Ronde 2'] +
         "</td><td><small>/" + max_score['Ronde 2'] + "</small></td></tr><tr id='r3'><td>Ronde 3</td><td>" + arr1[i - 1]['Ronde 3'] +

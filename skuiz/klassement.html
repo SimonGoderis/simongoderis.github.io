@@ -92,7 +92,7 @@
         for (i = 0; i < data.length; i++) {
             if (data[i].TeamNaam) {
                 console.log(data[i]);
-                $("#tablebody").append("<tr><td>" + count + "</td><td>" + data[i].Team + "</td><td class='text-right'>" + data[i].Punten + "</td></tr>");
+                $("#tablebody").append("<tr class='klas" + count + "'><td>" + count + "</td><td>" + data[i].Team + "</td><td class='text-right'>" + data[i].Punten + "</td></tr>");
                 count = count + 1; 
             }
         }

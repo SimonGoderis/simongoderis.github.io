@@ -3,3 +3,15 @@
 .klikrondes tr:hover {
     cursor: pointer;
 }
+
+.klas1 {
+    background-color: #FFE34C;
+}
+
+.klas2 {
+    background-color: #D2D2D2;
+}
+
+.klas3 {
+    background-color: #d27247;
+}

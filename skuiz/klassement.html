@@ -141,8 +141,8 @@
       // Vult het klassement
       if (data[i].TeamNaam) {
         console.log(data[i]);
-        $("#tablebody").append("<tr class='klas" + count + "'><td>" + count + "</td><td>" + data[i].Team +
-          "</td><td class='text-right'>" + data[i].Punten + "</td></tr>");
+        $("#tablebody").append("<tr class='klas" + count + "'><td>" + count + "</td><td>" + data[i].TeamNaam +
+          "</td><td class='text-right'>" + data[i].TotPunten + "</td></tr>");
         count = count + 1;
       }
 

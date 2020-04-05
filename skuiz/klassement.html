@@ -84,7 +84,7 @@
       <div class="modal-content">
         <div class="modal-header bg-primary text-white">
           <h5 class="modal-title" id="modalTitle">
-                        <!-- Wordt dynamisch gevuld -->
+            <!-- Wordt dynamisch gevuld -->
 
           </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -105,7 +105,7 @@
               <!-- Wordt dynamisch gevuld -->
             </tbody>
           </table>
-        </div>  
+        </div>
       </div>
     </div>
   </div>
@@ -168,14 +168,15 @@
       }
     }
     arr1 = arr1.sort(function (a, b) {
-        return b['Score'] - a['Score'];
-      });
+      return b['Score'] - a['Score'];
+    });
 
     for (i = 0; i < arr1.length; i++) {
-      $("#modalBody").append("<tr><td>" + (i+1) + "</td><td>" + arr1[i].Team + "</td><td class='text-right'>" + arr1[i].Score + "</td><td class='text-right'>" + arr1[i].Punten + "</td></tr>");
+      $("#modalBody").append("<tr><td>" + (i + 1) + "</td><td>" + arr1[i].Team + "</td><td class='text-right'>" + arr1[
+        i].Score + "</td><td class='text-right'>" + arr1[i].Punten + "</td></tr>");
     }
     $("#modal").modal('show');
-    console.log(arr1) 
+    console.log(arr1)
   }
 
 

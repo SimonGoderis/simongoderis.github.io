@@ -1,0 +1,17 @@
+/* Eigen stijl-elementen zijn hierin aan te vullen */
+
+.klikrondes tr:hover {
+    cursor: pointer;
+}
+
+.klas1 {
+    background-color: rgb(255, 227, 76,0.8);
+}
+
+.klas2 {
+    background-color: rgb(210, 210, 210,0.8);
+}
+
+.klas3 {
+    background-color: rgb(210,114,71,0.8);
+}

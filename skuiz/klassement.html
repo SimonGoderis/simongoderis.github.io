@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/all.css">
 
   <!-- JS -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -153,11 +154,16 @@
       // Vult het klassement
       if (data[i].TeamNaam) {
         console.log(data[i]);
-        $("#tablebody").append("<tr class='klas" + data[i].Rank + "'><td>" + data[i].Rank + "</td><td>" + data[i].TeamNaam +
+        if (data[i].Rank < 4) {
+          $("#tablebody").append("<tr class='klas" + data[i].Rank + "'><td>" + data[i].Rank + " <span id='beker" + data[i].Rank + "'><i class='fas fa-trophy fa-sm' style='padding-left:3px'></i></span></td><td>" + data[i].TeamNaam +
           "</td><td class='text-right'>" + data[i].TotPunten + "</td></tr>");
+        } else {
+          $("#tablebody").append("<tr class='klas" + data[i].Rank + "'><td>" + data[i].Rank + "</td><td>" + data[i].TeamNaam +
+          "</td><td class='text-right'>" + data[i].TotPunten + "</td></tr>");
+        }
         count = count + 1;
       }
-
+      
       // Vult de lijst met voorgaande quizen.
       if (reedsInLijst.includes(data[i].QuizNummer)) {
         // Leeg

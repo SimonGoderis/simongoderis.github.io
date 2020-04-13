@@ -155,7 +155,7 @@
       if (data[i].TeamNaam) {
         console.log(data[i]);
         if (data[i].Rank < 4) {
-          $("#tablebody").append("<tr class='klas" + data[i].Rank + "'><td>" + data[i].Rank + " <span id='beker" + data[i].Rank + "'><i class='fas fa-trophy fa-sm' style='padding-left:3px'></i></span></td><td>" + data[i].TeamNaam +
+          $("#tablebody").append("<tr class='klas" + data[i].Rank + "'><td><span id='cijfer" + data[i].Rank + "'>" + data[i].Rank + "</span><span id='beker" + data[i].Rank + "'><i class='fas fa-trophy fa-sm'></i></span></td><td>" + data[i].TeamNaam +
           "</td><td class='text-right'>" + data[i].TotPunten + "</td></tr>");
         } else {
           $("#tablebody").append("<tr class='klas" + data[i].Rank + "'><td>" + data[i].Rank + "</td><td>" + data[i].TeamNaam +

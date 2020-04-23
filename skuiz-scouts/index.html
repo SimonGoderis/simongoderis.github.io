@@ -22,11 +22,15 @@
         }
 
         .skype {
-            /* color: #343a40;
+            color: #343a40;
             pointer-events: none;
-            opacity: .65; */
+            opacity: .65;
         }
     </style>
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 
 </head>
@@ -68,38 +72,38 @@
                         <strong>Rondes</strong>
                     </a>
                     <a href="https://forms.gle/AQouPMf29NUSaVay5" target="_blank"
-                        class="list-group-item list-group-item-action ronde">
+                        class="list-group-item list-group-item-action ronde" id="r1">
                         Ronde 1
                     </a>
                     <a href="https://forms.gle/dnBcW3tWWGk3qgFg7" target="_blank"
-                        class="list-group-item list-group-item-action ronde">
+                        class="list-group-item list-group-item-action ronde" id="r2">
                         Ronde 2
                     </a>
                     <a href="https://forms.gle/dnBdWWHc7PfVUtxX8" target="_blank"
-                        class="list-group-item list-group-item-action ronde">
+                        class="list-group-item list-group-item-action ronde" id="r3">
                         Ronde 3
                     </a>
                     <a href="https://forms.gle/MMtSbdBe1szzmu97A" target="_blank"
-                        class="list-group-item list-group-item-action ronde">
+                        class="list-group-item list-group-item-action ronde" id="r4">
                         Ronde 4
                     </a>
                     <a href="https://forms.gle/hXNBfW7aeRaR8N1m7" target="_blank"
-                        class="list-group-item list-group-item-action ronde">
+                        class="list-group-item list-group-item-action ronde" id="r5">
                         Ronde 5
                     </a>
                     <a href="https://forms.gle/qgQXPsn9xp3Y41j38" target="_blank"
-                        class="list-group-item list-group-item-action ronde">
+                        class="list-group-item list-group-item-action ronde" id="r6">
                         Ronde 6
                     </a>
                     <a href="https://forms.gle/3d1F7ocD1GtYT2jdA" target="_blank"
-                        class="list-group-item list-group-item-action ronde">
+                        class="list-group-item list-group-item-action ronde" id="r7">
                         Ronde 7
                     </a>
                     <a href="#" target="_blank" class="list-group-item list-group-item-action disabled active">
                         <strong>Extra</strong>
                     </a>
                     <a href="https://forms.gle/LuTxKtZkd16o4M2b9" target="_blank"
-                        class="list-group-item list-group-item-action ronde">
+                        class="list-group-item list-group-item-action ronde" id="rt">
                         Tussenronde
                     </a>
                 </div>
@@ -107,8 +111,8 @@
                     <div class="card-body">
                         <h5 class="card-title">Skype</h5>
                         <p class="card-text">Via de link hieronder krijg je rechtstreeks toegang tot de skype-call!</p>
-                        <a href="https://join.skype.com/oJYQzh1x9tF6" class="btn btn-outline-dark skype"
-                            target="_blank">Meedoen!</a>
+                        <a href="#" class="btn btn-outline-dark skype"
+                            target="_blank" id="skype">Meedoen!</a>
                     </div>
                 </div>
             </div>
@@ -117,5 +121,61 @@
         <div class="mt-2"></div>
     </div>
 </body>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+
+<script type='text/javascript'>
+    var publicSpreadsheetUrl =
+      'https://docs.google.com/spreadsheets/d/1shPlEE28fNySlOrckbnx40HZOqh4jxB4QdL4C7ZEH08/edit?usp=sharing';
+
+    function init() {
+      Tabletop.init({
+        key: publicSpreadsheetUrl,
+        callback: showInfo,
+        simpleSheet: true
+      })
+    }
+
+    function showInfo(data, tabletop) {
+
+        console.log(data);
+      
+      // Toont links op basis van de instellingen in het excel-bestand. 
+
+      if(data[0]['Toon links']=="Ja") {
+          for (i = 1; i<8; i++) {
+            $("#r" + i).removeClass('ronde');
+          }
+          $("#rt").removeClass('ronde');
+      } else {
+        for (i = 1; i<8; i++) {
+            $("#r" + i).addClass('ronde');
+          }
+          $("#rt").addClass('ronde');
+      }
+
+      // Toont skype link als deze ingevuld is in het excel-bestand. 
+
+      if(data[2]['Toon links'] != '') {
+        $("#skype").attr("href", data[2]['Toon links']);
+        $("#skype").removeClass('skype');
+      } else {
+        $("#skype").addClass('skype');
+      }
+    }
+
+    // Countdown timer
+    var count = 60,
+      timer = setInterval(function () {
+        count--;
+        if (count == 0) {
+          count = 60;
+          init();
+          console.log("Refresh completed.");
+        }
+      }, 1000)
+
+    window.addEventListener('DOMContentLoaded', init)
+</script>
 
 </html>

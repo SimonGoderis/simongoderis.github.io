@@ -142,7 +142,7 @@
       
       // Toont links op basis van de instellingen in het excel-bestand. 
 
-      if(data[0]['Toon links']=="Ja") {
+      if(data[0]['Toon Links']=="Ja") {
           for (i = 1; i<8; i++) {
             $("#r" + i).removeClass('ronde');
           }
@@ -156,7 +156,7 @@
 
       // Toont skype link als deze ingevuld is in het excel-bestand. 
 
-      if(data[2]['Toon links'] != '') {
+      if(data[2]['Toon Links'] != '') {
         $("#skype").attr("href", data[2]['Toon links']);
         $("#skype").removeClass('skype');
       } else {

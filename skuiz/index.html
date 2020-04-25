@@ -21,14 +21,16 @@
             pointer-events: none;
         }
 
-        .skype { /* 
+        .skype { 
             color: #343a40;
             pointer-events: none;
             opacity: .65;
-            */
         }
     </style>
 
+<!-- JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 </head>
 
@@ -72,38 +74,38 @@
                         <strong>Rondes</strong>
                     </a>
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSdyaq2Y2He1Iv6rIyHa_cfHZY3vaIl-jSdjCby2u3nW4Jp0mg/viewform?usp=sf_link"
-                        target="_blank" class="list-group-item list-group-item-action ronde">
+                        target="_blank" class="list-group-item list-group-item-action ronde" id="r1">
                         Ronde 1
                     </a>
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSc-N0HiusGJOzwEdjE0jagOcuhTh108nnk4Tvsth1uvQvOQIw/viewform?usp=sf_link"
-                        target="_blank" class="list-group-item list-group-item-action ronde">
+                        target="_blank" class="list-group-item list-group-item-action ronde" id="r2">
                         Ronde 2
                     </a>
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSdU-3J7fDNtKjJy93wQN_JCDsBAA8pxxcuVCxdF3pEniXy4iA/viewform?usp=sf_link"
-                        target="_blank" class="list-group-item list-group-item-action ronde">
+                        target="_blank" class="list-group-item list-group-item-action ronde" id="r3">
                         Ronde 3
                     </a>
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSfgCcEWrbdJKED6P-KdSaraWrLGI9IWEdkPZt0OhUk8iWK3Iw/viewform?usp=sf_link"
-                        target="_blank" class="list-group-item list-group-item-action ronde">
+                        target="_blank" class="list-group-item list-group-item-action ronde" id="r4">
                         Ronde 4
                     </a>
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzu3DBnzSVbqrgtFkVk-2zgZyW9BdPijY0xPXkZq-WETFtEQ/viewform?usp=sf_link"
-                        target="_blank" class="list-group-item list-group-item-action ronde">
+                        target="_blank" class="list-group-item list-group-item-action ronde" id="r5">
                         Ronde 5
                     </a>
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSd5eoBdOaiOxqQfi7_fyyErCrsamPOxKR0sR6X9kKtYlzx9lQ/viewform?usp=sf_link"
-                        target="_blank" class="list-group-item list-group-item-action ronde">
+                        target="_blank" class="list-group-item list-group-item-action ronde" id="r6">
                         Ronde 6
                     </a>
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSchLrpKAX4HtEmAQ4y2V-NXlWJ0YVqJMYdZsbBpEKPo1EXIdw/viewform?usp=sf_link"
-                        target="_blank" class="list-group-item list-group-item-action ronde">
+                        target="_blank" class="list-group-item list-group-item-action ronde" id="r7">
                         Ronde 7
                     </a>
                     <a href="#" target="_blank" class="list-group-item list-group-item-action disabled active">
                         <strong>Extra</strong>
                     </a>
                     <a href="https://forms.gle/iUaVRbpL7nCoga5k7" target="_blank"
-                        class="list-group-item list-group-item-action ronde">
+                        class="list-group-item list-group-item-action ronde" id="rt">
                         Tussenronde
                     </a>
                 </div>
@@ -112,7 +114,7 @@
                         <h5 class="card-title">Skype</h5>
                         <p class="card-text">Via de link hieronder krijg je rechtstreeks toegang tot de skype-call!</p>
                         <a href="https://join.skype.com/n3Mw4tRrDb9X" class="btn btn-outline-dark skype"
-                            target="_blank">Meedoen!</a>
+                            target="_blank" id="skype">Meedoen!</a>
                     </div>
                 </div>
             </div>
@@ -121,5 +123,61 @@
         <div class="mt-2"></div>
     </div>
 </body>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+
+<script type='text/javascript'>
+    var publicSpreadsheetUrl =
+      'https://docs.google.com/spreadsheets/d/1oFHAUBxUSEpRxUcdiMr2SW9hnz7jDXEN1lFC40hKpVo/edit?usp=sharing';
+
+    function init() {
+      Tabletop.init({
+        key: publicSpreadsheetUrl,
+        callback: showInfo,
+        simpleSheet: true
+      })
+    }
+
+    function showInfo(data, tabletop) {
+
+        console.log(data);
+      
+      // Toont links op basis van de instellingen in het excel-bestand. 
+
+      if(data[0]['Toon Links']==="Ja") {
+          for (i = 1; i<8; i++) {
+            $("#r" + i).removeClass('ronde');
+          }
+          $("#rt").removeClass('ronde');
+      } else {
+        for (i = 1; i<8; i++) {
+            $("#r" + i).addClass('ronde');
+          }
+          $("#rt").addClass('ronde');
+      }
+
+      // Toont skype link als deze ingevuld is in het excel-bestand. 
+
+      if(data[2]['Toon Links'] != '') {
+        $("#skype").attr("href", data[2]['Toon links']);
+        $("#skype").removeClass('skype');
+      } else {
+        $("#skype").addClass('skype');
+      }
+    }
+
+    // Countdown timer
+    var count = 60,
+      timer = setInterval(function () {
+        count--;
+        if (count == 0) {
+          count = 60;
+          init();
+          console.log("Refresh completed.");
+        }
+      }, 1000)
+
+    window.addEventListener('DOMContentLoaded', init)
+</script>
 
 </html>

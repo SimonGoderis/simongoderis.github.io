@@ -21,6 +21,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
   </script>
+  <script src="js/chart.js"></script>
 
   <style>
     .archief {
@@ -81,7 +82,6 @@
           </a>
           <!-- Wordt dynamisch gevuld -->
         </div>
-
         <!-- Map met vragen en slides voor voorgaande quiz -->
         <div class="card archief" style="margin-top: 15px;">
           <div class="card-body">
@@ -145,7 +145,7 @@
     })
   }
 
-  var dataGlobaal = []
+  var dataGlobaal = [];
 
   function showInfo(data, tabletop) {
     console.log(data);
@@ -160,7 +160,6 @@
     for (i = 0; i < data.length; i++) {
       // Vult het klassement
       if (data[i].TeamNaam) {
-        console.log(data[i]);
         if (data[i].Rank < 4) {
           $("#tablebody").append("<tr class='klas" + data[i].Rank + "'><td><span id='cijfer" + data[i].Rank + "'>" + data[i].Rank + "</span><span id='beker" + data[i].Rank + "'><i class='fas fa-trophy fa-sm'></i></span></td><td>" + data[i].TeamNaam +
           "</td><td class='text-right'>" + data[i].TotPunten + "</td></tr>");
@@ -180,7 +179,7 @@
         reedsInLijst.push(data[i].QuizNummer);
       }
     }
-  }
+  };
 
   function archiefModal(nummer) {
     $("#modalBody").html("");
@@ -204,8 +203,8 @@
     console.log(arr1)
   }
 
+  window.addEventListener('DOMContentLoaded', init);
 
-  window.addEventListener('DOMContentLoaded', init)
 </script>
 
 </html>

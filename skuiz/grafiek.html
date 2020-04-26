@@ -119,6 +119,11 @@
     }
     console.log(dataset);
 
+    // Voegt 30 px extra tussen de grafiek en de legende
+    Chart.Legend.prototype.afterFit = function() {
+      this.height = this.height + 30;
+    };
+
     var ctx = document.getElementById("myChart").getContext("2d");
     var myChart = new Chart(ctx, {
       type: 'line',

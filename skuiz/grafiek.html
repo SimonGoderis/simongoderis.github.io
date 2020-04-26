@@ -41,17 +41,20 @@
       <div class="col-lg-3"></div>
       <div class="col-lg-6">
         <div class="mt-2"></div>
-        <div class="row">
-          <div class="col-6 col-md-7 col-lg-8"></div>
-          <div class="col-6 col-md-5 col-lg-4"> </div>
-        </div>
-        <div class="mt-2"></div>
+          <div class="row">
+            <div class="col-6 col-md-5 col-lg-4"><a href="./klassement.html" class="btn btn-outline-primary btn-block">
+              ← Klassement
+            </a></div>
+            <div class="col-6 col-md-7 col-lg-8"></div>
+          </div>
+        <div class="mt-4"></div>
 
         <!-- TE VULLEN -->
-        <canvas id="myChart"></canvas>
 
-
-
+        <div class="chart-container" style="position: relative; height:60vh">
+          <canvas id="myChart"></canvas>
+        </div>
+        
       </div>
       <div class="col-lg-3"></div>
     </div>
@@ -132,6 +135,7 @@
         datasets: dataset,
       }, 
       options: {
+        maintainAspectRatio: false,
         scales: {
             yAxes: [{
                 ticks: {

@@ -104,7 +104,7 @@ integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="ano
                     <a href="#" target="_blank" class="list-group-item list-group-item-action disabled active">
                         <strong>Extra</strong>
                     </a>
-                    <a href="https://forms.gle/iUaVRbpL7nCoga5k7" target="_blank"
+                    <a href="#" target="_blank"
                         class="list-group-item list-group-item-action ronde" id="rt">
                         Tussenronde
                     </a>
@@ -141,6 +141,11 @@ integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="ano
     function showInfo(data, tabletop) {
 
         console.log(data);
+
+        // voegt tussenronde toe.
+        if(data[4]['Toon links'] != ''){
+            $("#rt").attr("href", data[4]['Toon links']);
+        }
       
       // Toont links op basis van de instellingen in het excel-bestand. 
 

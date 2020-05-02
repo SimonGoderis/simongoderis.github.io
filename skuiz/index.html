@@ -21,16 +21,16 @@
             pointer-events: none;
         }
 
-        .skype { 
+        .skype {
             color: #343a40;
             pointer-events: none;
             opacity: .65;
         }
     </style>
 
-<!-- JS -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"
-integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 </head>
 
@@ -104,8 +104,7 @@ integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="ano
                     <a href="#" target="_blank" class="list-group-item list-group-item-action disabled active">
                         <strong>Extra</strong>
                     </a>
-                    <a href="#" target="_blank"
-                        class="list-group-item list-group-item-action ronde" id="rt">
+                    <a href="#" target="_blank" class="list-group-item list-group-item-action ronde" id="rt">
                         Tussenronde
                     </a>
                 </div>
@@ -113,8 +112,8 @@ integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="ano
                     <div class="card-body">
                         <h5 class="card-title">Skype</h5>
                         <p class="card-text">Via de link hieronder krijg je rechtstreeks toegang tot de skype-call!</p>
-                        <a href="https://join.skype.com/n3Mw4tRrDb9X" class="btn btn-outline-dark skype"
-                            target="_blank" id="skype">Meedoen!</a>
+                        <a href="https://join.skype.com/n3Mw4tRrDb9X" class="btn btn-outline-dark skype" target="_blank"
+                            id="skype">Meedoen!</a>
                     </div>
                 </div>
             </div>
@@ -128,14 +127,14 @@ integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="ano
 
 <script type='text/javascript'>
     var publicSpreadsheetUrl =
-      'https://docs.google.com/spreadsheets/d/1oFHAUBxUSEpRxUcdiMr2SW9hnz7jDXEN1lFC40hKpVo/edit?usp=sharing';
+        'https://docs.google.com/spreadsheets/d/1oFHAUBxUSEpRxUcdiMr2SW9hnz7jDXEN1lFC40hKpVo/edit?usp=sharing';
 
     function init() {
-      Tabletop.init({
-        key: publicSpreadsheetUrl,
-        callback: showInfo,
-        simpleSheet: true
-      })
+        Tabletop.init({
+            key: publicSpreadsheetUrl,
+            callback: showInfo,
+            simpleSheet: true
+        })
     }
 
     function showInfo(data, tabletop) {
@@ -143,44 +142,44 @@ integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="ano
         console.log(data);
 
         // voegt tussenronde toe.
-        if(data[4]['Toon Links'] != ''){
+        if (data[4]['Toon Links'] != '') {
             $("#rt").attr("href", data[4]['Toon Links']);
         }
-      
-      // Toont links op basis van de instellingen in het excel-bestand. 
 
-      if(data[0]['Toon Links']==="Ja") {
-          for (i = 1; i<8; i++) {
-            $("#r" + i).removeClass('ronde');
-          }
-          $("#rt").removeClass('ronde');
-      } else {
-        for (i = 1; i<8; i++) {
-            $("#r" + i).addClass('ronde');
-          }
-          $("#rt").addClass('ronde');
-      }
+        // Toont links op basis van de instellingen in het excel-bestand. 
 
-      // Toont skype link als deze ingevuld is in het excel-bestand. 
+        if (data[0]['Toon Links'] === "Ja") {
+            for (i = 1; i < 8; i++) {
+                $("#r" + i).removeClass('ronde');
+            }
+            $("#rt").removeClass('ronde');
+        } else {
+            for (i = 1; i < 8; i++) {
+                $("#r" + i).addClass('ronde');
+            }
+            $("#rt").addClass('ronde');
+        }
 
-      if(data[2]['Toon Links'] != '') {
-        $("#skype").attr("href", data[2]['Toon links']);
-        $("#skype").removeClass('skype');
-      } else {
-        $("#skype").addClass('skype');
-      }
+        // Toont skype link als deze ingevuld is in het excel-bestand. 
+
+        if (data[2]['Toon Links'] != '') {
+            $("#skype").attr("href", data[2]['Toon links']);
+            $("#skype").removeClass('skype');
+        } else {
+            $("#skype").addClass('skype');
+        }
     }
 
     // Countdown timer
     var count = 60,
-      timer = setInterval(function () {
-        count--;
-        if (count == 0) {
-          count = 60;
-          init();
-          console.log("Refresh completed.");
-        }
-      }, 1000)
+        timer = setInterval(function () {
+            count--;
+            if (count == 0) {
+                count = 60;
+                init();
+                console.log("Refresh completed.");
+            }
+        }, 1000)
 
     window.addEventListener('DOMContentLoaded', init)
 </script>

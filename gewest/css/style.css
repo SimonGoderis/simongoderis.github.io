@@ -1,0 +1,171 @@
+:root {
+    --main-bg-color: #222222;
+  }
+
+.logo {
+    width: 60vw;
+}
+ 
+.stand td:nth-child(1) {
+    padding: 5px 10px;
+    color: white;
+    width: 5%;
+ }
+
+.stand td:nth-child(2) {
+    padding: 5px 10px;
+ } 
+
+.stand tr {
+    border: 8px solid var(--main-bg-color);
+} 
+
+.onderdeel td:nth-child(1) {
+    padding: 5px 10px;
+    color: var(--main-bg-color);
+    width: 5%;
+ }
+
+.onderdeel td:nth-child(2) {
+    padding: 5px 10px;
+ } 
+
+.onderdeel tr {
+    border: 8px solid white;
+}
+
+.bg-main {
+    background-color: var(--main-bg-color)!important;
+}
+
+.text-red {
+    color: red;
+}
+
+.bg-black {
+    background-color: var(--main-bg-color);
+}
+
+.bg-red {
+    background-color: red;
+}
+
+.bold {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+main {
+    height: 100vh;
+    min-height: 700px;
+}
+
+.footer {
+    background-color: var(--main-bg-color);
+    color: white;
+    text-align: center;
+}
+
+svg {
+    fill:white
+}
+
+svg:hover {
+    fill: red
+}
+
+a {
+    color:red;
+}
+
+/* Button */
+
+@media (min-width: 768px) {  
+    #errorHandling {
+        position: fixed;
+        left: 30%;
+        top: 50%;
+        right: 30%;
+    }
+}
+
+@media (max-width: 767px) {  
+#errorHandling {
+    position: fixed;
+    left: 5%;
+    top: 30%;
+    right: 5%;
+}
+}
+
+#stickybutton {
+    border-radius: 100px;
+    padding: 0px!important;
+    position: fixed;
+    bottom: 3vh;
+    right: 3vh; 
+    background-color: red;
+    color: white;
+    border: 2px solid white;
+    transition: none;
+}
+
+#stickybutton:hover {
+    background-color: white;
+    color: red;
+}
+
+#stickybutton:hover svg{
+    background-color: white;
+    color: red;
+    fill:red;
+}
+
+#stickybutton svg {
+    margin: 12px;
+}
+
+/* Fix voor modal */
+
+.modal-open {
+    position: fixed;
+    overflow: scroll;
+    overflow-x: hidden;
+    width: 100%;
+    padding-right: 0!important;
+}
+
+.modal {
+    padding-right: 0px!important;
+}
+
+.modal-content {
+    border: 3px solid red;
+}
+
+body.modal-open {
+    position: inherit;
+    overflow: visible;
+  }
+  
+  body.modal-open .modal {
+    overflow: hidden;
+  }
+
+.social:hover svg {
+    background-color: white;
+    border: 1px solid #22222200;
+}
+
+.loader {
+    background: url("../img/favico.ico") no-repeat;
+    display: inline-block;
+    background-size: 100px 100px;
+    width: 100px;
+    height: 100px;
+    animation: spin 3s ease infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+  }

@@ -1,0 +1,291 @@
+@font-face {
+    font-family: 'DIN Alternate Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('DIN Alternate Bold'), url('/font/DINAlternate-Bold.woff') format('woff');
+}
+
+.text-center {
+    text-align: center!important;
+}
+
+
+.loaderholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader {
+    border: 16px solid var(--light-grey); /* Light grey */
+    border-top: 16px solid var(--blue); /* Blue */
+    border-radius: 50%;
+    top: 40%;
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+:root {
+    --blue: #0468bf;
+    --blue-dark: #0459a3;
+    --dark: #000000;
+    --green: #33A63B;
+    --white: #ffffff;
+    --light-grey: #e9ecef;
+    --red: #DD1C1A;
+    --yellow: #F0C808;
+    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-family-din: 'DIN Alternate Bold'
+}
+
+body {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: var(--font-family-din);
+    background-color: var(--white);
+    max-width: 700px;
+}
+
+.hidden {
+    display: none!important;
+}
+
+.extraweer {
+    font-size: 20px;
+}
+
+.wi-big {
+    font-size: 90px;
+    float:right
+}
+
+.mb-3 {
+    margin-bottom: 3rem;
+}
+
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    /* margin-right: -10px;
+    margin-left: -10px; */
+}
+
+
+
+/* Specifiek per col */ 
+.col-2 {
+    -ms-flex: 0 0 16.666666%;
+    flex: 0 0 16.666666%;
+    max-width: 16.666666%; 
+}
+
+.col-3 {
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+.col-4 {
+    -ms-flex: 0 0 33.3333333%;
+    flex: 0 0 33.3333333%;
+    max-width: 33.3333333%;
+}
+
+.col-6 {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+/* Voor elke col */ 
+.col-6, .col-3, .col-2 {
+    position: relative;
+    width: 100%;
+    /* padding-right: 10px;
+    padding-left: 10px; */
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+.weer {
+    float:right;
+    max-height: 200px;
+    height: 200px;  
+    color:white
+}
+
+.progress-bar {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    background-color: var(--light-grey);
+    transition: width .6s ease;
+}
+
+.progress {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: -ms-flexbox;
+    display: flex;
+    height: 1rem;
+    overflow: hidden;
+    font-size: .75rem;
+    background-color: #e9ecef;
+    border-radius: .25rem;
+    border: 1px solid white;
+}
+
+.card {
+    margin-top:20px;
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .25rem;
+}
+
+.card:hover {
+    background-color: var(--blue-dark);
+}
+
+.bg-blue {
+    background-color: var(--blue);
+    color: white;
+}
+
+tbody tr:first-child td:first-child {
+    border-radius: .25rem .25rem 0 0;
+    border-top: 1px solid var(--light-grey);
+}
+
+tbody tr:last-child td:first-child {
+    border-radius: 0 0 .25rem .25rem;
+    border-bottom: 1px solid var(--light-grey);
+}
+
+tbody tr td:first-child {
+    width: 1rem;
+    background-color: var(--light-grey);
+
+    border-left: 1px solid var(--light-grey);
+    border-right: 1px solid var(--light-grey);
+}
+
+
+
+table {
+    border-spacing: 0px;
+    width: 100%;
+    text-align: center;
+}
+
+thead tr th{
+    padding-bottom: 10px
+}
+
+.bg-red {
+    background-color: var(--red) !important;
+}
+
+.bg-yellow {
+    background-color: var(--yellow) !important;
+}
+
+.bg-green {
+    background-color: var(--green) !important;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+heading {
+    font-weight: bolder;
+    font-size: xx-large;
+    text-transform: uppercase;
+    color: white;
+    display: block;
+}
+
+subtitle {
+    font-weight: bold;
+    font-size: x-large;
+    text-transform: uppercase;
+    color: white;
+    display: block;
+}
+
+.row .col-3:last-child {
+    text-align: right;
+}
+
+.row .col-3:first-child {
+    text-align: left;
+}
+
+.row .col-3 {
+    text-align: center;
+}
+
+td:nth-child(2),
+th:nth-child(2) {
+    padding-left: 10px;
+}
+
+
+
+.mt-1 {
+    margin-top: 1rem;
+}
+.mt-2 {
+    margin-top: 2rem;
+}
+.mt-3 {
+    margin-top: 3rem;
+}
+
+@media screen and (max-width: 700px) {
+    heading {
+        font-size: larger;
+    }
+    subtitle {
+        font-size: large;
+    }
+    .extraweer {
+        font-size: 15px
+    }
+    .wi-big {
+        font-size: 60px;
+    }
+}
+
+tbody tr:hover {
+    background-color: var(--white);
+    color: var(--dark);
+}

@@ -157,7 +157,7 @@ body.modal-open {
 }
 
 .loader {
-    background: url("../img/favico.ico") no-repeat;
+    background: url("../img/tent.svg") no-repeat;
     display: inline-block;
     background-size: 100px 100px;
     width: 100px;

@@ -14,12 +14,13 @@
 
     function init() {
         Papa.parse(
-            'https://docs.google.com/spreadsheets/d/e/2PACX-1vT9N_dOJQfpzkeccu6Wzh-p78jckWkAHPZkUhtadD9w0O5LVFjFkimyq4OgGYwTYngqHM3dccXSo8HR/pub?output=csv', {
+            'https://docs.google.com/dspreadsheets/d/e/2PACX-1vT9N_dOJQfpzkeccu6Wzh-p78jckWkAHPZkUhtadD9w0O5LVFjFkimyq4OgGYwTYngqHM3dccXSo8HR/pub?output=csv', {
                 download: true,
                 header: true,
                 error: function (results) {
                     console.log("Er deed zich een error voor: \n" + results)
                     $("#errorHandling").removeClass("hide").addClass("show");
+                    $("#loadingblock").hide();
                     $('html, body').css({
                         overflow: 'hidden',
                         height: '100%'

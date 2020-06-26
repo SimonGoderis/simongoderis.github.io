@@ -69,12 +69,12 @@ function dailyWeather(data) {
     return daily_weather;
 }
 
-var tempMin = 15;
-var tempMax = 20;
-var precipMin = 50;
-var precipMax = 70;
-var windMin = 30;
-var windMax = 50; 
+var tempMin = 25;
+var tempMax = 30;
+var precipMin = 25;
+var precipMax = 50;
+var windMin = 15;
+var windMax = 30; 
 
 function hourlyWeather(data) {
     var hourly_weather = [];

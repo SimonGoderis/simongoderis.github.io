@@ -1,3 +1,8 @@
+// Version
+
+console.log("V1");
+
+
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {

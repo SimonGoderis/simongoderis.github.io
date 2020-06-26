@@ -17,23 +17,38 @@ if (navigator.geolocation) {
 
 var dataGlobal;
 var darkskyRequest = new XMLHttpRequest();
-var darkskyUrl = 'https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/bc19b1b471805791801dd3098e6b3b59/';
+var darkskyUrl = 'https://api.darksky.net/forecast/bc19b1b471805791801dd3098e6b3b59/';
 var darkskyUrl2 = '?exclude=currently,minutely,flags&lang=nl&units=ca&extend=hourly';
 
 function initWeather(loc) {
     var latlong = loc.lat + "," + loc.lng;
-    darkskyRequest.open('GET', darkskyUrl + latlong + darkskyUrl2);
-    darkskyRequest.onload = function() {
-        if(darkskyRequest.status >= 200 && darkskyRequest.status < 400) {
+
+
+    $.ajax({
+        url: darkskyUrl + latlong + darkskyUrl2,
+        dataType: 'JSONP', // JSONP bij normale weerurl
+        jsonpCallback: 'callback',
+        async: false,
+        type: 'GET',
+        success: function(data) {
             var dataGlobal = JSON.parse(darkskyRequest.responseText);
             weatherProcessing(dataGlobal);
             dynamicWeather(dataGlobal);
-        } else {
-            console.log("ERROR");
-            // Add more error handling.
-        }
-    }
-    darkskyRequest.send();
+         }
+    });
+
+    // darkskyRequest.open('GET', darkskyUrl + latlong + darkskyUrl2);
+    // darkskyRequest.onload = function() {
+    //     if(darkskyRequest.status >= 200 && darkskyRequest.status < 400) {
+    //         var dataGlobal = JSON.parse(darkskyRequest.responseText);
+    //         weatherProcessing(dataGlobal);
+    //         dynamicWeather(dataGlobal);
+    //     } else {
+    //         console.log("ERROR");
+    //         // Add more error handling.
+    //     }
+    // }
+    // darkskyRequest.send();
 }
 
 

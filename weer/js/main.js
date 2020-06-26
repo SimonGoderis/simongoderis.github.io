@@ -21,7 +21,6 @@ if (navigator.geolocation) {
 
 
 var dataGlobal;
-var darkskyRequest = new XMLHttpRequest();
 var darkskyUrl = 'https://api.darksky.net/forecast/bc19b1b471805791801dd3098e6b3b59/';
 var darkskyUrl2 = '?exclude=currently,minutely,flags&lang=nl&units=ca&extend=hourly';
 
@@ -38,7 +37,7 @@ function initWeather(loc) {
             console.log("ERROR: " + error);
         },
         success: function(data) {
-            var dataGlobal = data;
+            dataGlobal = data;
             weatherProcessing(dataGlobal);
             dynamicWeather(dataGlobal);
          }

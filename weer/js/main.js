@@ -31,7 +31,7 @@ function initWeather(loc) {
         async: false,
         type: 'GET',
         success: function(data) {
-            var dataGlobal = JSON.parse(darkskyRequest.responseText);
+            var dataGlobal = data;
             weatherProcessing(dataGlobal);
             dynamicWeather(dataGlobal);
          }
@@ -165,6 +165,7 @@ function dynamicWeather(data) {
 
         $("#dynamicWeather").append(htmlText);
     }
+    $("#loader").hide();
 }
 
 

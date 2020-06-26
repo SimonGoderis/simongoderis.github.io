@@ -172,6 +172,7 @@ body {
 
 .card:hover {
     background-color: var(--blue-dark);
+    cursor: pointer;
 }
 
 .bg-blue {
@@ -288,4 +289,20 @@ th:nth-child(2) {
 tbody tr:hover {
     background-color: var(--white);
     color: var(--dark);
+}
+
+#fixedbutton {
+    width: 60px;
+    height: 60px;
+    background-color:var(--red);
+    padding: 10px;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 20px;
+    right: 20px; 
+}
+
+#fixedbutton:hover {
+    opacity: 70%;
+    cursor: pointer;
 }

@@ -61,7 +61,7 @@ function dailyWeather(data) {
             'summary' : obj.summary,
             'temperatureLow' : Math.round(obj.temperatureLow),
             'temperatureHigh' : Math.round(obj.temperatureHigh),
-            'precipProbability': Math.round(obj.precipProbability),
+            'precipProbability': Math.round(obj.precipProbability * 100),
             'windSpeed' : Math.round(obj.windSpeed)
         });
     }
@@ -91,7 +91,7 @@ function hourlyWeather(data) {
             'time' : (new Date(obj.time * 1000)).getHours() + ':00',
             'temperature' : Math.round(obj.temperature),
             'windSpeed' : Math.round(obj.windSpeed),
-            'precipProbability' : Math.round(obj.precipProbability),
+            'precipProbability' : Math.round(obj.precipProbability * 100),
             'cloudCover' :  Math.round(obj.cloudCover * 100),
             'uvIndex' : obj.uvIndex,
             'icon' : obj.icon,

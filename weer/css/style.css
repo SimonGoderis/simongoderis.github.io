@@ -296,13 +296,13 @@ tbody tr:hover {
     height: 60px;
     background-color:var(--red);
     padding: 10px;
-    border-radius: 50%;
+    border-radius: 50% 50% 0% 50%;
     position: fixed;
     bottom: 20px;
     right: 20px; 
 }
 
 #fixedbutton:hover {
-    opacity: 70%;
+    background-color: var(--dark);
     cursor: pointer;
 }

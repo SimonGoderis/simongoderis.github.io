@@ -22,33 +22,22 @@ var darkskyUrl2 = '?exclude=currently,minutely,flags&lang=nl&units=ca&extend=hou
 
 function initWeather(loc) {
     var latlong = loc.lat + "," + loc.lng;
-
-
     $.ajax({
         url: darkskyUrl + latlong + darkskyUrl2,
         dataType: 'JSONP', // JSONP bij normale weerurl
         jsonpCallback: 'callback',
         async: false,
         type: 'GET',
+        error: function (request, error) {
+            console.log(arguments);
+            console.log("ERROR: " + error);
+        },
         success: function(data) {
             var dataGlobal = data;
             weatherProcessing(dataGlobal);
             dynamicWeather(dataGlobal);
          }
     });
-
-    // darkskyRequest.open('GET', darkskyUrl + latlong + darkskyUrl2);
-    // darkskyRequest.onload = function() {
-    //     if(darkskyRequest.status >= 200 && darkskyRequest.status < 400) {
-    //         var dataGlobal = JSON.parse(darkskyRequest.responseText);
-    //         weatherProcessing(dataGlobal);
-    //         dynamicWeather(dataGlobal);
-    //     } else {
-    //         console.log("ERROR");
-    //         // Add more error handling.
-    //     }
-    // }
-    // darkskyRequest.send();
 }
 
 
@@ -61,8 +50,8 @@ function dailyWeather(data) {
     for (i=0; i < data.daily.data.length ; i++) {
         var obj = data.daily.data[i];
         daily_weather.push({
-            'dayOfWeek' : weekDay((new Date(obj.time * 1000)).getUTCDay()),
-            'dayDDMM' : (new Date(obj.time * 1000)).getUTCDate() + '/' + ((new Date(obj.time * 1000)).getUTCMonth() + 1),
+            'dayOfWeek' : weekDay((new Date(obj.time * 1000)).getDay()),
+            'dayDDMM' : (new Date(obj.time * 1000)).getDate() + '/' + ((new Date(obj.time * 1000)).getMonth() + 1),
             'icon' : obj.icon,
             'summary' : obj.summary,
             'temperatureLow' : Math.round(obj.temperatureLow),
@@ -93,8 +82,8 @@ function hourlyWeather(data) {
             weatherFlag = 1;
         } 
         hourly_weather.push({
-            'dayDDMM' : (new Date(obj.time * 1000)).getUTCDate() + '/' + ((new Date(obj.time * 1000)).getUTCMonth() + 1),
-            'time' : (new Date(obj.time * 1000)).getUTCHours() + ':00',
+            'dayDDMM' : (new Date(obj.time * 1000)).getDate() + '/' + ((new Date(obj.time * 1000)).getMonth() + 1),
+            'time' : (new Date(obj.time * 1000)).getHours() + ':00',
             'temperature' : Math.round(obj.temperature),
             'windSpeed' : Math.round(obj.windSpeed),
             'precipProbability' : Math.round(obj.precipProbability),
@@ -113,20 +102,21 @@ function hourlyWeather(data) {
 function dynamicWeather(data) {
     var daily_weather = dailyWeather(data);
     var hourly_weather = hourlyWeather(data);
-    count_UnavHours = 1;
+    count_UnavHours = 0;
     console.log(daily_weather);
-    for (i=1; i<daily_weather.length; i++) {
+    for (i=0; i<daily_weather.length; i++) {
         var icoWeather = iconWeather(daily_weather[i].icon);
         var htmlText = "";
-        htmlText += "<div class='card bg-blue' id='card'><div class='card-body'><div class='row mb-2'><div class='col-6'><heading>" + daily_weather[i].dayOfWeek + "</heading><subtitle>" + daily_weather[i].dayDDMM + "</subtitle></div><div class='col-6'><i class='wi wi-big wi-" + icoWeather + "'></i></div></div><h4>" + daily_weather[i].summary + "</h4><div class='progress' id='weerprogress'>";
+        htmlText += "<div id='card" + i + "' class='card bg-blue' onclick='clicked(" + i + ");'><div class='card-body'><div class='row mb-2'><div class='col-6'><heading>" + daily_weather[i].dayOfWeek + "</heading><subtitle>" + daily_weather[i].dayDDMM + "</subtitle></div><div class='col-6'><i class='wi wi-big wi-" + icoWeather + "'></i></div></div><h4>" + daily_weather[i].summary + "</h4><div class='progress' id='weerprogress" + i + "'>";
   
-        if (i == 1) {
+        if (i == 0) {
             for (x = 0; x < 24; x++) {
                 if (daily_weather[i].dayDDMM == hourly_weather[x].dayDDMM) {
                     count_UnavHours += 1;
                 }
             }
-            for (z = 1; z < count_UnavHours; z++) {
+            console.log(count_UnavHours);
+            for (z = 1; z < 25 - count_UnavHours; z++) {
                 htmlText += "<div class='progress-bar' style='width: 4.166666666%'></div>"
             }
         }
@@ -145,7 +135,7 @@ function dynamicWeather(data) {
 
         htmlText += "</div><div class='row extraweer'><div class='col-3'><i class='wi wi-thermometer-exterior'></i> " + daily_weather[i].temperatureLow +  "<small>°C</small></div><div class='col-3'><i class='wi wi-thermometer'></i> " + daily_weather[i].temperatureHigh +  "<small>°C</small></div><div class='col-3'><i class='wi wi-umbrella'></i> " + daily_weather[i].precipProbability +  "<small>%</small></div><div class='col-3'><i class='wi wi-strong-wind'></i> " + daily_weather[i].windSpeed +  "<small>km/h</small></div></div>";
 
-        htmlText += "<div class='mt-2' id='weertable'><table><thead><tr><th></th><th><i class='wi wi-time-2'></i></th><th><i class='wi wi-thermometer'></i></th><th><i class='wi wi-strong-wind'></i></th><th><i class='wi wi-umbrella'></i></th><th><i class='wi wi-cloud'></i></th><th><i class='wi wi-day-sunny'></i></th></tr></thead><tbody id='weerdetail'>"
+        htmlText += "<div class='mt-2 hidden' id='weertable" + i + "'><table><thead><tr><th></th><th><i class='wi wi-time-2'></i></th><th><i class='wi wi-thermometer'></i></th><th><i class='wi wi-strong-wind'></i></th><th><i class='wi wi-umbrella'></i></th><th><i class='wi wi-cloud'></i></th><th><i class='wi wi-day-sunny'></i></th></tr></thead><tbody id='weerdetail'>"
 
         for (x = 0; x < 169; x++) {
             if (daily_weather[i].dayDDMM == hourly_weather[x].dayDDMM) {
@@ -188,3 +178,16 @@ function weekDay(day) {
 }
 
 
+// Klikken = tonen
+
+function clicked(i) {        // define event handler
+    id = "#weertable" + i;
+    prog = "#weerprogress" + i;
+    if( !$(id).hasClass("hidden"))  {
+        $(id).addClass("hidden");
+        $(prog).removeClass("hidden");
+    } else {
+        $(id).removeClass("hidden");
+        $(prog).addClass("hidden");
+    }
+};

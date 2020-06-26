@@ -127,7 +127,7 @@ function dynamicWeather(data) {
                 }
             }
             for (z = 1; z < count_UnavHours; z++) {
-                htmlText += "<div class='progress-bar hidden' style='width: 4.166666666%'></div>"
+                htmlText += "<div class='progress-bar' style='width: 4.166666666%'></div>"
             }
         }
         

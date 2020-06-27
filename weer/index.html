@@ -12,13 +12,98 @@
 
 <body>
 
+    <div id="modal" class="modal hidden">
+        <div class="modalcontent">
+        <header>Instellingen<span onclick="closeModal();">X</span></header>
+        <form>
+            <div class="form-group mb-2">
+                <p>Temperatuur <i class='wi wi-thermometer'></i></p>
+                <div class="input-group min">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">min</div>
+                    </div>
+                    <input type="number" class="form-control min" id="tempzero" placeholder="">
+                    <div class="input-group-append">
+                        <div class="input-group-text">°C</div>
+                    </div>
+                </div>
+                <div class="input-group max">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">max</div>
+                    </div>
+                    <input type="number" class="form-control max" id="tempmin" placeholder="">
+                    <div class="input-group-append">
+                        <div class="input-group-text">°C</div>
+                    </div>
+                </div>
+                <div class="input-group maxP">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">max+</div>
+                    </div>
+                    <input type="number" class="form-control max2" id="tempmax" placeholder="">
+                    <div class="input-group-append">
+                        <div class="input-group-text">°C</div>
+                    </div>
+                </div>
+                <p>Kans op neerslag <i class='wi wi-umbrella'></i></p>
+                <div class="input-group max">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">max</div>
+                    </div>
+                    <input type="number" class="form-control max" id="tempmin" placeholder="">
+                    <div class="input-group-append">
+                        <div class="input-group-text">%</div>
+                    </div>
+                </div>
+                <div class="input-group maxP">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">max+</div>
+                    </div>
+                    <input type="number" class="form-control max2" id="tempmax" placeholder="">
+                    <div class="input-group-append">
+                        <div class="input-group-text">%</div>
+                    </div>
+                </div>
+                <p>Wind <i class='wi wi-strong-wind'></i></p>
+                <div class="input-group max">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">max</div>
+                    </div>
+                    <input type="number" class="form-control max" id="tempmin" placeholder="">
+                    <div class="input-group-append">
+                        <div class="input-group-text">km/h</div>
+                    </div>
+                </div>
+                <div class="input-group maxP">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">max+</div>
+                    </div>
+                    <input type="number" class="form-control max2" id="tempmax" placeholder="">
+                    <div class="input-group-append">
+                        <div class="input-group-text">km/h</div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+        
+        <div class="form-buttons">
+            <button class="bg-green">Opslaan</button><button class="bg-red">Reset</button>
+        </div>
+    </div>
+    </div>
+    <div id="overlay" class="hidden" onclick="closeModal();"></div>
+
+    
+
     <div id="loader" class="loaderholder">
         <div class="loader"></div>
     </div>
 
     <div id="dynamicWeather"></div>
 
-    <div id="fixedbutton">
+    <div id="fixedbutton" class="hidden" onclick="showModal();">
         <img src="img/cog.svg" alt="">
     </div>
 

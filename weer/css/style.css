@@ -10,6 +10,51 @@
 }
 
 
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.modalcontent {
+    background-color: var(--white);
+    position: absolute;
+    top: 20%;
+    max-width: 800px;
+    border: 2px var(--blue) solid;
+    border-radius: 5px;
+    margin: 10vh 5px 5px 5px;
+    z-index: 10;
+}
+
+.modalcontent header{
+    padding: 15px;
+    background-color: var(--blue);
+    font-size: medium;
+    color: white;
+}
+
+.modalcontent header span {
+    float: right;
+    cursor: pointer;
+}
+
+
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 8; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+  }
+
+
 .loaderholder {
     display: flex;
     justify-content: center;
@@ -35,6 +80,7 @@
 :root {
     --blue: #0468bf;
     --blue-dark: #0459a3;
+    --light-blue: #d9edf7;
     --dark: #000000;
     --green: #33A63B;
     --white: #ffffff;
@@ -48,6 +94,7 @@
 body {
     padding-right: 15px;
     padding-left: 15px;
+    margin-top: 0px!important;
     margin-left: auto;
     margin-right: auto;
     font-family: var(--font-family-din);
@@ -198,7 +245,9 @@ tbody tr td:first-child {
     border-right: 1px solid var(--light-grey);
 }
 
-
+.form-group p {
+    text-align: center;
+}
 
 table {
     border-spacing: 0px;
@@ -305,4 +354,145 @@ tbody tr:hover {
 #fixedbutton:hover {
     background-color: var(--dark);
     cursor: pointer;
+}
+
+#fixedbutton:hover img {
+    animation: spin 2s linear infinite; 
+}
+
+/* Form elements */ 
+
+form {
+    margin: 0px 20px 0px 20px;
+}
+
+.input-group {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.input-group-prepend {
+    margin-right: -1px;
+}
+
+.input-group-append, .input-group-prepend {
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.input-group>.custom-select:not(:first-child), .input-group>.form-control:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.input-group>.custom-select:not(:last-child), .input-group>.form-control:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.input-group>.custom-file, .input-group>.custom-select, .input-group>.form-control {
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    width: 1%;
+    margin-bottom: 0;
+}
+
+.min .input-group-text{
+    background-color: var(--light-blue);
+}
+
+.max .input-group-text{
+    background-color: var(--yellow);
+}
+
+.maxP .input-group-text{
+    background-color: var(--red);
+    color: white;
+}
+
+
+.input-group>.input-group-append:last-child>.btn:not(:last-child):not(.dropdown-toggle), .input-group>.input-group-append:last-child>.input-group-text:not(:last-child), .input-group>.input-group-append:not(:last-child)>.btn, .input-group>.input-group-append:not(:last-child)>.input-group-text, .input-group>.input-group-prepend>.btn, .input-group>.input-group-prepend>.input-group-text {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.input-group-append {
+    margin-left: -1px;
+}
+.input-group-append, .input-group-prepend {
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.input-group>.input-group-append>.btn, .input-group>.input-group-append>.input-group-text, .input-group>.input-group-prepend:first-child>.btn:not(:first-child), .input-group>.input-group-prepend:first-child>.input-group-text:not(:first-child), .input-group>.input-group-prepend:not(:first-child)>.btn, .input-group>.input-group-prepend:not(:first-child)>.input-group-text {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.input-group-text {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: .375rem .75rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+}
+
+.form-buttons {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.form-buttons button {
+    color: white;
+    padding: 10px;
+    margin: 5px;
+    border: 0px;
+    border-radius: 5px;
+    font-size: medium;
+}
+
+.form-buttons button:hover {
+    cursor: pointer;
+    background-color: var(--dark)!important;
 }

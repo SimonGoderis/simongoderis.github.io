@@ -68,12 +68,23 @@ function dailyWeather(data) {
     return daily_weather;
 }
 
-var tempMin = 25;
-var tempMax = 30;
-var precipMin = 25;
-var precipMax = 50;
-var windMin = 15;
-var windMax = 30; 
+
+// Waarden
+var calcValues = {
+    'tempMin':25,
+    'tempMax' : 30,
+    'precipMin' : 25,
+    'precipMax' : 50,
+    'windMin' : 15,
+    'windMax' : 30
+}
+
+var tempMin = calcValues.tempMin;
+var tempMax = calcValues.tempMax;
+var precipMin = calcValues.precipMin;
+var precipMax = calcValues.precipMax;
+var windMin = calcValues.windMin;
+var windMax = calcValues.windMax; 
 
 function hourlyWeather(data) {
     var hourly_weather = [];
@@ -160,6 +171,7 @@ function dynamicWeather(data) {
         $("#dynamicWeather").append(htmlText);
     }
     $("#loader").hide();
+    $("#fixedbutton").removeClass("hidden");
 }
 
 
@@ -195,3 +207,13 @@ function clicked(i) {        // define event handler
         $(prog).addClass("hidden");
     }
 };
+
+function showModal() {
+    $("#modal").removeClass("hidden");
+    $("#overlay").removeClass("hidden");
+}
+
+function closeModal() {
+    $("#modal").addClass("hidden");
+    $("#overlay").addClass("hidden");
+}

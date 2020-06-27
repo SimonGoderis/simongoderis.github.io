@@ -29,6 +29,8 @@
 }
 
 .modalcontent header{
+    font-size: large;
+    font-weight: bolder;
     padding: 15px;
     background-color: var(--dark);
     font-size: medium;
@@ -248,6 +250,7 @@ tbody tr td:first-child {
 
 .form-group p {
     text-align: center;
+    margin-top: 1.5rem;
 }
 
 table {

@@ -84,12 +84,27 @@ Object.keys(calcValues).forEach(function(key) {
     $('#' + key).val(calcValues[key])
 });
 
+var tempMin = calcValues.tempMin;
 var tempMax = calcValues.tempMax;
 var tempMaxP = calcValues.tempMaxP;
 var precipMax = calcValues.precipMax;
 var precipMaxP = calcValues.precipMaxP;
 var windMax = calcValues.windMax;
 var windMaxP = calcValues.windMaxP; 
+
+// Knop OPSLAAN in de modal
+function changeSettings() {
+    tempMin = $("#tempMin").val(),
+        tempMax = $("#tempMax").val(),
+        tempMaxP = $("#tempMaxP").val(),
+        precipMax = $("#precipMax").val(),
+        precipMaxP = $("#precipMaxP").val(),
+        windMax = $("#windMax").val(),
+        windMaxP = $("windMaxP").val();
+    $("#dynamicWeather").html("");
+    dynamicWeather(dataGlobal);
+    closeModal();
+}
 
 function hourlyWeather(data) {
     var hourly_weather = [];

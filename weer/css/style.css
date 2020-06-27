@@ -22,7 +22,7 @@
     position: absolute;
     top: 20%;
     max-width: 800px;
-    border: 2px var(--blue) solid;
+    border: 2px var(--dark) solid;
     border-radius: 5px;
     margin: 10vh 5px 5px 5px;
     z-index: 10;
@@ -30,7 +30,7 @@
 
 .modalcontent header{
     padding: 15px;
-    background-color: var(--blue);
+    background-color: var(--dark);
     font-size: medium;
     color: white;
 }
@@ -97,6 +97,7 @@ body {
     margin-top: 0px!important;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 20px;
     font-family: var(--font-family-din);
     background-color: var(--white);
     max-width: 700px;

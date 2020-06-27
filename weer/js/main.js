@@ -71,29 +71,34 @@ function dailyWeather(data) {
 
 // Waarden
 var calcValues = {
-    'tempMin':25,
-    'tempMax' : 30,
-    'precipMin' : 25,
-    'precipMax' : 50,
-    'windMin' : 15,
-    'windMax' : 30
+    'tempMin' : 5,
+    'tempMax' : 25,
+    'tempMaxP' : 30,
+    'precipMax' : 25,
+    'precipMaxP' : 50,
+    'windMax' : 15,
+    'windMaxP' : 30
 }
 
-var tempMin = calcValues.tempMin;
+Object.keys(calcValues).forEach(function(key) {
+    $('#' + key).val(calcValues[key])
+});
+
 var tempMax = calcValues.tempMax;
-var precipMin = calcValues.precipMin;
+var tempMaxP = calcValues.tempMaxP;
 var precipMax = calcValues.precipMax;
-var windMin = calcValues.windMin;
-var windMax = calcValues.windMax; 
+var precipMaxP = calcValues.precipMaxP;
+var windMax = calcValues.windMax;
+var windMaxP = calcValues.windMaxP; 
 
 function hourlyWeather(data) {
     var hourly_weather = [];
     for (i=0; i < data.hourly.data.length; i++) {
         var obj = data.hourly.data[i];
         var weatherFlag = 0;
-        if (Math.round(obj.windSpeed) >= windMax || Math.round(obj.precipProbability) >= precipMax || Math.round(obj.temperature) >= tempMax) {
+        if (Math.round(obj.windSpeed) >= windMaxP || Math.round(obj.precipProbability) >= precipMaxP || Math.round(obj.temperature) >= tempMaxP) {
             weatherFlag = 2;
-        } else if (Math.round(obj.windSpeed) >= windMin || Math.round(obj.precipProbability) >= precipMin || Math.round(obj.temperature) >= tempMin) {
+        } else if (Math.round(obj.windSpeed) >= windMax || Math.round(obj.precipProbability) >= precipMax || Math.round(obj.temperature) >= tempMax) {
             weatherFlag = 1;
         } 
         hourly_weather.push({

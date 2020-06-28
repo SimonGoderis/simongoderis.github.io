@@ -388,9 +388,6 @@ th:nth-child(3) {
     .modalcontent {
         margin: 4vh 5px 5px 5px;
     }
-    .modal {
-        min-width: 90vw;
-    }
 }
 
 tbody tr:hover {

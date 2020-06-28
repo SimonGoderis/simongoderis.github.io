@@ -221,7 +221,6 @@ function changeSettings() {
     }
     localStorage.setItem('weerAppValues', JSON.stringify(calcValues));
     localStorage.setItem('gCal', $('#gCal').val());
-    $("#dynamicWeather").html("");
     googleCall();
     dynamicWeather(dataGlobal);
     closeModal();
@@ -240,7 +239,7 @@ function addDays(date, days) {
 
 
 function dynamicWeather(data) {
-
+    $("#dynamicWeather").html("");
     var daily_weather = dailyWeather(data);
     var hourly_weather = hourlyWeather(data);
     count_UnavHours = 0;

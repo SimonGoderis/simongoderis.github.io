@@ -230,7 +230,7 @@ body {
 }
 
 .cal-progress {
-    margin-top: ;
+    margin-top: 0px;
     margin-bottom: 15px;
     display: -ms-flexbox;
     display: flex;

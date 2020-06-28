@@ -2,6 +2,25 @@
 
 console.log("V1");
 
+// =======
+// SETUP 
+// Initiële set-up bij het laden van de pagina. LocalStorage -> API calls
+// =======
+
+
+
+// =======
+// CORE PROGRAM 
+// De basis van het programma. Verwerking van de API data.
+// =======
+
+
+// =======
+// HELPERS 
+// Hulpfuncties die hierboven gebruikt worden. 
+// =======
+
+
 
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {

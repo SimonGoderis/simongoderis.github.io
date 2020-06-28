@@ -170,6 +170,12 @@ body {
     box-sizing: border-box;
 }
 
+.gCal {
+    text-align: center!important;
+    font-size: small;
+    margin-top: 7px;
+}
+
 .weer {
     float:right;
     max-height: 200px;

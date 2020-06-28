@@ -160,7 +160,7 @@ function googlecall() {
     gCal = $('#gCal').val(),
     gStart = (new Date()).toISOString(),
     gEnd = (addDays(gStart, 14)).toISOString(),
-    gLink = "https://www.googleapis.com/calendar/v3/calendars/" + gCal + "/events?singleEvents=true&orderBy=startTime&key=" + gKey + "&timeMin=" + gStart + "&timeMax=" + gEnd
+    gLink = "https://www.googleapis.com/calendar/v3/calendars/" + gCal + "%40group.calendar.google.com/events?singleEvents=true&orderBy=startTime&key=" + gKey + "&timeMin=" + gStart + "&timeMax=" + gEnd
     console.log(gLink);
     $.ajax({
         url: gLink,
@@ -185,11 +185,17 @@ function googlecall() {
                 gDataGlobal.push(tempData);
             }
             console.log(gDataGlobal);
+            $('#gCalText').html("De gebruikte kalender is: " + gData.summary);
+            $('#gCalText').removeClass("hidden");
+            
         }
     });
 }
 
 function dynamicWeather(data) {
+
+    googlecall();
+
     var daily_weather = dailyWeather(data);
     var hourly_weather = hourlyWeather(data);
     count_UnavHours = 0;

@@ -213,20 +213,20 @@ function dynamicWeather(data) {
             }
             console.log(count_UnavHours);
             for (z = 1; z < 25 - count_UnavHours; z++) {
-                htmlText += "<div class='progress-bar' style='width: 4.166666666%'></div>"
+                htmlText += "<div class='progress-bar' style='width: 4.17%'></div>"
             }
         }
 
         for (x = 0; x < 169; x++) {
             if (daily_weather[i].dayDDMM == hourly_weather[x].dayDDMM) {
                 if (hourly_weather[x].weatherFlag == 2) {
-                    htmlText += "<div class='progress-bar bg-red' style='width: 4.166666666%'></div>"
+                    htmlText += "<div class='progress-bar bg-red' style='width: 4.17%'></div>"
                 } else if (hourly_weather[x].weatherFlag == 1) {
-                    htmlText += "<div class='progress-bar bg-yellow' style='width: 4.166666666%'></div>"
+                    htmlText += "<div class='progress-bar bg-yellow' style='width: 4.17%'></div>"
                 } else if (hourly_weather[x].weatherFlag == -1) {
-                    htmlText += "<div class='progress-bar bg-lblue' style='width: 4.166666666%'></div>"
+                    htmlText += "<div class='progress-bar bg-lblue' style='width: 4.17%'></div>"
                 } else {
-                    htmlText += "<div class='progress-bar bg-green' style='width: 4.166666666%'></div>"
+                    htmlText += "<div class='progress-bar bg-green' style='width: 4.17%'></div>"
                 }
             }
         }

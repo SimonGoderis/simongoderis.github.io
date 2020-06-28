@@ -68,6 +68,36 @@ function dailyWeather(data) {
     return daily_weather;
 }
 
+function hourlyWeather(data) {
+    var hourly_weather = [];
+    for (i = 0; i < data.hourly.data.length; i++) {
+        var obj = data.hourly.data[i];
+        var weatherFlag = 0;
+        var gCalSport = 0;
+        if (Math.round(obj.temperature) <= calcValues.tempMin) {
+            weatherFlag = -1;
+        } else if (Math.round(obj.windSpeed) >= calcValues.windMaxP || Math.round(obj.precipProbability) >= calcValues.precipMaxP || Math.round(obj.temperature) >= calcValues.tempMaxP) {
+            weatherFlag = 2;
+        } else if (Math.round(obj.windSpeed) >= calcValues.windMax || Math.round(obj.precipProbability) >= calcValues.precipMax || Math.round(obj.temperature) >= calcValues.tempMax) {
+            weatherFlag = 1;
+        }
+        hourly_weather.push({
+            'dayDDMM': (new Date(obj.time * 1000)).getDate() + '/' + ((new Date(obj.time * 1000)).getMonth() + 1),
+            'time': (new Date(obj.time * 1000)).getHours() + ':00',
+            'temperature': Math.round(obj.temperature),
+            'windSpeed': Math.round(obj.windSpeed),
+            'precipProbability': Math.round(obj.precipProbability * 100),
+            'cloudCover': Math.round(obj.cloudCover * 100),
+            'uvIndex': obj.uvIndex,
+            'icon': obj.icon,
+            'windBearing': obj.windBearing,
+            'weatherFlag': weatherFlag,
+        });
+    }
+    console.log(hourly_weather);
+    return hourly_weather;
+}
+
 
 // Waarden
 var calcValues = {
@@ -84,8 +114,10 @@ var calcValues = {
 if (localStorage.getItem('weerAppSetting') != 'true') {
     localStorage.setItem('weerAppSetting', 'true');
     localStorage.setItem('weerAppValues', JSON.stringify(calcValues));
+    localStorage.setItem('gCal', '');
 } else {
     var retrieved = localStorage.getItem('weerAppValues')
+    $('#gCal').val(localStorage.getItem('gCal'));
     calcValues = JSON.parse(retrieved);
 }
 console.log(localStorage.getItem('weerAppValues'));
@@ -106,40 +138,56 @@ function changeSettings() {
         'windMaxP': $("#windMaxP").val()
     }
     localStorage.setItem('weerAppValues', JSON.stringify(calcValues));
+    localStorage.setItem('gCal', $('#gCal').val());
     $("#dynamicWeather").html("");
     dynamicWeather(dataGlobal);
     closeModal();
 }
 
-function hourlyWeather(data) {
-    var hourly_weather = [];
-    for (i = 0; i < data.hourly.data.length; i++) {
-        var obj = data.hourly.data[i];
-        var weatherFlag = 0;
-        if (Math.round(obj.temperature) <= calcValues.tempMin) {
-            weatherFlag = -1;
-        } else if (Math.round(obj.windSpeed) >= calcValues.windMaxP || Math.round(obj.precipProbability) >= calcValues.precipMaxP || Math.round(obj.temperature) >= calcValues.tempMaxP) {
-            weatherFlag = 2;
-        } else if (Math.round(obj.windSpeed) >= calcValues.windMax || Math.round(obj.precipProbability) >= calcValues.precipMax || Math.round(obj.temperature) >= calcValues.tempMax) {
-            weatherFlag = 1;
-        }
-        hourly_weather.push({
-            'dayDDMM': (new Date(obj.time * 1000)).getDate() + '/' + ((new Date(obj.time * 1000)).getMonth() + 1),
-            'time': (new Date(obj.time * 1000)).getHours() + ':00',
-            'temperature': Math.round(obj.temperature),
-            'windSpeed': Math.round(obj.windSpeed),
-            'precipProbability': Math.round(obj.precipProbability * 100),
-            'cloudCover': Math.round(obj.cloudCover * 100),
-            'uvIndex': obj.uvIndex,
-            'icon': obj.icon,
-            'windBearing': obj.windBearing,
-            'weatherFlag': weatherFlag
-        });
-    }
-    console.log(hourly_weather);
-    return hourly_weather;
+
+// Google Calendar
+
+// Dagen toevoegen aan datum
+function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
 }
 
+function googlecall() {
+    var gDataGlobal = [];
+    var gKey = "AIzaSyB8Ciol-IfNKTZWkKg25JdFdrx9Ut_CJYk",
+    gCal = $('#gCal').val(),
+    gStart = (new Date()).toISOString(),
+    gEnd = (addDays(gStart, 14)).toISOString(),
+    gLink = "https://www.googleapis.com/calendar/v3/calendars/" + gCal + "/events?singleEvents=true&orderBy=startTime&key=" + gKey + "&timeMin=" + gStart + "&timeMax=" + gEnd
+    console.log(gLink);
+    $.ajax({
+        url: gLink,
+        dataType: 'JSONP', // JSONP bij normale weerurl
+        jsonpCallback: 'callback',
+        async: false,
+        type: 'GET',
+        error: function (request, error) {
+            console.log(arguments);
+            console.log("ERROR: " + error);
+        },
+        success: function (gData) {
+            console.log(gData);
+            console.log(gData.items)
+            for (i = 0; i < gData.items.length; i++ ){
+                var tempData = {
+                    'startDate': (new Date(gData.items[i].start.dateTime)).getDate() + "/" + ((new Date(gData.items[i].start.dateTime)).getMonth() + 1),
+                    'endDate' : (new Date(gData.items[i].end.dateTime)).getDate() + "/" + ((new Date(gData.items[i].start.dateTime)).getMonth() + 1),
+                    'startTime' : (new Date(gData.items[i].start.dateTime)).getHours(),
+                    'endTime' : (new Date(gData.items[i].end.dateTime)).getHours() + 1
+                }
+                gDataGlobal.push(tempData);
+            }
+            console.log(gDataGlobal);
+        }
+    });
+}
 
 function dynamicWeather(data) {
     var daily_weather = dailyWeather(data);
@@ -266,3 +314,8 @@ function resetSettings() {
         $('#' + key).val(calcValues[key])
     });
 }
+
+
+
+
+

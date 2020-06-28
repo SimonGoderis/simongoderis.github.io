@@ -82,7 +82,7 @@
 :root {
     --blue: #0468bf;
     --blue-dark: #0459a3;
-    --light-blue: #d9edf7;
+    --light-blue: #8cd5fa;
     --dark: #000000;
     --green: #33A63B;
     --white: #ffffff;
@@ -273,6 +273,10 @@ thead tr th{
 
 .bg-green {
     background-color: var(--green) !important;
+}
+
+.bg-lblue {
+    background-color: var(--light-blue) !important;
 }
 
 .card-body {

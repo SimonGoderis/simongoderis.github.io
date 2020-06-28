@@ -185,7 +185,7 @@ body {
     color:white
 }
 
-.progress-bar {
+.progress .progress-bar {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-direction: column;
@@ -202,7 +202,7 @@ body {
 
 .progress {
     margin-top: 15px;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
     display: -ms-flexbox;
     display: flex;
     height: 1rem;
@@ -211,6 +211,38 @@ body {
     background-color: #e9ecef;
     border-radius: .25rem;
     /* border: 1px solid white; */
+}
+
+
+/* Voor kalenderitems */
+.cal-progress .progress-bar {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    transition: width .6s ease;
+}
+
+.cal-progress {
+    margin-top: ;
+    margin-bottom: 15px;
+    display: -ms-flexbox;
+    display: flex;
+    height: 4px;
+    overflow: hidden;
+    font-size: .75rem;
+    border-radius: .25rem;
+    /* border: 1px solid white; */
+}
+
+.bg-dark {
+    background-color: var(--dark);
 }
 
 .card {
@@ -254,6 +286,10 @@ tbody tr td:first-child {
 
     /* border-left: 1px solid var(--light-grey);
     border-right: 1px solid var(--light-grey); */
+}
+
+tbody tr td:nth-child(2) {
+    width: 4px;
 }
 
 .form-group p {
@@ -319,8 +355,8 @@ subtitle {
     text-align: center;
 }
 
-td:nth-child(2),
-th:nth-child(2) {
+td:nth-child(3),
+th:nth-child(3) {
     padding-left: 10px;
 }
 

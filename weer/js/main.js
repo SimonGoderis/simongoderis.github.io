@@ -102,9 +102,16 @@ function googleCall() {
             dynamicWeather(dataGlobal);
         },
         success: function (gData) {
-            console.log("Kalender " + gData.summary + " is correct geladen.");
-            // De data van de kalender API verwerken.
-            googleData(gData);
+            if ($("#gCal").val() != '') {
+                console.log("Kalender " + gData.summary + " is correct geladen.");
+                // De data van de kalender API verwerken.
+                googleData(gData);
+
+                $('#gCalText').html("De gebruikte kalender is: " + gData.summary);
+                $('#gCalText').removeClass("hidden");
+            } else {
+                $('#gCalText').addClass("hidden");
+            }
             // Weer verwerken.
             dynamicWeather(dataGlobal);
         }
@@ -121,8 +128,6 @@ function googleData(gData) {
         }
         gDataGlobal.push(tempData);
     }
-    $('#gCalText').html("De gebruikte kalender is: " + gData.summary);
-    $('#gCalText').removeClass("hidden");
 }
 
 
@@ -217,6 +222,7 @@ function changeSettings() {
     localStorage.setItem('weerAppValues', JSON.stringify(calcValues));
     localStorage.setItem('gCal', $('#gCal').val());
     $("#dynamicWeather").html("");
+    googleCall();
     dynamicWeather(dataGlobal);
     closeModal();
 }

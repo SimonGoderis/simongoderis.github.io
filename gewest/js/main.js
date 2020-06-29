@@ -14,7 +14,7 @@
 
     function init() {
         Papa.parse(
-            'https://docs.google.com/spreadsheets/d/e/2PACX-1vT9N_dOJQfpzkeccu6Wzh-p78jckWkAHPZkUhtadD9w0O5LVFjFkimyq4OgGYwTYngqHM3dccXSo8HR/pub?output=csv', {
+            'https://cors-anywhere.herokuapp.com/https://docs.google.com/spreadsheets/d/e/2PACX-1vT9N_dOJQfpzkeccu6Wzh-p78jckWkAHPZkUhtadD9w0O5LVFjFkimyq4OgGYwTYngqHM3dccXSo8HR/pub?output=csv', {
                 download: true,
                 header: true,
                 error: function (results) {

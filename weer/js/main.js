@@ -170,9 +170,9 @@ function hourlyWeather(data) {
         
         if (Math.round(obj.temperature) <= calcValues.tempMin) {
             weatherFlag = -1;
-        } else if (Math.round(obj.windSpeed) >= calcValues.windMaxP || Math.round(obj.precipProbability) >= calcValues.precipMaxP || Math.round(obj.temperature) >= calcValues.tempMaxP) {
+        } else if (Math.round(obj.windSpeed) >= calcValues.windMaxP || Math.round(obj.precipProbability * 100) >= calcValues.precipMaxP || Math.round(obj.temperature) >= calcValues.tempMaxP) {
             weatherFlag = 2;
-        } else if (Math.round(obj.windSpeed) >= calcValues.windMax || Math.round(obj.precipProbability) >= calcValues.precipMax || Math.round(obj.temperature) >= calcValues.tempMax) {
+        } else if (Math.round(obj.windSpeed) >= calcValues.windMax || Math.round(obj.precipProbability * 100) >= calcValues.precipMax || Math.round(obj.temperature) >= calcValues.tempMax) {
             weatherFlag = 1;
         }
 

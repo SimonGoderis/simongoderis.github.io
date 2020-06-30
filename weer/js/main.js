@@ -22,11 +22,12 @@ if (navigator.geolocation) {
         // Geeft het positie-object door naar de functie initWeather.
         initWeather(pos);
     }, function () {
-        console.log("Er liep iets fout met de geolocatie.")
+        alert("Er liep iets fout met de geolocatie. Deze website moet toegang hebben tot je locatie om te kunnen werken.")
+        
     });
 } else {
     // Browser doesn't support Geolocation
-    console.log("Er liep iets fout met de geolocatie.")
+    console.log("Er liep iets fout met de geolocatie. Deze website moet toegang hebben tot je locatie om te kunnen werken.")
 }
 
 // LOCALSTORAGE
@@ -86,7 +87,7 @@ function initWeather(loc) {
 }
 
 function googleCall() {
-    var gKey = "AIzaSyBz32N-6QowxgM_D_0ZrA2ZIp3H-XC6GyU",
+    var gKey = "AIzaSyAndY1rKqHrRyuntZK9XoiDFKoGWV9M6OI",
     gCal = $('#gCal').val(),
     gStart = (new Date()).toISOString(),
     gEnd = (addDays(gStart, 14)).toISOString(),

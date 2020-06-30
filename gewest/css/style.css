@@ -16,6 +16,15 @@ h2 {
     font-weight: bold!important;
 }
 
+br {
+    margin-bottom: 2rem;
+}
+
+.modal-body img {
+    margin-bottom: 1rem;
+}
+
+
 hoofdtitel {
     text-transform: uppercase;
     background-color: var(--main-bg-color);
@@ -32,6 +41,10 @@ tussentitel {
     padding: 3px 3px 3px 8px;
     display: block;
     margin-bottom: 6px;
+}
+
+tussentitel:hover {
+    cursor: pointer;
 }
 
 

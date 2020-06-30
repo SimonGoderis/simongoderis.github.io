@@ -294,7 +294,8 @@ tbody tr td:nth-child(2) {
 
 .form-group p {
     text-align: center;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: .6rem;
 }
 
 table {
@@ -386,7 +387,7 @@ th:nth-child(3) {
         font-size: 60px;
     }
     .modalcontent {
-        margin: 4vh 5px 5px 5px;
+        margin: 1vh 5px 5px 5px;
     }
 }
 

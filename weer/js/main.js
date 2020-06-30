@@ -369,11 +369,16 @@ function showModal() {
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     $("#modal").removeClass("hidden");
     $("#overlay").removeClass("hidden");
+    $("#dynamicWeather").addClass("hidden");
+    $("#fixedbutton").addClass("hidden");
 }
 
 function closeModal() {
     $("#modal").addClass("hidden");
     $("#overlay").addClass("hidden");
+    $("#dynamicWeather").removeClass("hidden");
+    $("#fixedbutton").removeClass("hidden");
+
 }
 
 function resetSettings() {

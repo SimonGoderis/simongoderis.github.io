@@ -391,6 +391,7 @@ th:nth-child(3) {
     }
 }
 
+
 tbody tr:hover {
     background-color: var(--white);
     color: var(--dark);

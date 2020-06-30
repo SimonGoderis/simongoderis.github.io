@@ -6,6 +6,27 @@
     width: 60vw;
 }
  
+video {
+    width: 100%;
+}
+
+h2 {
+    font-size: 1rem!important;
+    text-transform: uppercase!important;
+    font-weight: bold!important;
+}
+
+tussentitel {
+    text-transform: uppercase;
+    background-color: red;
+    color: white;
+    padding: 3px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+
+
 .stand td:nth-child(1) {
     padding: 5px 10px;
     color: white;

@@ -2,6 +2,8 @@
 
 console.log("V2");
 
+
+
 // =======
 // SETUP 
 // Initiële set-up bij het laden van de pagina. LocalStorage -> API calls
@@ -78,17 +80,17 @@ function initWeather(loc) {
         success: function (data) {
             dataGlobal = data;
             // Probeert eerst en vooral ook de agenda-data in te laden.
-            googleCall();
+            googleCall()
         }
     });
 }
 
 function googleCall() {
-    var gKey = "AIzaSyB8Ciol-" + "IfNKTZWkKg" + "25JdFdrx9Ut_CJYk",
+    var gKey = "AIzaSyBz32N-6QowxgM_D_0ZrA2ZIp3H-XC6GyU",
     gCal = $('#gCal').val(),
     gStart = (new Date()).toISOString(),
     gEnd = (addDays(gStart, 14)).toISOString(),
-    gLink = "https://www.googleapis.com/calendar/v3/calendars/" + gCal + "%40group.calendar.google.com/events?singleEvents=true&orderBy=startTime&key=" + gKey + "&timeMin=" + gStart + "&timeMax=" + gEnd;
+    gLink = encodeURI("https://www.googleapis.com/calendar/v3/calendars/" + gCal + "%40group.calendar.google.com/events?singleEvents=true&orderBy=startTime&key=" + gKey + "&timeMin=" + gStart + "&timeMax=" + gEnd);
     $.ajax({
         url: gLink,
         dataType: 'JSONP', // JSONP bij normale weerurl

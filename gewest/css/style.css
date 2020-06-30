@@ -16,11 +16,20 @@ h2 {
     font-weight: bold!important;
 }
 
+hoofdtitel {
+    text-transform: uppercase;
+    background-color: var(--main-bg-color);
+    color: white;
+    padding: 3px 3px 3px 8px;
+    display: block;
+    margin-bottom: 6px;
+}
+
 tussentitel {
     text-transform: uppercase;
     background-color: red;
     color: white;
-    padding: 3px;
+    padding: 3px 3px 3px 8px;
     display: block;
     margin-bottom: 6px;
 }

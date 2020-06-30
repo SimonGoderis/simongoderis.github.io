@@ -394,8 +394,8 @@ function resetSettings() {
         'tempMaxP': 30,
         'precipMax': 25,
         'precipMaxP': 50,
-        'windMax': 15,
-        'windMaxP': 30
+        'windMax': 20,
+        'windMaxP': 40
     }
     localStorage.setItem('weerAppValues', JSON.stringify(calcValues));
     Object.keys(calcValues).forEach(function (key) {

@@ -102,6 +102,8 @@ function googleCall() {
             dynamicWeather(dataGlobal);
         },
         success: function (gData) {
+            console.log(gLink);
+            console.log(gData);
             if ($("#gCal").val() != '') {
                 console.log("Kalender " + gData.summary + " is correct geladen.");
                 // De data van de kalender API verwerken.

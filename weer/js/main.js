@@ -22,12 +22,15 @@ if (navigator.geolocation) {
         // Geeft het positie-object door naar de functie initWeather.
         initWeather(pos);
     }, function () {
-        alert("Er liep iets fout met de geolocatie. Deze website moet toegang hebben tot je locatie om te kunnen werken.")
-        
+        console.log("Er liep iets fout met de geolocatie. Deze website moet toegang hebben tot je locatie om te kunnen werken.")
+        $("#geoloc").removeClass('hidden');
+        $("#loaderimg").addClass('hidden');
     });
 } else {
     // Browser doesn't support Geolocation
     console.log("Er liep iets fout met de geolocatie. Deze website moet toegang hebben tot je locatie om te kunnen werken.")
+    $("#geoloc").removeClass('hidden');
+    $("#loaderimg").addClass('hidden');
 }
 
 // LOCALSTORAGE

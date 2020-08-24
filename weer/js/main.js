@@ -332,8 +332,8 @@ function dynamicWeather(data) {
 
         htmlDailyWidth = 100/daily_weather.length;
         htmlDailyOverView += "<div class='card bg-dark' style='position:relative; width:" + htmlDailyWidth + "%; max-width:" + htmlDailyWidth + ";flex-basis:" + htmlDailyWidth + "'>";
-        htmlDailyOverView += daily_weather[i].dayOfWeek.slice(0,2).toUpperCase() + "<br>" + daily_weather[i].dayDDMM + "<i class='wi wi-" + icoWeather + "'></i><small>" + daily_weather[i].temperatureLow + "→" + daily_weather[i].temperatureHigh;
-        htmlDailyOverView += "</small></div>";
+        htmlDailyOverView += daily_weather[i].dayOfWeek.slice(0,2).toUpperCase() + "<br>" + daily_weather[i].dayDDMM + "<i class='wi wi-ico wi-" + icoWeather + "'></i><small><hr><span><i class='wi wi-thermometer-exterior'></i> " + daily_weather[i].temperatureLow + "</span><br><span><i class='wi wi-thermometer'></i> " + daily_weather[i].temperatureHigh+ "</span><br><span><i class='wi wi-umbrella'></i> " + daily_weather[i].precipProbability+ "</span><br><span><i class='wi wi-strong-wind'></i> " + daily_weather[i].windSpeed;
+        htmlDailyOverView += "</span></small></div>";
     }
     $("#dailyOverview").append(htmlDailyOverView);
     $("#loader").hide();
@@ -384,6 +384,7 @@ function showModal() {
     $("#overlay").removeClass("hidden");
     $("#dynamicWeather").addClass("hidden");
     $("#fixedbutton").addClass("hidden");
+    $("#dailyOverview").addClass("hidden");
 }
 
 function closeModal() {
@@ -391,7 +392,7 @@ function closeModal() {
     $("#overlay").addClass("hidden");
     $("#dynamicWeather").removeClass("hidden");
     $("#fixedbutton").removeClass("hidden");
-
+    $("#dailyOverview").removeClass("hidden");
 }
 
 function resetSettings() {

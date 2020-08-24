@@ -85,7 +85,7 @@
     --blue: #0468bf;
     --blue-dark: #0459a3;
     --light-blue: #8cd5fa;
-    --dark: #000000;
+    --dark: #222222;
     --green: #33A63B;
     --white: #ffffff;
     --light-grey: #e9ecef;
@@ -242,7 +242,12 @@ body {
 }
 
 .bg-dark {
-    background-color: var(--dark);
+    background-color: var(--dark)!important;
+    color:white;
+}
+
+hr {
+    border-color: #333333!important;
 }
 
 .card {
@@ -328,15 +333,25 @@ thead tr th{
     padding: 2rem;
 }
 
+#dailyOverview .wi-ico {
+    padding-top: 9px!important;
+    padding-bottom: 3px!important;
+    font-size: 100%!important;
+}
+
 #dailyOverview .wi {
-    padding-top: 9px;
-    padding-bottom: 9px;
+    font-size: 80%;
+}
+
+#dailyOverview span {
+    padding-top: 5px!important;
 }
 
 #dailyOverview .card{
     padding-top: 6px;
     border-radius: 0rem;
     padding-bottom: 6px;
+    border-color: white;
 }
 
 #dailyOverview .card:first-child{
@@ -349,7 +364,7 @@ thead tr th{
 
 
 #dailyOverview .card:hover {
-    background-color: var(--dark);
+    background-color: #333333!important;
     cursor: initial;
     color: white;
 }

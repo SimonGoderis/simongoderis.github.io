@@ -250,7 +250,9 @@ function dynamicWeather(data) {
     $("#dynamicWeather").html("");
     var daily_weather = dailyWeather(data);
     var hourly_weather = hourlyWeather(data);
+    console.log(daily_weather);
     count_UnavHours = 0;
+    var htmlDailyOverView = "";
     for (i = 0; i < daily_weather.length; i++) {
         var icoWeather = iconWeather(daily_weather[i].icon);
         var htmlText = "";
@@ -326,9 +328,14 @@ function dynamicWeather(data) {
         }
 
         htmlText += "</tbody></table></div></div></div>";
-
         $("#dynamicWeather").append(htmlText);
+
+        htmlDailyWidth = 100/daily_weather.length;
+        htmlDailyOverView += "<div class='card bg-dark' style='position:relative; width:" + htmlDailyWidth + "%; max-width:" + htmlDailyWidth + ";flex-basis:" + htmlDailyWidth + "'>";
+        htmlDailyOverView += daily_weather[i].dayOfWeek.slice(0,2).toUpperCase() + "<br>" + daily_weather[i].dayDDMM + "<i class='wi wi-" + icoWeather + "'></i><small>" + daily_weather[i].temperatureLow + "→" + daily_weather[i].temperatureHigh;
+        htmlDailyOverView += "</small></div>";
     }
+    $("#dailyOverview").append(htmlDailyOverView);
     $("#loader").hide();
     $("#fixedbutton").removeClass("hidden");
 }

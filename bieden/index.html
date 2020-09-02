@@ -13,9 +13,7 @@
       .cards {
         text-align: center;
         opacity: 0.4;
-        display: block;
-        margin: 5px;
-        width: 90%;
+        width: 15%;
       }
 
       .row{
@@ -62,7 +60,13 @@
       }
 
       .cardOverview {
-        margin: 5%
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      .cardRow {
+        text-align: center;
+        margin-bottom: 5px;
       }
 
       .score {
@@ -89,7 +93,44 @@
     <button class="button" id="C"><img src="cards/C.png" class="suits"></button>
   </div>
 
-  <div class="row cardOverview">
+<div class="cardOverview">
+  <div class="cardRow">
+    <img src="cards/1D.png" class="cards" id="1D">
+    <img src="cards/JD.png" class="cards" id="JD">
+    <img src="cards/QD.png" class="cards" id="QD">
+    <img src="cards/KD.png" class="cards" id="KD">
+    <img src="cards/AD.png" class="cards" id="AD">
+    <img src="cards/9D.png" class="cards hidden" id="9D">
+  </div>
+  <div class="cardRow">
+    <img src="cards/1S.png" class="cards" id="1S">
+    <img src="cards/JS.png" class="cards" id="JS">
+    <img src="cards/QS.png" class="cards" id="QS">
+    <img src="cards/KS.png" class="cards" id="KS">
+    <img src="cards/AS.png" class="cards" id="AS">
+    <img src="cards/9S.png" class="cards hidden" id="9S">
+  </div>
+  <div class="cardRow">
+    <img src="cards/1H.png" class="cards" id="1H">
+    <img src="cards/JH.png" class="cards" id="JH">
+    <img src="cards/QH.png" class="cards" id="QH">
+    <img src="cards/KH.png" class="cards" id="KH">
+    <img src="cards/AH.png" class="cards" id="AH">
+    <img src="cards/9H.png" class="cards hidden" id="9H">
+  </div>
+  <div class="cardRow">
+    <img src="cards/1C.png" class="cards" id="1C">
+    <img src="cards/JC.png" class="cards" id="JC">
+    <img src="cards/QC.png" class="cards" id="QC">
+    <img src="cards/KC.png" class="cards" id="KC">
+    <img src="cards/AC.png" class="cards" id="AC">
+    <img src="cards/9C.png" class="cards hidden" id="9C">
+  </div>
+</div>
+    
+
+
+  <!-- <div class="row cardOverview">
     <div class="col">
       <img src="cards/1D.png" class="cards" id="1D">
       <img src="cards/JD.png" class="cards" id="JD">
@@ -122,7 +163,7 @@
       <img src="cards/AC.png" class="cards" id="AC">
       <img src="cards/9C.png" class="cards hidden" id="9C">
     </div>
-  </div>
+  </div> -->
 
   
 </body>

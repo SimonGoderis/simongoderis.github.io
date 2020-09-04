@@ -1,6 +1,6 @@
 // Version
 
-console.log("V2");
+console.log("V4 - Update parameter in URL");
 
 
 
@@ -12,7 +12,10 @@ console.log("V2");
 var dataGlobal = [];
 var gDataGlobal = [];
 
-// Locatie-gegevens ophalen. Enkel huidige locatie momenteel. 
+// Parameter uit URL halen. Zo kan je de locatie overschrijven met eigen locatie-gegevens.
+const queryURL = (new URLSearchParams(window.location.search)).get('q');
+
+// Locatie-gegevens ophalen. Enkel h‡uidige locatie momenteel. 
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
         var pos = {
@@ -20,7 +23,17 @@ if (navigator.geolocation) {
             lng: position.coords.longitude
         };
         // Geeft het positie-object door naar de functie initWeather.
-        initWeather(pos);
+        // Bij zelf aangegeven coördinaten (via parameter in URL).
+        if (queryURL !== null) {
+            var pos = {
+                lat: queryURL.substr(0, queryURL.indexOf(',')),
+                lng: queryURL.substr(queryURL.indexOf(',')+1, 99)
+            };
+            initWeather(pos);
+        } else {
+        // Bij automatisch bepalen van de positie.
+            initWeather(pos);
+        }
     }, function () {
         console.log("Er liep iets fout met de geolocatie. Deze website moet toegang hebben tot je locatie om te kunnen werken.")
         $("#geoloc").removeClass('hidden');

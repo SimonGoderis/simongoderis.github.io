@@ -264,6 +264,25 @@ function dynamicWeather(data) {
     var daily_weather = dailyWeather(data);
     var hourly_weather = hourlyWeather(data);
     console.log(daily_weather);
+
+    // Creates list for weather data - can be used in graphs.
+    var listTempHigh = [], listTempLow = [], listWindSpeed = [], listPrecipProbability = [], listDayDDMM = [];
+    for (i = 0; i < daily_weather.length; i++) {
+        listTempHigh.push(daily_weather[i].temperatureHigh);
+        listTempLow.push(daily_weather[i].temperatureLow);
+        listWindSpeed.push(daily_weather[i].windSpeed);
+        listPrecipProbability.push(daily_weather[i].precipProbability);
+        listDayDDMM.push(daily_weather[i].dayDDMM);
+    }  
+    var test_var = {
+        "temperatureHigh": listTempHigh,
+        "temperatureLow": listTempLow,
+        "windSpeed": listWindSpeed,
+        "precipProbability": listPrecipProbability,
+        "dayDDMM": listDayDDMM
+    }
+    console.log(test_var);
+
     count_UnavHours = 0;
     var htmlDailyOverView = "";
     for (i = 0; i < daily_weather.length; i++) {

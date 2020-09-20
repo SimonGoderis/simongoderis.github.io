@@ -11,6 +11,7 @@ console.log("V4 - Update parameter in URL");
 
 var dataGlobal = [];
 var gDataGlobal = [];
+var graphArray = {};
 
 // Parameter uit URL halen. Zo kan je de locatie overschrijven met eigen locatie-gegevens.
 const queryURL = (new URLSearchParams(window.location.search)).get('q');
@@ -119,6 +120,7 @@ function googleCall() {
             console.log("ERROR (kalender): " + error);
             // Weer verwerken zonder kalender-data mee te nemen.
             dynamicWeather(dataGlobal);
+            graphF();
         },
         success: function (gData) {
             console.log(gLink);
@@ -135,6 +137,7 @@ function googleCall() {
             }
             // Weer verwerken.
             dynamicWeather(dataGlobal);
+            graphF();
         }
     });
 }
@@ -274,111 +277,13 @@ function dynamicWeather(data) {
         listPrecipProbability.push(daily_weather[i].precipProbability);
         listDayDDMM.push(daily_weather[i].dayDDMM);
     }  
-    var test_var = {
+    graphArray = {
         "temperatureHigh": listTempHigh,
         "temperatureLow": listTempLow,
         "windSpeed": listWindSpeed,
         "precipProbability": listPrecipProbability,
         "dayDDMM": listDayDDMM
     }
-    console.log(test_var);
-
-
-    // Creates chart
-		var lineChartData = {
-			labels: test_var.dayDDMM,
-			datasets: [{
-				label: 'Maximum Temperatuur (°C)',
-				borderColor: 'rgba(34, 139, 34, 1)',
-                backgroundColor: 'rgba(34, 139, 34, 0.2)',
-                borderWidth: 2,
-                fill: '-1',
-                pointRadius: 0, // Zorgt dat de punten niet zichtbaar zijn
-				data: test_var.temperatureHigh,
-				yAxisID: 'y-axis-1',
-			}, {
-				label: 'Minimum Temperatuur (°C)',
-				borderColor: 'rgba(0, 0, 0, 1)',
-                backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                borderWidth: 2,
-                fill: '-1',
-                pointRadius: 0, // Zorgt dat de punten niet zichtbaar zijn
-				data: test_var.temperatureLow,
-				yAxisID: 'y-axis-1',
-            }, {
-                type: 'bar',
-				label: 'Kans op regen (%)',
-                borderColor: 'rgba(0, 179, 255, 1)',
-                borderWidth: 1,
-				backgroundColor: 'rgba(0, 179, 255, 0.2)',
-				fill: false,
-				data: test_var.precipProbability,
-				yAxisID: 'y-axis-2'
-			}]
-		};
-
-		var ctx = document.getElementById('canvas').getContext('2d');
-			window.myLine = Chart.Line(ctx, {
-				data: lineChartData,
-				options: {
-                    legend: {
-                        position: 'bottom',
-                        onClick: ''
-                    },
-					responsive: true,
-					hoverMode: 'index',
-					stacked: false,
-					title: {
-						display: false,
-						text: 'Chart.js Line Chart - Multi Axis'
-					},
-					scales: {
-						yAxes: [{
-							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-							display: true,
-							position: 'left',
-                            id: 'y-axis-1',
-                            ticks: {
-                                // Include a dollar sign in the ticks
-                                callback: function(value, index, values) {
-                                    return value + ' °C';
-                                },
-                                fontSize: 12,
-                                max: Math.max.apply( Math, test_var.temperatureHigh ) + 2,
-                                min: Math.min.apply( Math, test_var.temperatureLow ) - 2
-                            }
-						}, {
-							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-							display: true,
-							position: 'right',
-							id: 'y-axis-2',
-                            ticks: {
-                                // Include a dollar sign in the ticks
-                                callback: function(value, index, values) {
-                                    return value + '%';
-                                },
-                                fontSize: 12
-                            },
-							// grid line settings
-							gridLines: {
-								drawOnChartArea: false, // only want the grid lines for one axis to show up
-							},
-						}],
-					}
-				}
-			});
-    
-        
-        // 
-        // 
-        // 
-
-        $("#graph").removeClass("hidden");
-
-
-
-
-
     count_UnavHours = 0;
     var htmlDailyOverView = "";
     for (i = 0; i < daily_weather.length; i++) {
@@ -546,5 +451,96 @@ function convTwoDig(i) {
     return ("0" + String(i)).slice(-2);
 }
 
+function graphF() {
+    // Creates chart
+		var lineChartData = {
+			labels: graphArray.dayDDMM,
+			datasets: [{
+				label: 'Maximum Temperatuur (°C)',
+				borderColor: 'rgba(34, 139, 34, 1)',
+                backgroundColor: 'rgba(34, 139, 34, 0.2)',
+                borderWidth: 2,
+                fill: '-1',
+                pointRadius: 0, // Zorgt dat de punten niet zichtbaar zijn
+				data: graphArray.temperatureHigh,
+				yAxisID: 'y-axis-1',
+			}, {
+				label: 'Minimum Temperatuur (°C)',
+				borderColor: 'rgba(0, 0, 0, 1)',
+                backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                borderWidth: 2,
+                fill: '-1',
+                pointRadius: 0, // Zorgt dat de punten niet zichtbaar zijn
+				data: graphArray.temperatureLow,
+				yAxisID: 'y-axis-1',
+            }, {
+                type: 'bar',
+				label: 'Kans op regen (%)',
+                borderColor: 'rgba(0, 179, 255, 1)',
+                borderWidth: 1,
+				backgroundColor: 'rgba(0, 179, 255, 0.2)',
+				fill: false,
+				data: graphArray.precipProbability,
+				yAxisID: 'y-axis-2'
+			}]
+		};
 
+		var ctx = document.getElementById('canvas').getContext('2d');
+			window.myLine = Chart.Line(ctx, {
+				data: lineChartData,
+				options: {
+                    legend: {
+                        position: 'bottom',
+                        onClick: ''
+                    },
+					responsive: true,
+					hoverMode: 'index',
+					stacked: false,
+					title: {
+						display: false,
+						text: 'Chart.js Line Chart - Multi Axis'
+					},
+					scales: {
+						yAxes: [{
+							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+							display: true,
+							position: 'left',
+                            id: 'y-axis-1',
+                            ticks: {
+                                // Include a dollar sign in the ticks
+                                callback: function(value, index, values) {
+                                    return value + ' °C';
+                                },
+                                fontSize: 12,
+                                max: Math.max.apply( Math, graphArray.temperatureHigh ) + 2,
+                                min: Math.min.apply( Math, graphArray.temperatureLow ) - 2
+                            }
+						}, {
+							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+							display: true,
+							position: 'right',
+							id: 'y-axis-2',
+                            ticks: {
+                                // Include a dollar sign in the ticks
+                                callback: function(value, index, values) {
+                                    return value + '%';
+                                },
+                                fontSize: 12
+                            },
+							// grid line settings
+							gridLines: {
+								drawOnChartArea: false, // only want the grid lines for one axis to show up
+							},
+						}],
+					}
+				}
+			});
+    
+        
+        // 
+        // 
+        // 
+
+        $("#graph").removeClass("hidden");
+}
 

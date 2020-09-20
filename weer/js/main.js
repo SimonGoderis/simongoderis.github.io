@@ -343,7 +343,9 @@ function dynamicWeather(data) {
                                 callback: function(value, index, values) {
                                     return value + ' °C';
                                 },
-                                fontSize: 12
+                                fontSize: 12,
+                                max: Math.max.apply( Math, test_var.temperatureHigh ) + 2,
+                                min: Math.min.apply( Math, test_var.temperatureLow ) - 2
                             }
 						}, {
 							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance

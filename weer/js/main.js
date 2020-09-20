@@ -283,6 +283,100 @@ function dynamicWeather(data) {
     }
     console.log(test_var);
 
+
+    // Creates chart
+		var lineChartData = {
+			labels: test_var.dayDDMM,
+			datasets: [{
+				label: 'Maximum Temperatuur (°C)',
+				borderColor: 'rgba(34, 139, 34, 1)',
+                backgroundColor: 'rgba(34, 139, 34, 0.2)',
+                borderWidth: 2,
+                fill: '-1',
+                pointRadius: 0, // Zorgt dat de punten niet zichtbaar zijn
+				data: test_var.temperatureHigh,
+				yAxisID: 'y-axis-1',
+			}, {
+				label: 'Minimum Temperatuur (°C)',
+				borderColor: 'rgba(0, 0, 0, 1)',
+                backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                borderWidth: 2,
+                fill: '-1',
+                pointRadius: 0, // Zorgt dat de punten niet zichtbaar zijn
+				data: test_var.temperatureLow,
+				yAxisID: 'y-axis-1',
+            }, {
+                type: 'bar',
+				label: 'Kans op regen (%)',
+                borderColor: 'rgba(0, 179, 255, 1)',
+                borderWidth: 1,
+				backgroundColor: 'rgba(0, 179, 255, 0.2)',
+				fill: false,
+				data: test_var.precipProbability,
+				yAxisID: 'y-axis-2'
+			}]
+		};
+
+		var ctx = document.getElementById('canvas').getContext('2d');
+			window.myLine = Chart.Line(ctx, {
+				data: lineChartData,
+				options: {
+                    legend: {
+                        position: 'bottom',
+                        onClick: ''
+                    },
+					responsive: true,
+					hoverMode: 'index',
+					stacked: false,
+					title: {
+						display: false,
+						text: 'Chart.js Line Chart - Multi Axis'
+					},
+					scales: {
+						yAxes: [{
+							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+							display: true,
+							position: 'left',
+                            id: 'y-axis-1',
+                            ticks: {
+                                // Include a dollar sign in the ticks
+                                callback: function(value, index, values) {
+                                    return value + ' °C';
+                                },
+                                fontSize: 12
+                            }
+						}, {
+							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+							display: true,
+							position: 'right',
+							id: 'y-axis-2',
+                            ticks: {
+                                // Include a dollar sign in the ticks
+                                callback: function(value, index, values) {
+                                    return value + '%';
+                                },
+                                fontSize: 12
+                            },
+							// grid line settings
+							gridLines: {
+								drawOnChartArea: false, // only want the grid lines for one axis to show up
+							},
+						}],
+					}
+				}
+			});
+    
+        
+        // 
+        // 
+        // 
+
+        $("#graph").removeClass("hidden");
+
+
+
+
+
     count_UnavHours = 0;
     var htmlDailyOverView = "";
     for (i = 0; i < daily_weather.length; i++) {
@@ -417,6 +511,8 @@ function showModal() {
     $("#dynamicWeather").addClass("hidden");
     $("#fixedbutton").addClass("hidden");
     $("#dailyOverview").addClass("hidden");
+    $("#graph").addClass("hidden");
+    
 }
 
 function closeModal() {
@@ -425,6 +521,7 @@ function closeModal() {
     $("#dynamicWeather").removeClass("hidden");
     $("#fixedbutton").removeClass("hidden");
     $("#dailyOverview").removeClass("hidden");
+    $("#graph").removeClass("hidden");
 }
 
 function resetSettings() {

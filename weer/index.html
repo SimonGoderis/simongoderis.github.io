@@ -10,9 +10,12 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/weather-icons.min.css">
+
+    <script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
 </head>
 
 <body>
+
     <div id="modal" class="modal hidden">
 
         <div class="modalcontent">
@@ -123,6 +126,12 @@
     <div id="dailyOverview" class="row text-center">
 
     </div>
+    <div class="card-graph bg-white hidden" id="graph">
+        <br>
+        <canvas id="canvas" style="display: block; height: 239px; width: 479px;padding:10px" width="958" height="478" class="chartjs-render-monitor"></canvas>
+
+    </div>
+    
 
     <div id="dynamicWeather"></div>
 

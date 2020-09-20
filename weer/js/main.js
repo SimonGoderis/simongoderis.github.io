@@ -264,6 +264,7 @@ function addDays(date, days) {
 
 function dynamicWeather(data) {
     $("#dynamicWeather").html("");
+    $("#dailyOverview").html("");
     var daily_weather = dailyWeather(data);
     var hourly_weather = hourlyWeather(data);
     console.log(daily_weather);

@@ -14,9 +14,8 @@ url:              http://hyde.getpoole.com
 baseurl:          /
 
 author:
-  name:           'Mark Otto'
-  url:            https://twitter.com/mdo
-
+  name:           'Test'
+  url:            https://google.com
 paginate:         5
 
 # Custom vars

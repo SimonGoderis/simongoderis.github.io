@@ -526,7 +526,9 @@ function graphF() {
                                 callback: function(value, index, values) {
                                     return value + '%';
                                 },
-                                fontSize: 12
+                                fontSize: 12,
+                                min: 0,
+                                max: 100
                             },
 							// grid line settings
 							gridLines: {

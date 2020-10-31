@@ -163,8 +163,9 @@
         // Toont skype link als deze ingevuld is in het excel-bestand. 
 
         if (data[2]['Toon Links'] != '') {
-            $("#skype").prop("href", "");
-            $("#skype").prop("href", data[2]['Toon links']);
+            $('#skype').each(function() {
+                this.href = data[2]['Toon links'];
+            })
             $("#skype").removeClass('skype');
         } else {
             $("#skype").addClass('skype');

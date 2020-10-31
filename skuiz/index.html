@@ -201,7 +201,7 @@
 
 
 // Halloween 
-    if (Math.floor(Math.random() * 2) === 1)  {
+    if (Math.floor(Math.random() * 11) === 1)  {
         halloween();        
         console.log("BOO!");
     }  
@@ -211,6 +211,8 @@
 
         var ghost = document.getElementsByClassName("ghost-container")[0];
         var sound = document.getElementById('audio');
+
+        var audio = new Audio('halloween/file.wav');
 
       //Shows ghost and plays sound after five seconds
       setTimeout(function () {

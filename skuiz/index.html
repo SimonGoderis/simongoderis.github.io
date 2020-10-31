@@ -112,7 +112,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Skype</h5>
                         <p class="card-text">Via de link hieronder krijg je rechtstreeks toegang tot de skype-call!</p>
-                        <a href="https://join.skype.com/n3Mw4tRrDb9X" class="btn btn-outline-dark skype" target="_blank"
+                        <a href="" class="btn btn-outline-dark skype" target="_blank"
                             id="skype">Meedoen!</a>
                     </div>
                 </div>
@@ -163,6 +163,7 @@
         // Toont skype link als deze ingevuld is in het excel-bestand. 
 
         if (data[2]['Toon Links'] != '') {
+            $("#skype").prop("href", "");
             $("#skype").prop("href", data[2]['Toon links']);
             $("#skype").removeClass('skype');
         } else {

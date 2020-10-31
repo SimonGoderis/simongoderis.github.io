@@ -168,6 +168,7 @@ function googleData(gData) {
 
 
 function dailyWeather(data) {
+    console.log(data);
     var daily_weather = [];
     for (i = 0; i < data.daily.data.length; i++) {
         var obj = data.daily.data[i];
@@ -285,6 +286,7 @@ function dynamicWeather(data) {
         "precipProbability": listPrecipProbability,
         "dayDDMM": listDayDDMM
     }
+    console.log(graphArray);
     count_UnavHours = 0;
     var htmlDailyOverView = "";
     for (i = 0; i < daily_weather.length; i++) {

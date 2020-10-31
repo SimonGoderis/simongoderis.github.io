@@ -201,7 +201,7 @@
 
 
 // Halloween 
-    if (Math.floor(Math.random() * 11) === 1)  {
+    if (Math.floor(Math.random() * 8) === 1)  {
         halloween();        
         console.log("BOO!");
     }  
@@ -222,12 +222,12 @@
         sound.muted = false;
         sound.play();
         ghost.style.visibility = "visible";
-      }, 3000);
+      }, 2000);
 
       //Hides ghost one second after appears
       setTimeout(function () {
         ghost.style.visibility = "hidden";
-      }, 4000);
+      }, 3000);
 
     }
     

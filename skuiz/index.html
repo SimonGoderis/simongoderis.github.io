@@ -35,6 +35,15 @@
 </head>
 
 <body>
+
+     <!-- Halloween -->
+     <div class="ghost-container">
+        <img class=ghost src="halloween/scary.png" alt="A picture of a scary ghost!">
+        <audio muted id="audio" src="halloween/file.wav"></audio>
+      </div>
+    <!--  -->
+
+
     <nav class="navbar navbar-primary bg-primary">
         <div class="row">
             <div class="col-lg-3"></div>
@@ -47,6 +56,9 @@
         </div>
     </nav>
     <div class="container-fluid">
+
+       
+
         <div class="row">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
@@ -121,6 +133,7 @@
         </div>
         <div class="mt-2"></div>
     </div>
+
 </body>
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
@@ -184,6 +197,35 @@
         }, 1000)
 
     window.addEventListener('DOMContentLoaded', init)
+
+
+
+// Halloween 
+    if (Math.floor(Math.random() * 20) === 1)  {
+        halloween();        
+        console.log("BOO!");
+    }  
+
+
+    function halloween() {
+
+        var ghost = document.getElementsByClassName("ghost-container")[0];
+        var sound = document.getElementById('audio');
+
+      //Shows ghost and plays sound after five seconds
+      setTimeout(function () {
+        sound.muted = false;
+        sound.play();
+        ghost.style.visibility = "visible";
+      }, 3000);
+
+      //Hides ghost one second after appears
+      setTimeout(function () {
+        ghost.style.visibility = "hidden";
+      }, 4000);
+
+    }
+    
 </script>
 
 </html>

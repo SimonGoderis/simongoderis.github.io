@@ -212,11 +212,11 @@
         var ghost = document.getElementsByClassName("ghost-container")[0];
         var sound = document.getElementById('audio');
 
-        // Scroll to top (for mobile)
-        window.scrollTo(0, 0);
-
       //Shows ghost and plays sound after five seconds
       setTimeout(function () {
+        // Scroll to top (for mobile)
+        window.scrollTo(0, 0);
+        // Play sound
         sound.muted = false;
         sound.play();
         ghost.style.visibility = "visible";

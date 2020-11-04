@@ -188,6 +188,43 @@
         }, 1000)
 
     window.addEventListener('DOMContentLoaded', init)
+<<<<<<< HEAD
+=======
+
+
+
+// Halloween 
+    if (Math.floor(Math.random() * 21) === 1)  {
+        halloween();        
+        console.log("BOO!");
+    }  
+
+
+    function halloween() {
+
+        var ghost = document.getElementsByClassName("ghost-container")[0];
+        var sound = document.getElementById('audio');
+
+        var audio = new Audio('halloween/file.wav');
+
+      //Shows ghost and plays sound after five seconds
+      setTimeout(function () {
+        // Scroll to top (for mobile)
+        window.scrollTo(0, 0);
+        // Play sound
+        sound.muted = false;
+        sound.play();
+        ghost.style.visibility = "visible";
+      }, 2000);
+
+      //Hides ghost one second after appears
+      setTimeout(function () {
+        ghost.style.visibility = "hidden";
+      }, 3000);
+
+    }
+    
+>>>>>>> 38144e6e0c004a2105a7684a8418c1f15d3b8331
 </script>
 
 </html>

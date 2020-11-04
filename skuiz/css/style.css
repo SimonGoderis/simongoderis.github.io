@@ -32,32 +32,3 @@
     display: none;
 }
 
-/* HALLOWEEN */
-.ghost-container {
-    /* width: 100%;
-    position: absolute;
-    text-align: center;
-    visibility: hidden;
-    background-color: black; */
-    position: absolute; /* Sit on top of the page content */
-    visibility: hidden;
-    width: 100%; /* Full width (cover the whole page) */
-    height: 100%; /* Full height (cover the whole page) */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    text-align: center;
-    background-color: rgba(0,0,0); /* Black background with opacity */
-    z-index: 100; /* Specify a stack order in case you're using a different order for other elements */
-  }
-
-  .ghost {
-    z-index: 10;
-    display: block;
-    width: 550px;
-    max-width: 60vw;
-    top: 20%;
-    position: relative;
-    margin: auto;
-  }

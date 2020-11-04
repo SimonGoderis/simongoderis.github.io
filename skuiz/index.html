@@ -35,15 +35,6 @@
 </head>
 
 <body>
-
-     <!-- Halloween -->
-     <div class="ghost-container">
-        <img class=ghost src="halloween/scary.png" alt="A picture of a scary ghost!">
-        <audio muted id="audio" src="halloween/file.wav"></audio>
-      </div>
-    <!--  -->
-
-
     <nav class="navbar navbar-primary bg-primary">
         <div class="row">
             <div class="col-lg-3"></div>
@@ -197,40 +188,6 @@
         }, 1000)
 
     window.addEventListener('DOMContentLoaded', init)
-
-
-
-// Halloween 
-    if (Math.floor(Math.random() * 11) === 1)  {
-        halloween();        
-        console.log("BOO!");
-    }  
-
-
-    function halloween() {
-
-        var ghost = document.getElementsByClassName("ghost-container")[0];
-        var sound = document.getElementById('audio');
-
-        var audio = new Audio('halloween/file.wav');
-
-      //Shows ghost and plays sound after five seconds
-      setTimeout(function () {
-        // Scroll to top (for mobile)
-        window.scrollTo(0, 0);
-        // Play sound
-        sound.muted = false;
-        sound.play();
-        ghost.style.visibility = "visible";
-      }, 2000);
-
-      //Hides ghost one second after appears
-      setTimeout(function () {
-        ghost.style.visibility = "hidden";
-      }, 3000);
-
-    }
-    
 </script>
 
 </html>

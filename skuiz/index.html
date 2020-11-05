@@ -160,15 +160,13 @@
 </body>
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
 
 <script type='text/javascript'>
-    // var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1oFHAUBxUSEpRxUcdiMr2SW9hnz7jDXEN1lFC40hKpVo/edit?usp=sharing';
-
-    var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1iY4_5x5qrBYhiFKEBD_Z7KDAlCznw_aFW3JXGVx73RY/edit?usp=sharing';
 
     function init() {
         Tabletop.init({
-            key: publicSpreadsheetUrl,
+            key: CryptoJS.AES.decrypt("U2FsdGVkX1/+fmL4DvExPevnj89ddBWim+eBZuQbh/jxuP1QH94spp+FvrUDDZPPbgc/ASGY2LYhdCVr3DHGH3pdb+8tsiMzm1DIFNqA6w9EKxgc4gb3m7ZiwhDhz7hMrFFQQjFrckvrygSGiVdcYr3B1iYrktOrYyvx+YPkQtc=", "Skuiz").toString(CryptoJS.enc.Utf8),
             callback: showInfo,
             simpleSheet: true
         })

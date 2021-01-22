@@ -104,11 +104,16 @@ function initWeather(loc) {
 }
 
 function googleCall() {
-    var gKey = "AIzaSyAndY1rKqHrRyuntZK9XoiDFKoGWV9M6OI",
+    var gKey = "AIzaSyDhrucaqj4oe1F2R3FX3qzaqZCRc5E-8r4",
     gCal = $('#gCal').val(),
     gStart = (new Date()).toISOString(),
     gEnd = (addDays(gStart, 14)).toISOString(),
-    gLink = encodeURI("https://www.googleapis.com/calendar/v3/calendars/" + gCal + "%40group.calendar.google.com/events?singleEvents=true&orderBy=startTime&key=" + gKey + "&timeMin=" + gStart + "&timeMax=" + gEnd);
+
+    // https://www.googleapis.com/calendar/v3/calendars/t40j1bq9h92ao45fnsmoc0s364@group.calendar.google.com/events?key=
+
+    // gLink = encodeURI("https://www.googleapis.com/calendar/v3/calendars/" + gCal + "%40group.calendar.google.com/events?singleEvents=true&orderBy=startTime&key=" + gKey + "&timeMin=" + gStart + "&timeMax=" + gEnd);
+    gLink = encodeURI("https://www.googleapis.com/calendar/v3/calendars/" + gCal + "%40group.calendar.google.com/events?key=" + gKey);
+    
     $.ajax({
         url: gLink,
         dataType: 'JSONP', // JSONP bij normale weerurl

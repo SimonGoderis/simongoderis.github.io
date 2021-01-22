@@ -445,6 +445,10 @@ th:nth-child(3) {
     .modalcontent {
         margin: 1vh 5px 5px 5px;
     }
+
+    .dailySun {
+        display: none!important
+    }
 }
 
 

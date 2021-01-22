@@ -185,7 +185,9 @@ function dailyWeather(data) {
             'temperatureLow': Math.round(obj.temperatureLow),
             'temperatureHigh': Math.round(obj.temperatureHigh),
             'precipProbability': Math.round(obj.precipProbability * 100),
-            'windSpeed': Math.round(obj.windSpeed)
+            'windSpeed': Math.round(obj.windSpeed),
+            'sunriseTime': (new Date(obj.sunriseTime * 1000)).getHours() + ':' + (new Date(obj.sunriseTime * 1000)).getMinutes(),
+            'sunsetTime': (new Date(obj.sunsetTime * 1000)).getHours() + ':' + (new Date(obj.sunsetTime * 1000)).getMinutes()
         });
     }
     return daily_weather;
@@ -297,7 +299,7 @@ function dynamicWeather(data) {
     for (i = 0; i < daily_weather.length; i++) {
         var icoWeather = iconWeather(daily_weather[i].icon);
         var htmlText = "";
-        htmlText += "<div id='card" + i + "' class='card bg-blue' onclick='clicked(" + i + ");'><div class='card-body'><div class='row mb-2'><div class='col-6'><heading>" + daily_weather[i].dayOfWeek + "</heading><subtitle>" + daily_weather[i].dayDDMM + "</subtitle></div><div class='col-6'><i class='wi wi-big wi-" + icoWeather + "'></i></div></div><h4>" + daily_weather[i].summary + "</h4><div class='progress' id='weerprogress" + i + "'>";
+        htmlText += "<div id='card" + i + "' class='card bg-blue' onclick='clicked(" + i + ");'><div class='card-body'><div class='row mb-2'><div class='col-6'><heading>" + daily_weather[i].dayOfWeek + "</heading><subtitle>" + daily_weather[i].dayDDMM + "</subtitle><br><small><i class='wi wi-sunrise'></i> " + daily_weather[i].sunriseTime + "  →  <i class='wi wi-sunset'></i> " + daily_weather[i].sunsetTime + "</small></div><div class='col-6'><i class='wi wi-big wi-" + icoWeather + "'></i></div></div><h4>" + daily_weather[i].summary + "</h4><div class='progress' id='weerprogress" + i + "'>";
 
         if (i == 0) {
             for (x = 0; x < 24; x++) {
@@ -373,7 +375,7 @@ function dynamicWeather(data) {
 
         htmlDailyWidth = 100/daily_weather.length;
         htmlDailyOverView += "<div class='card bg-dark' style='position:relative; width:" + htmlDailyWidth + "%; max-width:" + htmlDailyWidth + ";flex-basis:" + htmlDailyWidth + "'>";
-        htmlDailyOverView += daily_weather[i].dayOfWeek.slice(0,2).toUpperCase() + "<br>" + daily_weather[i].dayDDMM + "<i class='wi wi-ico wi-" + icoWeather + "'></i><small><hr><span><i class='wi wi-thermometer-exterior'></i> " + daily_weather[i].temperatureLow + "</span><br><span><i class='wi wi-thermometer'></i> " + daily_weather[i].temperatureHigh+ "</span><br><span><i class='wi wi-umbrella'></i> " + daily_weather[i].precipProbability+ "</span><br><span><i class='wi wi-strong-wind'></i> " + daily_weather[i].windSpeed;
+        htmlDailyOverView += daily_weather[i].dayOfWeek.slice(0,2).toUpperCase() + "<br>" + daily_weather[i].dayDDMM + "<i class='wi wi-ico wi-" + icoWeather + "'></i><small><hr><span><i class='wi wi-thermometer-exterior'></i> " + daily_weather[i].temperatureLow + "</span><br><span><i class='wi wi-thermometer'></i> " + daily_weather[i].temperatureHigh+ "</span><br><span><i class='wi wi-umbrella'></i> " + daily_weather[i].precipProbability+ "</span><br><span><i class='wi wi-strong-wind'></i> " + daily_weather[i].windSpeed + "</span><hr><span><i class='wi wi-sunrise'></i> " + daily_weather[i].sunriseTime + "</span><br><span><i class='wi wi-sunset'></i> " + daily_weather[i].sunsetTime ;
         htmlDailyOverView += "</span></small></div>";
     }
     $("#dailyOverview").append(htmlDailyOverView);

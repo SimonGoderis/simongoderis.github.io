@@ -112,7 +112,7 @@ function googleCall() {
     // https://www.googleapis.com/calendar/v3/calendars/t40j1bq9h92ao45fnsmoc0s364@group.calendar.google.com/events?key=
 
     // gLink = encodeURI("https://www.googleapis.com/calendar/v3/calendars/" + gCal + "%40group.calendar.google.com/events?singleEvents=true&orderBy=startTime&key=" + gKey + "&timeMin=" + gStart + "&timeMax=" + gEnd);
-    gLink = encodeURI("https://www.googleapis.com/calendar/v3/calendars/" + gCal + "%40group.calendar.google.com/events?key=" + gKey);
+    gLink = encodeURI("https://www.googleapis.com/calendar/v3/calendars/" + gCal + "@group.calendar.google.com/events?key=" + gKey);
     
     $.ajax({
         url: gLink,

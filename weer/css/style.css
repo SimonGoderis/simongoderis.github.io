@@ -2,7 +2,7 @@
     font-family: 'DIN Alternate Bold';
     font-style: normal;
     font-weight: normal;
-    src: local('DIN Alternate Bold'), url('/font/DINAlternate-Bold.woff') format('woff');
+    src: local('DIN Alternate Bold'), url('font/DINAlternate-Bold.woff') format('woff');
 }
 
 .text-center {

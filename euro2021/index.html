@@ -16,6 +16,13 @@
 </head>
 <body>
 
+    <div id="spinner" class="container text-center">
+        <div class="spinner-border mt-5 text-dark" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    
+
     <br>
 
     <div class="container visually-hidden" id="app">
@@ -89,6 +96,7 @@
             }
         }
         })
+        document.getElementById("spinner").classList.add("visually-hidden")
         document.getElementById("app").classList.remove("visually-hidden")
     }
     

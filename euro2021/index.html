@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/flags/css/flag-icon.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src='js/papa.js'></script>
+    <script type="text/javascript" src='js/moment.js'></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+</head>
+<body>
+
+    <br>
+
+    <div class="container visually-hidden" id="app">
+        <div class="row">
+            <div class="col-md-2 col-lg-3"></div>
+            <div class="col-md-8 col-lg-6">
+                <div v-for="da in data">
+                    <div class="bg-light rounded p-3 mb-2 scorecard">
+                        <span v-if="formatYYYYMMDD(da.dateTime) > formatYYYYMMDD(Date.now())"></span>
+                        <div class="text-center mb-2">
+                            <span v-if="da.stage === 'FINAL'" class="badge bg-warning">{{da.title}}</span>
+                            <span v-else class="badge bg-secondary text-white">{{da.title}}</span>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-4 text-start text-wrap">
+                                <span class="flag-icon f-2x flag-icon-square text-xl mb-2" :class="'flag-icon-'+da.flagHome"></span><br>
+                                <p class="lh-1 small">{{da.homeTeam}}</p>
+                            </div>
+                            <div class="col-4 text-center p-0">
+                                <h2 class="mb-2"><span class="badge bg-success">{{da.score_total_home == null ? 0 : (da.score_total_home[1] || 0)}}</span> - <span class="badge bg-danger">{{da.score_total_away == null ? 0 : (da.score_total_away[1] || 0)}}</span></h2>
+                                <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} - {{formatTime(da.dateTime)}}</span>
+                            </div>
+                            <div class="col-4 text-end text-wrap">
+                                <span class="flag-icon f-2x flag-icon-square text-xl mb-2" :class="'flag-icon-'+da.flagAway"></span><br>
+                                <p class="lh-1 small">{{da.awayTeam}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-lg-3"></div>
+        </div>
+    </div>
+       
+
+    
+</body>
+
+<script>
+    var link = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTowErCeF3spB93eqdgPniVPsxHLaUn4VQdvEKQTLt9_RP6DIWuE9AkS2sBam7Diqdg5cjlpKuiIPmj/pub?gid=2116746882&single=true&output=csv'
+    var obj;
+
+    function init() {
+          Papa.parse(link, 
+          {
+          download: true,
+          header: true,
+          complete: function(results) {
+            var data = results.data
+            vueApp(data)
+            console.log(data)
+          }
+        })}
+    window.addEventListener('DOMContentLoaded', init)
+
+    function vueApp(data) {
+        var app = new Vue({
+        el: '#app',
+        data: {
+            data: data
+        },
+        methods: {
+            formatDate(date) {
+                return moment(date).format("DD/MM")
+            },
+            formatTime(time) {
+                return moment(time).format("HH:mm")
+            },
+            formatYYYYMMDD(date) {
+                return moment(date).format("YYYYMMDD")
+            }
+        }
+        })
+        document.getElementById("app").classList.remove("visually-hidden")
+    }
+    
+</script>
+</html>

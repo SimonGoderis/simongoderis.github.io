@@ -27,6 +27,7 @@
 
     <div class="container visually-hidden" id="app">
         <p class='text-center' v-if='player != null'>Hallo, {{player}}!</p>
+        <p class='text-center' v-if='player === null'>Soon..</p>
         <div class="row">
             <div class="col-md-2 col-lg-3"></div>
             <div class="col-md-8 col-lg-6">
@@ -43,7 +44,7 @@
                                 <p class="lh-1 small">{{da.homeTeam}}</p>
                             </div>
                             <div class="col-4 text-center p-0">
-                                <h2 class="mb-2"><span class="badge bg-primary">{{da.score_total_home == null ? 0 : (da.score_total_home[1] || 0)}}</span> - <span class="badge bg-primary">{{da.score_total_away == null ? 0 : (da.score_total_away[1] || 0)}}</span></h2>
+                                <h2 class="mb-2"><span class="badge bg-primary">{{da.score_total_home == null ? 0 : (da.score_total_home[1] || '...')}}</span> - <span class="badge bg-primary">{{da.score_total_away == null ? 0 : (da.score_total_away[1] || '...')}}</span></h2>
                                 <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} - {{formatTime(da.dateTime)}}</span>
                             </div>
                             <div class="col-4 text-end text-wrap">

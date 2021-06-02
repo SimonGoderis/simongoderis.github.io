@@ -35,7 +35,7 @@
                     <div class="bg-light rounded p-3 mb-2 scorecard">
                         <span v-if="formatYYYYMMDD(da.dateTime) > formatYYYYMMDD(Date.now())"></span>
                         <div class="text-center mb-2">
-                            <span v-if="da.stage === 'FINAL'" class="badge bg-warning">{{da.title}}</span>
+                            <span v-if="da.stage === 'FINAL'" class="badge bg-warning text-dark">{{da.title}}</span>
                             <span v-else class="badge bg-secondary text-white">{{da.title}}</span>
                         </div>
                         <div class="row align-items-center">

@@ -26,6 +26,7 @@
     <br>
 
     <div class="container visually-hidden" id="app">
+        <p class='text-center' v-if='player != null'>Hallo, {{player}}!</p>
         <div class="row">
             <div class="col-md-2 col-lg-3"></div>
             <div class="col-md-8 col-lg-6">
@@ -78,11 +79,21 @@
         })}
     window.addEventListener('DOMContentLoaded', init)
 
+
+    // Haalt speler ID op als dit in de link meegegeven is. Ik zou het zo doen dat je enkel dan kan meespelen. 
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const player = urlParams.get('id')
+    // Moet nog ingesteld worden dat dit opgeslagen wordt via service worker. 
+    // Zal gebruikt worden om de eigen score te zien + makkelijker in te vullen in de Google Forms.
+
+
     function vueApp(data) {
         var app = new Vue({
         el: '#app',
         data: {
-            data: data
+            data: data,
+            player: player
         },
         methods: {
             formatDate(date) {
@@ -99,6 +110,8 @@
         document.getElementById("spinner").classList.add("visually-hidden")
         document.getElementById("app").classList.remove("visually-hidden")
     }
+
+    
     
 </script>
 </html>

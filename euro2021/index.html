@@ -21,7 +21,7 @@
 
     <div id="spinner" class="container text-center">
         <div class="spinner-border mt-5 text-dark" role="status">
-            <span class="visually-hidden">Om mee te doen met de pronostieken heb je een persoonlijke link nodig.</span>
+            <span class="visually-hidden">Loading...</span>
         </div>
     </div>
     
@@ -29,11 +29,11 @@
     <br>
 
     <div class="container visually-hidden" id="app">
-        <p class='text-center' v-if='player != null'>Hallo, {{player.substring(4, 99)}}!</p>
-        <p class='text-center' v-if='player === null'>Soon..</p>
         <div class="row">
             <div class="col-md-2 col-lg-3"></div>
             <div class="col-md-8 col-lg-6">
+                <p class='text-center' v-if='player != null'>Hallo, {{player.substring(4, 99)}}!</p>
+                <p class='text-center alert alert-warning' v-if='player === null'>Om mee te doen met de pronostieken heb je een persoonlijke link nodig.</p>
                 <div v-for="da in data">
                     <div class="bg-light card rounded p-3 mb-2 scorecard">
                         <span v-if="formatYYYYMMDD(da.dateTime) > formatYYYYMMDD(Date.now())"></span>

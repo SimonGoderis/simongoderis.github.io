@@ -50,7 +50,7 @@
                             </div>
                             <div class="score col-4 text-center ps-0 pe-0">
                                 <span v-if='player != null'>
-                                    <a v-if='da.link != null' href="#" @click="updateModal(da.link + player)">
+                                    <a v-if='da.link != null' :href="da.link + player">
                                             <h2 class="mb-2"><span class="badge bg-primary p-2">{{da.score_total_home == null ? 0 : (da.score_total_home[1] || '...')}}</span><span class="small"> - </span><span class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away[1] || '...')}}</span></h2>
                                             <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} - {{formatTime(da.dateTime)}}</span>
                                     </a>
@@ -73,9 +73,6 @@
             <div class="col-md-2 col-lg-3"></div>
         </div>
     </div>
-<!-- 
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeRHDU15JAOQcsTXmsv6_TIo82enJtaCiPF_49_tCE-vCcoiA/viewform?entry.705038249=Test&embedded=true" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">Laden…</iframe>
-     -->
 
 
      <!-- MODAL -->
@@ -83,7 +80,7 @@
         <div class="modal-dialog modal-fullscreen">
            <div class="modal-content">
              <div class="modal-header">
-               <h5 class="modal-title">Invulformulier</h5>
+               <h5 class="modal-title">Extra info</h5>
                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick="hideModal()"></button>
              </div>
              <div class="modal-body ps-0 pe-0">
@@ -160,8 +157,7 @@
         document.getElementById("app").classList.remove("visually-hidden")
     }
 
-    function updateModal(link) {
-        document.getElementById('gameModalIframe').src = link + "&embedded=true"
+    function showModal() {
         document.getElementById('gameModal').style.display = "block";
         document.getElementById("gameModalIframe").classList.remove("visually-hidden")
     }

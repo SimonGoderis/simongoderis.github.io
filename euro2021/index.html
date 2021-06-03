@@ -7,10 +7,13 @@
     <title>Document</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+   
+
     <link rel="stylesheet" href="css/flags/css/flag-icon.min.css">
     <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src='js/papa.js'></script>
     <script type="text/javascript" src='js/moment.js'></script>
+    <script type="text/javascript" src='js/main.js'></script>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
 </head>
@@ -18,7 +21,7 @@
 
     <div id="spinner" class="container text-center">
         <div class="spinner-border mt-5 text-dark" role="status">
-            <span class="visually-hidden">Loading...</span>
+            <span class="visually-hidden">Om mee te doen met de pronostieken heb je een persoonlijke link nodig.</span>
         </div>
     </div>
     
@@ -26,44 +29,94 @@
     <br>
 
     <div class="container visually-hidden" id="app">
-        <p class='text-center' v-if='player != null'>Hallo, {{player}}!</p>
+        <p class='text-center' v-if='player != null'>Hallo, {{player.substring(4, 99)}}!</p>
         <p class='text-center' v-if='player === null'>Soon..</p>
         <div class="row">
             <div class="col-md-2 col-lg-3"></div>
             <div class="col-md-8 col-lg-6">
                 <div v-for="da in data">
-                    <div class="bg-light rounded p-3 mb-2 scorecard">
+                    <div class="bg-light card rounded p-3 mb-2 scorecard">
                         <span v-if="formatYYYYMMDD(da.dateTime) > formatYYYYMMDD(Date.now())"></span>
                         <div class="text-center mb-2">
                             <span v-if="da.stage === 'FINAL'" class="badge bg-warning text-dark">{{da.title}}</span>
                             <span v-else class="badge bg-secondary text-white">{{da.title}}</span>
                         </div>
                         <div class="row align-items-center">
-                            <div class="col-4 text-start text-wrap">
+                            <div class="col-4 text-start text-wrap pe-0">
                                 <span class="flag-icon f-2x flag-icon-square text-xl mb-2" :class="'flag-icon-'+da.flagHome"></span><br>
                                 <p class="lh-1 small">{{da.homeTeam}}</p>
                             </div>
-                            <div class="col-4 text-center p-0">
-                                <h2 class="mb-2"><span class="badge bg-primary">{{da.score_total_home == null ? 0 : (da.score_total_home[1] || '...')}}</span> - <span class="badge bg-primary">{{da.score_total_away == null ? 0 : (da.score_total_away[1] || '...')}}</span></h2>
-                                <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} - {{formatTime(da.dateTime)}}</span>
+                            <div class="score col-4 text-center ps-0 pe-0">
+                                <span v-if='player != null'>
+                                    <a v-if='da.link != null' href="#" @click="updateModal(da.link + player)">
+                                            <h2 class="mb-2"><span class="badge bg-primary p-2">{{da.score_total_home == null ? 0 : (da.score_total_home[1] || '...')}}</span><span class="small"> - </span><span class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away[1] || '...')}}</span></h2>
+                                            <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} - {{formatTime(da.dateTime)}}</span>
+                                    </a>
+                                </span>
+                                
+                                <span v-else>
+                                    <h2 class="mb-2"><span class="badge bg-primary p-2">{{da.score_total_home == null ? 0 : (da.score_total_home[1] || '...')}}</span><span class="small"> - </span><span class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away[1] || '...')}}</span></h2>
+                                    <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} - {{formatTime(da.dateTime)}}</span>
+                                </span>
                             </div>
-                            <div class="col-4 text-end text-wrap">
+                            <div class="col-4 text-end text-wrap ps-0">
                                 <span class="flag-icon f-2x flag-icon-square text-xl mb-2" :class="'flag-icon-'+da.flagAway"></span><br>
                                 <p class="lh-1 small">{{da.awayTeam}}</p>
                             </div>
                         </div>
                     </div>
+          
                 </div>
             </div>
             <div class="col-md-2 col-lg-3"></div>
         </div>
     </div>
-       
+<!-- 
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeRHDU15JAOQcsTXmsv6_TIo82enJtaCiPF_49_tCE-vCcoiA/viewform?entry.705038249=Test&embedded=true" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">Laden…</iframe>
+     -->
 
-    
+
+     <!-- MODAL -->
+     <div class="modal" id="gameModal" tabindex="-1" aria-labelledby="gameModalLabel">
+        <div class="modal-dialog modal-fullscreen">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title">Invulformulier</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick="hideModal()"></button>
+             </div>
+             <div class="modal-body ps-0 pe-0">
+                <iframe class="visually-hidden" id="gameModalIframe" src="" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">Laden…</iframe>
+             </div>
+           </div>
+        </div>
+     </div>
+
+
 </body>
 
 <script>
+
+
+
+    // Haalt speler ID op als dit in de link meegegeven is. Enkel zo kan je effectief meespelen. 
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    var player = urlParams.get('id')
+    // Moet nog ingesteld worden dat dit opgeslagen wordt via service worker. 
+    // Zal gebruikt worden om de eigen score te zien + makkelijker in te vullen in de Google Forms.
+    // Op basis van local storage
+    var ls_player = localStorage.getItem('player_id') 
+    if (player != null && ls_player == null) {
+        // Als er nog niks in de localstorage opgeslaan is.
+        localStorage.setItem('player_id', player);
+        console.log("New")
+    } else if (ls_player != null && player != ls_player && player != null) {
+        localStorage.setItem('player_id', player);
+        console.log("Changed")
+    }
+
+    player = localStorage.getItem('player_id')
+
     var link = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTowErCeF3spB93eqdgPniVPsxHLaUn4VQdvEKQTLt9_RP6DIWuE9AkS2sBam7Diqdg5cjlpKuiIPmj/pub?gid=2116746882&single=true&output=csv'
     var obj;
 
@@ -80,13 +133,6 @@
         })}
     window.addEventListener('DOMContentLoaded', init)
 
-
-    // Haalt speler ID op als dit in de link meegegeven is. Ik zou het zo doen dat je enkel dan kan meespelen. 
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const player = urlParams.get('id')
-    // Moet nog ingesteld worden dat dit opgeslagen wordt via service worker. 
-    // Zal gebruikt worden om de eigen score te zien + makkelijker in te vullen in de Google Forms.
 
 
     function vueApp(data) {
@@ -112,7 +158,19 @@
         document.getElementById("app").classList.remove("visually-hidden")
     }
 
+    function updateModal(link) {
+        document.getElementById('gameModalIframe').src = link + "&embedded=true"
+        document.getElementById('gameModal').style.display = "block";
+        document.getElementById("gameModalIframe").classList.remove("visually-hidden")
+    }
+
+    function hideModal() {
+        document.getElementById('gameModal').style.display = "none";
+        document.getElementById("gameModalIframe").classList.add("visually-hidden")
+    }
     
     
 </script>
+
+<script src="js/bootstrap.bundle.min.js"></script>
 </html>

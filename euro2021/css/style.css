@@ -2,3 +2,13 @@
     height: 4rem;
     width: 4rem;
 }
+
+.score a {
+    color: #212529;
+    text-decoration: none;
+}
+
+.score a:hover {
+    color: #212529;
+    text-decoration: none;
+}

@@ -18,6 +18,7 @@
     <script type="text/javascript" src='js/papa.js'></script>
     <script type="text/javascript" src='js/moment.js'></script>
     <script type="text/javascript" src='js/main.js'></script>
+
     <script src="js/bs/bootstrap.bundle.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
@@ -25,7 +26,7 @@
 
 <body>
 
-    <div id="spinner" class="container text-center">
+    <div id="spinner" class="container text-center" style="position:fixed; top:40vh">
         <div class="spinner-border mt-5 text-dark" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
@@ -58,7 +59,7 @@
                             <div class="col-4 text-start text-wrap pe-0">
                                 <span class="flag-icon f-2x flag-icon-square text-xl mb-2"
                                     :class="'flag-icon-'+da.flagHome"></span><br>
-                                <p class="lh-1 small">{{da.homeTeam}}</p>
+                                <p class="lh-1 small">{{da.home_NL}}</p>
                             </div>
                             <div class="score col-4 text-center ps-0 pe-0">
                                 <span v-if='player != null && score !== undefined'>
@@ -105,7 +106,7 @@
                             <div class="col-4 text-end text-wrap ps-0">
                                 <span class="flag-icon f-2x flag-icon-square text-xl mb-2"
                                     :class="'flag-icon-'+da.flagAway"></span><br>
-                                <p class="lh-1 small">{{da.awayTeam}}</p>
+                                <p class="lh-1 small">{{da.away_NL}}</p>
                             </div>
                         </div>
                     </div>
@@ -114,21 +115,66 @@
             </div>
             <div class="col-md-2 col-lg-3"></div>
         </div>
+
+        <button type="button" data-bs-toggle="modal" data-bs-target="#scoreModal">OPEN</button>
+
+        <button onClick="scoreModal.show()" class="btn btn-success rounded-circle p-3" style="position: fixed; bottom: 20px; left: 20px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-trophy" viewBox="0 0 16 16">
+                <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33.076 33.076 0 0 1 2.5.5zm.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935zm10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935zM3.504 1c.007.517.026 1.006.056 1.469.13 2.028.457 3.546.87 4.667C5.294 9.48 6.484 10 7 10a.5.5 0 0 1 .5.5v2.61a1 1 0 0 1-.757.97l-1.426.356a.5.5 0 0 0-.179.085L4.5 15h7l-.638-.479a.501.501 0 0 0-.18-.085l-1.425-.356a1 1 0 0 1-.757-.97V10.5A.5.5 0 0 1 9 10c.516 0 1.706-.52 2.57-2.864.413-1.12.74-2.64.87-4.667.03-.463.049-.952.056-1.469H3.504z"/>
+            </svg>    
+        </button>
+        <button onClick="infoModal.show()" class="btn btn-secondary rounded-circle p-3" style="position: fixed; bottom: 20px; right: 20px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-info-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+              </svg>
+        </button>
     </div>
 
-
     <!-- MODAL -->
-    <div class="modal" id="gameModal" tabindex="-1" aria-labelledby="gameModalLabel">
-        <div class="modal-dialog modal-fullscreen">
+    <div class="modal" id="infoModal" tabindex="-1" aria-labelledby="gameModalLabel">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Extra info</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        onClick="hideModal()"></button>
+                        onClick="infoModal.hide()"></button>
                 </div>
-                <div class="modal-body ps-0 pe-0">
-                    <iframe class="visually-hidden" id="gameModalIframe" src="" width="100%" height="600"
-                        frameborder="0" marginheight="0" marginwidth="0">Laden…</iframe>
+                <div class="modal-body ps-2 pe-2">
+                   Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit, sapiente odio ut recusandae, voluptas error suscipit consequuntur natus maxime quam sequi! Tempore sequi ratione, distinctio excepturi ducimus quaerat ex neque.
+                   Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo provident vitae voluptatibus libero quaerat recusandae illum quo laudantium asperiores adipisci. Tempora deleniti placeat qui reprehenderit nesciunt accusamus eveniet labore? Veniam.
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed magni natus dolor nisi dolores aperiam quod explicabo itaque suscipit esse, optio eaque quam obcaecati deserunt quos consequatur voluptas, quibusdam quaerat!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal" id="scoreModal" tabindex="-1" aria-labelledby="gameModalLabel">
+        <div id="scoreApp" class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Scorebord</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        onClick="scoreModal.hide()"></button>
+                </div>
+                <div class="modal-body ms-2 me-2">
+                    <table class="table table-hover">
+                        <thead>
+                          <tr class="table-dark">
+                            <th scope="col">#</th>
+                            <th scope="col">Naam</th>
+                            <th scope="col">Punten</th>
+                          </tr>
+                        </thead>
+                        <tbody v-for="score in scores">
+                          <tr>
+                            <th scope="row">{{score.rank}}</th>
+                            <td>{{score.Speler_c}}<span v-if="score.Betaald != ''" class="text-warning"> &#9733;</span></td>
+                            <td>{{score.Score}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
                 </div>
             </div>
         </div>
@@ -188,7 +234,9 @@
                     data_sb[i].Speler_c = (data_sb[i].Speler).substr(4,99)
                     scorebord.push((({ Speler_c, Score, Groep, Betaald}) => ({ Speler_c, Score, Groep, Betaald}))(data_sb[i]))
                 }                
-                vueApp(data_api, data_score_player)
+                vueApp(data_api, data_score_player);
+                scoreApp(scorebord);
+                console.log(scorebord);
             }
         });
     }
@@ -225,17 +273,30 @@
         document.getElementById("app").classList.remove("visually-hidden")
     }
 
-
-    // Modal functions
-    function showModal() {
-        document.getElementById('gameModal').style.display = "block";
-        document.getElementById("gameModalIframe").classList.remove("visually-hidden")
+    function scoreApp(scorebord) {
+        var app = new Vue({
+            el: '#scoreApp',
+            data: {
+                scores: scorebord.map(function(item, i) {
+                            if (i > 0) {
+                                var prevItem = scorebord[i - 1];
+                                if (prevItem.score == item.score) {
+                                    item.rank = prevItem.rank;
+                                } else {
+                                    item.rank = i + 1;
+                                }
+                            } else {
+                                item.rank = 1;
+                            }
+                            return item;
+                        })
+            }
+        })
     }
 
-    function hideModal() {
-        document.getElementById('gameModal').style.display = "none";
-        document.getElementById("gameModalIframe").classList.add("visually-hidden")
-    }
+    var infoModal = new bootstrap.Modal(document.getElementById('infoModal'))
+    var scoreModal = new bootstrap.Modal(document.getElementById('scoreModal'))
+
 </script>
 
 

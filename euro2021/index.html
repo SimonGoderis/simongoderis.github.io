@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EURO2021 - Pronostiek</title>
+    <link rel="apple-touch-icon" sizes="128x128" href="img/install_ico.png">
+    <link rel="icon" sizes="192x192" href="img/install_ico.png">
 
     <link rel="shortcut icon" type="image/jpg" href="img/favicon.ico" />
 
@@ -26,8 +28,8 @@
 
 <body>
 
-    <div id="spinner" class="container text-center" style="position:fixed; top:40vh">
-        <div class="spinner-border mt-5 text-dark" role="status">
+    <div id="spinner" style="position:fixed; top:50%; left:50%; margin-top: -2rem; margin-left: -2rem;">
+        <div class="spinner-border text-dark" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
@@ -40,7 +42,7 @@
             <div class="col-md-2 col-lg-3"></div>
             <div class="col-md-8 col-lg-6">
                 <p class='text-center' v-if='player != null && score !== undefined'>
-                    Hallo, {{player.substring(4, 99)}}! 
+                    Hallo, {{player.substring(6, 99)}}! 
                     <span class="text-warning" v-if="score.betaald != ''">&#9733;</span>
                     <br><span>Momenteel bedraagt je score {{score.Score}} punten.</span></p>
                 <p class='text-center alert alert-danger' v-if='player != null && score === undefined'>Foutieve persoonlijke URL. Gebruik zeker degene die je doorgestuurd kreeg.</p>
@@ -231,7 +233,7 @@
                     if (data_sb[i].Speler == player) {
                         var data_score_player = data_sb[i]
                     }
-                    data_sb[i].Speler_c = (data_sb[i].Speler).substr(4,99)
+                    data_sb[i].Speler_c = (data_sb[i].Speler).substr(6,99)
                     scorebord.push((({ Speler_c, Score, Groep, Betaald}) => ({ Speler_c, Score, Groep, Betaald}))(data_sb[i]))
                 }                
                 vueApp(data_api, data_score_player);

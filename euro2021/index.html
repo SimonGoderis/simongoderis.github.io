@@ -38,10 +38,11 @@
         <div class="row">
             <div class="col-md-2 col-lg-3"></div>
             <div class="col-md-8 col-lg-6">
-                <p class='text-center' v-if='player != null'>
+                <p class='text-center' v-if='player != null && score !== undefined'>
                     Hallo, {{player.substring(4, 99)}}! 
                     <span class="text-warning" v-if="score.betaald != ''">&#9733;</span>
                     <br><span>Momenteel bedraagt je score {{score.Score}} punten.</span></p>
+                <p class='text-center alert alert-danger' v-if='player != null && score === undefined'>Foutieve persoonlijke URL. Gebruik zeker degene die je doorgestuurd kreeg.</p>
                 <p class='text-center alert alert-warning' v-if='player === null'>Om mee te doen met de pronostieken heb
                     je een persoonlijke link nodig.</p>
                 <p class="text-center small">Laatste update scores: {{data[0].Script_update}}</p>
@@ -60,7 +61,7 @@
                                 <p class="lh-1 small">{{da.homeTeam}}</p>
                             </div>
                             <div class="score col-4 text-center ps-0 pe-0">
-                                <span v-if='player != null'>
+                                <span v-if='player != null && score !== undefined'>
                                     <!-- with link -->
                                     <div v-if="formatTimeCalc(now) < formatTimeCalc(data[0].dateTime) && da.link != ''">
                                         <a :href="da.link + player">

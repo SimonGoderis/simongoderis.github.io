@@ -12,3 +12,7 @@
     color: #212529;
     text-decoration: none;
 }
+
+.rounded-circle {
+    border: 5px solid #00000010;
+}

@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EURO2021 - Pronostiek</title>
 
-    <link rel="shortcut icon" type="image/jpg" href="img/favicon.ico"/>
+    <link rel="shortcut icon" type="image/jpg" href="img/favicon.ico" />
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
 
     <link rel="stylesheet" href="css/flags/css/flag-icon.min.css">
     <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src='js/papa.js'></script>
     <script type="text/javascript" src='js/moment.js'></script>
     <script type="text/javascript" src='js/main.js'></script>
+    <script src="js/bs/bootstrap.bundle.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
 </head>
+
 <body>
 
     <div id="spinner" class="container text-center">
@@ -26,7 +30,7 @@
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
-    
+
 
     <br>
 
@@ -34,8 +38,14 @@
         <div class="row">
             <div class="col-md-2 col-lg-3"></div>
             <div class="col-md-8 col-lg-6">
-                <p class='text-center' v-if='player != null'>Hallo, {{player.substring(4, 99)}}!</p>
-                <p class='text-center alert alert-warning' v-if='player === null'>Om mee te doen met de pronostieken heb je een persoonlijke link nodig.</p>
+                <p class='text-center' v-if='player != null'>
+                    Hallo, {{player.substring(4, 99)}}! 
+                    <span class="text-warning" v-if="score.betaald != ''">&#9733;</span>
+                    <br><span>Momenteel bedraagt je score {{score.Score}} punten.</span></p>
+                <p class='text-center alert alert-warning' v-if='player === null'>Om mee te doen met de pronostieken heb
+                    je een persoonlijke link nodig.</p>
+                <p class="text-center small">Laatste update scores: {{data[0].Script_update}}</p>
+                <hr>
                 <div v-for="da in data">
                     <div class="bg-light card rounded p-3 mb-2 scorecard">
                         <span v-if="formatYYYYMMDD(da.dateTime) > formatYYYYMMDD(Date.now())"></span>
@@ -45,29 +55,44 @@
                         </div>
                         <div class="row align-items-center">
                             <div class="col-4 text-start text-wrap pe-0">
-                                <span class="flag-icon f-2x flag-icon-square text-xl mb-2" :class="'flag-icon-'+da.flagHome"></span><br>
+                                <span class="flag-icon f-2x flag-icon-square text-xl mb-2"
+                                    :class="'flag-icon-'+da.flagHome"></span><br>
                                 <p class="lh-1 small">{{da.homeTeam}}</p>
                             </div>
                             <div class="score col-4 text-center ps-0 pe-0">
                                 <span v-if='player != null'>
-                                    <a v-if='da.link != null' :href="da.link + player">
-                                            <h2 class="mb-2"><span class="badge bg-primary p-2">{{da.score_total_home == null ? 0 : (da.score_total_home[1] || '...')}}</span><span class="small"> - </span><span class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away[1] || '...')}}</span></h2>
-                                            <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} - {{formatTime(da.dateTime)}}</span>
+                                    <a :href="da.link == '' ? '#' : (da.link + player || '#')">
+                                        <h2 class="mb-2"><span
+                                                class="badge bg-primary p-2">{{da.score_total_home == null ? 0 : (da.score_total_home || '...')}}</span><span
+                                                class="small"> - </span><span
+                                                class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away || '...')}}</span>
+                                        </h2>
+                                        <div v-if="player != null && getScoreValue(da.CODE, '_h') != '' && getScoreValue(da.CODE, '_h') != null" class="mb-2"><span class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_h')}}</span>
+                                            <span class="badge bg-danger p-2 fs-6">{{getScoreValue(da.CODE, '_s') == null ? 0 : (getScoreValue(da.CODE, '_s') || '...')}}</span> <span
+                                                class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_a')}}</span></div>
+                                        <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} -
+                                            {{formatTime(da.dateTime)}}</span>
                                     </a>
                                 </span>
-                                
+
                                 <span v-else>
-                                    <h2 class="mb-2"><span class="badge bg-primary p-2">{{da.score_total_home == null ? 0 : (da.score_total_home[1] || '...')}}</span><span class="small"> - </span><span class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away[1] || '...')}}</span></h2>
-                                    <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} - {{formatTime(da.dateTime)}}</span>
+                                    <h2 class="mb-2"><span
+                                            class="badge bg-primary p-2">{{da.score_total_home == null ? 0 : (da.score_total_home[1] || '...')}}</span><span
+                                            class="small"> - </span><span
+                                            class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away[1] || '...')}}</span>
+                                    </h2>
+                                    <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} -
+                                        {{formatTime(da.dateTime)}}</span>
                                 </span>
                             </div>
                             <div class="col-4 text-end text-wrap ps-0">
-                                <span class="flag-icon f-2x flag-icon-square text-xl mb-2" :class="'flag-icon-'+da.flagAway"></span><br>
+                                <span class="flag-icon f-2x flag-icon-square text-xl mb-2"
+                                    :class="'flag-icon-'+da.flagAway"></span><br>
                                 <p class="lh-1 small">{{da.awayTeam}}</p>
                             </div>
                         </div>
                     </div>
-          
+
                 </div>
             </div>
             <div class="col-md-2 col-lg-3"></div>
@@ -75,88 +100,112 @@
     </div>
 
 
-     <!-- MODAL -->
-     <div class="modal" id="gameModal" tabindex="-1" aria-labelledby="gameModalLabel">
+    <!-- MODAL -->
+    <div class="modal" id="gameModal" tabindex="-1" aria-labelledby="gameModalLabel">
         <div class="modal-dialog modal-fullscreen">
-           <div class="modal-content">
-             <div class="modal-header">
-               <h5 class="modal-title">Extra info</h5>
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick="hideModal()"></button>
-             </div>
-             <div class="modal-body ps-0 pe-0">
-                <iframe class="visually-hidden" id="gameModalIframe" src="" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">Laden…</iframe>
-             </div>
-           </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Extra info</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        onClick="hideModal()"></button>
+                </div>
+                <div class="modal-body ps-0 pe-0">
+                    <iframe class="visually-hidden" id="gameModalIframe" src="" width="100%" height="600"
+                        frameborder="0" marginheight="0" marginwidth="0">Laden…</iframe>
+                </div>
+            </div>
         </div>
-     </div>
+    </div>
 
 
 </body>
 
 <script>
+    window.addEventListener('DOMContentLoaded', init_api)
+    // Scorebord - nog verder te ontwikkelen.
+    var scorebord = []
 
-
-
-    // Haalt speler ID op als dit in de link meegegeven is. Enkel zo kan je effectief meespelen. 
+    // Haalt speler ID op uit de link (id). 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     var player = urlParams.get('id')
-    // Moet nog ingesteld worden dat dit opgeslagen wordt via service worker. 
-    // Zal gebruikt worden om de eigen score te zien + makkelijker in te vullen in de Google Forms.
-    // Op basis van local storage
-    var ls_player = localStorage.getItem('player_id') 
+    // Wordt opgehaald uit ServiceWorker of toegevoegd indien nog niet bestaat.
+    var ls_player = localStorage.getItem('player_id')
     if (player != null && ls_player == null) {
         // Als er nog niks in de localstorage opgeslaan is.
         localStorage.setItem('player_id', player);
-        console.log("New")
+        console.log("New player added.")
     } else if (ls_player != null && player != ls_player && player != null) {
         localStorage.setItem('player_id', player);
-        console.log("Changed")
+        console.log("Player changed.")
+    }
+    player = localStorage.getItem('player_id');
+
+    // API calls
+    const link =
+        'https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2Fe%2F2PACX-1vTowErCeF3spB93eqdgPniVPsxHLaUn4VQdvEKQTLt9_RP6DIWuE9AkS2sBam7Diqdg5cjlpKuiIPmj%2Fpub%3Fgid%3D2116746882%26single%3Dtrue%26output%3Dcsv'
+    const link_sb =
+        'https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2Fe%2F2PACX-1vTlMbo20xUnE0S1BYBV-TbMusJqx_vNJiTTPKsMsbUJUxj7wVzVCXDj-mojSd4-gKcrcJIBLRXIVCgA%2Fpub%3Fgid%3D1677703325%26single%3Dtrue%26output%3Dcsv'
+  
+    function init_api() {
+        Papa.parse(decodeURIComponent(link), {
+            download: true,
+            header: true,
+            complete: function (results) {
+                // Stuurt data rechtstreeks door naar volgende call
+                init_score(results.data);
+            }
+        });
     }
 
-    player = localStorage.getItem('player_id')
-
-    var link = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTowErCeF3spB93eqdgPniVPsxHLaUn4VQdvEKQTLt9_RP6DIWuE9AkS2sBam7Diqdg5cjlpKuiIPmj/pub?gid=2116746882&single=true&output=csv'
-    var obj;
-
-    function init() {
-          Papa.parse(link, 
-          {
-          download: true,
-          header: true,
-          complete: function(results) {
-            var data = results.data
-            vueApp(data)
-            console.log(data)
-          }
-        })}
-    window.addEventListener('DOMContentLoaded', init)
-
-
-
-    function vueApp(data) {
-        var app = new Vue({
-        el: '#app',
-        data: {
-            data: data,
-            player: player
-        },
-        methods: {
-            formatDate(date) {
-                return moment(date).format("DD/MM")
-            },
-            formatTime(time) {
-                return moment(time).format("HH:mm")
-            },
-            formatYYYYMMDD(date) {
-                return moment(date).format("YYYYMMDD")
+    function init_score(data_api) {
+        Papa.parse(decodeURIComponent(link_sb), {
+            download: true,
+            header: true,
+            complete: function (results) {
+                var data_sb = results.data
+                for (i = 0; i < data_sb.length; i++) {
+                    if (data_sb[i].Speler == player) {
+                        var data_score_player = data_sb[i]
+                    }
+                    data_sb[i].Speler_c = (data_sb[i].Speler).substr(4,99)
+                    scorebord.push((({ Speler_c, Score, Groep, Betaald}) => ({ Speler_c, Score, Groep, Betaald}))(data_sb[i]))
+                }                
+                vueApp(data_api, data_score_player)
             }
-        }
+        });
+    }
+
+    // VUE app init
+    function vueApp(data, score) {
+        var app = new Vue({
+            el: '#app',
+            data: {
+                data: data,
+                player: player,
+                score: score
+            },
+            methods: {
+                formatDate(date) {
+                    return moment(date).format("DD/MM")
+                },
+                formatTime(time) {
+                    return moment(time).format("HH:mm")
+                },
+                formatYYYYMMDD(date) {
+                    return moment(date).format("YYYYMMDD")
+                },
+                getScoreValue(ID, after) {
+                    return score[ID + after];
+                }
+            }
         })
         document.getElementById("spinner").classList.add("visually-hidden")
         document.getElementById("app").classList.remove("visually-hidden")
     }
 
+
+    // Modal functions
     function showModal() {
         document.getElementById('gameModal').style.display = "block";
         document.getElementById("gameModalIframe").classList.remove("visually-hidden")
@@ -166,9 +215,7 @@
         document.getElementById('gameModal').style.display = "none";
         document.getElementById("gameModalIframe").classList.add("visually-hidden")
     }
-    
-    
 </script>
 
-<script src="js/bootstrap.bundle.min.js"></script>
+
 </html>

@@ -61,18 +61,34 @@
                             </div>
                             <div class="score col-4 text-center ps-0 pe-0">
                                 <span v-if='player != null'>
-                                    <a :href="da.link == '' ? '#' : (da.link + player || '#')">
+                                    <!-- with link -->
+                                    <div v-if="formatTimeCalc(now) < formatTimeCalc(data[0].dateTime) && da.link != ''">
+                                        <a :href="da.link + player">
+                                            <h2 class="mb-2"><span
+                                                    class="badge bg-primary p-2">{{da.score_total_home == null ? 0 : (da.score_total_home || '...')}}</span><span
+                                                    class="small"> - </span><span
+                                                    class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away || '...')}}</span>
+                                            </h2>
+                                            <div v-if="player != null && getScoreValue(da.CODE, '_h') != '' && getScoreValue(da.CODE, '_h') != null" class="mb-2"><span class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_h')}}</span>
+                                                <span class="badge bg-danger p-2 fs-6">{{getScoreValue(da.CODE, '_s') == null ? 0 : (getScoreValue(da.CODE, '_s') || '...')}}</span> <span
+                                                    class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_a')}}</span></div>
+                                            <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} -
+                                                {{formatTime(da.dateTime)}}</span>
+                                        </a>
+                                    </div>
+                                    <!-- without link -->
+                                    <div v-else>
                                         <h2 class="mb-2"><span
-                                                class="badge bg-primary p-2">{{da.score_total_home == null ? 0 : (da.score_total_home || '...')}}</span><span
-                                                class="small"> - </span><span
-                                                class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away || '...')}}</span>
+                                            class="badge bg-primary p-2">{{da.score_total_home == null ? 0 : (da.score_total_home || '...')}}</span><span
+                                            class="small"> - </span><span
+                                            class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away || '...')}}</span>
                                         </h2>
                                         <div v-if="player != null && getScoreValue(da.CODE, '_h') != '' && getScoreValue(da.CODE, '_h') != null" class="mb-2"><span class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_h')}}</span>
                                             <span class="badge bg-danger p-2 fs-6">{{getScoreValue(da.CODE, '_s') == null ? 0 : (getScoreValue(da.CODE, '_s') || '...')}}</span> <span
                                                 class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_a')}}</span></div>
                                         <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} -
                                             {{formatTime(da.dateTime)}}</span>
-                                    </a>
+                                    </div>
                                 </span>
 
                                 <span v-else>
@@ -183,7 +199,8 @@
             data: {
                 data: data,
                 player: player,
-                score: score
+                score: score,
+                now: new Date()
             },
             methods: {
                 formatDate(date) {
@@ -197,6 +214,9 @@
                 },
                 getScoreValue(ID, after) {
                     return score[ID + after];
+                },
+                formatTimeCalc(date) {
+                    return moment(date).format("YYYYMMDDHHmmss")
                 }
             }
         })

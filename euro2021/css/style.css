@@ -16,3 +16,11 @@
 .rounded-circle {
     border: 5px solid #00000010;
 }
+
+.mw-32 {
+    min-width: 32px!important;
+}
+
+.mw-350 {
+    max-width: 350px!important;
+}

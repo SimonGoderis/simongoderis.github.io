@@ -34,14 +34,12 @@
         </div>
     </div>
 
-
-    <br>
-
     <div class="container visually-hidden" id="app">
         <div class="row">
             <div class="col-md-2 col-lg-3"></div>
             <div class="col-md-8 col-lg-6">
-                <p class='text-center' v-if='player != null && score !== undefined'>
+                <div class="mt-3">
+                <p class='text-center ' v-if='player != null && score !== undefined'>
                     Hallo, {{player.substring(6, 99)}}! 
                     <span class="text-warning" v-if="score.betaald != ''">&#9733;</span>
                     <br><span>Momenteel bedraagt je score {{score.Score}} punten.</span></p>
@@ -50,6 +48,7 @@
                     je een persoonlijke link nodig.</p>
                 <p class="text-center small">Laatste update scores: {{data[0].Script_update}}</p>
                 <hr>
+                </div>
                 <div v-for="da in data">
                     <div class="bg-light card rounded p-3 mb-2 scorecard">
                         <span v-if="formatYYYYMMDD(da.dateTime) > formatYYYYMMDD(Date.now())"></span>
@@ -74,7 +73,7 @@
                                                     class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away || '...')}}</span>
                                             </h2>
                                             <div v-if="player != null && getScoreValue(da.CODE, '_h') != '' && getScoreValue(da.CODE, '_h') != null" class="mb-2"><span class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_h')}}</span>
-                                                <span class="badge p-2 fs-6" :class='"bg-" + badgeScore(getScoreValue(da.CODE, "_s"))'>{{getScoreValue(da.CODE, '_s') == null ? 0 : (getScoreValue(da.CODE, '_s') || '...')}}</span> <span
+                                                <span class="badge p-2 fs-6 mw-32" :class='"bg-" + badgeScore(getScoreValue(da.CODE, "_s"))'>{{getScoreValue(da.CODE, '_s') == null ? 0 : (getScoreValue(da.CODE, '_s') || '...')}}</span> <span
                                                     class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_a')}}</span></div>
                                             <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} -
                                                 {{formatTime(da.dateTime)}}</span>
@@ -88,7 +87,7 @@
                                             class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away || '...')}}</span>
                                         </h2>
                                         <div v-if="player != null && getScoreValue(da.CODE, '_h') != '' && getScoreValue(da.CODE, '_h') != null" class="mb-2"><span class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_h')}}</span>
-                                            <span class="badge p-2 fs-6" :class='"bg-" + badgeScore(getScoreValue(da.CODE, "_s"))'>{{getScoreValue(da.CODE, '_s') == null ? 0 : (getScoreValue(da.CODE, '_s') || '...')}}</span> <span
+                                            <span class="badge p-2 fs-6 mw-32" :class='"bg-" + badgeScore(getScoreValue(da.CODE, "_s"))'>{{getScoreValue(da.CODE, '_s') == null ? 0 : (getScoreValue(da.CODE, '_s') || '...')}}</span> <span
                                                 class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_a')}}</span></div>
                                         <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} -
                                             {{formatTime(da.dateTime)}}</span>
@@ -135,20 +134,46 @@
     <div class="modal" id="infoModal" tabindex="-1" aria-labelledby="gameModalLabel">
         <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-dark text-white">
                     <h5 class="modal-title">Extra info</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    <button type="button" class="btn-close-white btn-close" data-bs-dismiss="modal" aria-label="Close"
                         onClick="infoModal.hide()"></button>
                 </div>
-                <div class="modal-body ps-2 pe-2">
+                <div class="modal-body ps-4 pe-4">
+                    <p>Om mee te doen aan de pronostiek heb je een <strong>persoonlijke link</strong> nodig. Met deze link kan je dan je pronostiek invullen. Hou er wel rekening mee dat je op een nieuw apparaat steeds eerst met deze link naar de website zal moeten gaan vooraleer je aan je pronostiek kan.</p>
+                    <h5>Matchoverzicht</h5>
                     <p>
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit, sapiente odio ut recusandae, voluptas error suscipit consequuntur natus maxime quam sequi! Tempore sequi ratione, distinctio excepturi ducimus quaerat ex neque. 
+                        Op de homepagina krijg je een overzicht van alle te spelen matchen. Hier krijg je per match het volgende te zien: 
+                        <ul>
+                            <li><strong>Landen</strong>: het thuis-land staat links, het uit-land rechts</li>
+                            <li><strong class="text-secondary">Fase van de competitie</strong>: groepsfase, zestiende finale, ...</li>
+                            <li><strong class="text-primary">Uitslag</strong>: de uitslag van de match komt in de blauwe vierkanten te staan</li>
+                            <li><strong class="text-dark">Gok</strong>: indien je je pronostiek hebt ingevuld, verschijnt deze in de zwarte vierkanten</li>
+                            <li><strong class="text-danger">Score</strong>: het aantal punten dat je scoort komt in de rode vierkanten te staan</li>
+                        </ul>
                     </p>
-                    <img src="img/info_1.jpg" alt="info_pic1" class="img-fluid rounded mx-auto d-block border-dark border">
+                    <img src="img/info_1.jpg" alt="info_pic1" class="img-fluid rounded mx-auto d-block border-dark border mw-350">
+                    <br>
+                    <h5>Pronostiek invullen</h5>
                     <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia fugiat, veniam iusto odio ex quibusdam maiores modi consectetur tempore ipsum est laudantium ut sint optio ipsa unde, repellat, adipisci voluptatum.
+                        Om je pronostiek in te vullen, kan je op één van de <span class="text-warning">middelste velden</span> drukken (geel op de screenshot hieronder - uitslag, gok of score). Je zal zo doorverwezen worden naar een formulier (Google - je moet ingelogd zijn) waar je je pronostiek kan invullen. <span class="text-danger">Pas hierin je speler ID <strong>niet</strong> aan!</span> Deze wordt automatisch ingevuld en is nodig om je score te berekenen. Je hoeft zo enkel de score van de thuis- en uit-ploeg in te vullen.
                     </p>
-                    <img src="img/info_1_markering.png" alt="info_pic2" class="img-fluid rounded mx-auto d-block border-dark border">
+                    <img src="img/info_1_markering.png" alt="info_pic2" class="img-fluid rounded mx-auto d-block border-dark border mw-350">
+                    <p class="mt-3">
+                        Je kan hierna deze pronostiek blijven wijzigen tot de match begint. Vanaf dan zullen reacties automatisch uitgeschakeld worden. Je reactie wijzigen doe je door simpelweg opnieuw op één van de middelste velden te drukken.
+                    </p>
+                    <br>
+                    <h5>Puntentelling</h5>
+                    <p>De puntentelling werkt als volgt:
+                        <ul>
+                            <li>2 pt: volledig correcte score</li>
+                            <li>1 pt: correcte winnaar of gelijkspel</li>
+                            <li>0 pt: foutieve winnaar</li>
+                        </ul>
+                    </p>
+                    <br>
+                    <h5>Scorebord</h5>
+                    <p>Het scorebord kan je bekijken door linksonder op de groene knop met de trofee te drukken. Als hier een <span class="text-warning">&#9733;</span> bij je naam staat, wil dit zeggen dat je betaald hebt en meespeelt voor de pot.</p>
                 </div>
             </div>
         </div>
@@ -158,9 +183,9 @@
     <div class="modal" id="scoreModal" tabindex="-1" aria-labelledby="gameModalLabel">
         <div id="scoreApp" class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-success text-white">
                     <h5 class="modal-title">Scorebord</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
                         onClick="scoreModal.hide()"></button>
                 </div>
                 <div class="modal-body ms-2 me-2">
@@ -175,7 +200,7 @@
                         <tbody v-for="score in scores">
                           <tr>
                             <th scope="row">{{score.rank}}</th>
-                            <td>{{score.Speler_c}}<span v-if="score.Betaald != ''" class="text-warning"> &#9733;</span></td>
+                            <td>{{score.Speler_c}}<span v-if="score.Betaald != ''" class="text-warning small"> &#9733;</span></td>
                             <td>{{score.Score}}</td>
                           </tr>
                         </tbody>

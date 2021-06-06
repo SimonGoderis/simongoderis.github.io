@@ -74,7 +74,7 @@
                                                     class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away || '...')}}</span>
                                             </h2>
                                             <div v-if="player != null && getScoreValue(da.CODE, '_h') != '' && getScoreValue(da.CODE, '_h') != null" class="mb-2"><span class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_h')}}</span>
-                                                <span class="badge bg-danger p-2 fs-6">{{getScoreValue(da.CODE, '_s') == null ? 0 : (getScoreValue(da.CODE, '_s') || '...')}}</span> <span
+                                                <span class="badge p-2 fs-6" :class='"bg-" + badgeScore(getScoreValue(da.CODE, "_s"))'>{{getScoreValue(da.CODE, '_s') == null ? 0 : (getScoreValue(da.CODE, '_s') || '...')}}</span> <span
                                                     class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_a')}}</span></div>
                                             <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} -
                                                 {{formatTime(da.dateTime)}}</span>
@@ -88,7 +88,7 @@
                                             class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away || '...')}}</span>
                                         </h2>
                                         <div v-if="player != null && getScoreValue(da.CODE, '_h') != '' && getScoreValue(da.CODE, '_h') != null" class="mb-2"><span class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_h')}}</span>
-                                            <span class="badge bg-danger p-2 fs-6">{{getScoreValue(da.CODE, '_s') == null ? 0 : (getScoreValue(da.CODE, '_s') || '...')}}</span> <span
+                                            <span class="badge p-2 fs-6" :class='"bg-" + badgeScore(getScoreValue(da.CODE, "_s"))'>{{getScoreValue(da.CODE, '_s') == null ? 0 : (getScoreValue(da.CODE, '_s') || '...')}}</span> <span
                                                 class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_a')}}</span></div>
                                         <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} -
                                             {{formatTime(da.dateTime)}}</span>
@@ -117,8 +117,6 @@
             </div>
             <div class="col-md-2 col-lg-3"></div>
         </div>
-
-        <button type="button" data-bs-toggle="modal" data-bs-target="#scoreModal">OPEN</button>
 
         <button onClick="scoreModal.show()" class="btn btn-success rounded-circle p-3" style="position: fixed; bottom: 15px; left: 15px;">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-trophy" viewBox="0 0 16 16">
@@ -286,6 +284,13 @@
                 },
                 formatTimeCalc(date) {
                     return moment(date).format("YYYYMMDDHHmmss")
+                },
+                badgeScore(score) {
+                    switch(score) {
+                        case '1': return 'warning text-dark'
+                        case '2': return 'success'
+                        default: return 'danger'
+                    }
                 }
             }
         })

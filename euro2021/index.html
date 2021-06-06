@@ -143,9 +143,14 @@
                         onClick="infoModal.hide()"></button>
                 </div>
                 <div class="modal-body ps-2 pe-2">
-                   Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit, sapiente odio ut recusandae, voluptas error suscipit consequuntur natus maxime quam sequi! Tempore sequi ratione, distinctio excepturi ducimus quaerat ex neque. <br>
-                   Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo provident vitae voluptatibus libero quaerat recusandae illum quo laudantium asperiores adipisci. Tempora deleniti placeat qui reprehenderit nesciunt accusamus eveniet labore? Veniam. <br>
-                   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia fugiat, veniam iusto odio ex quibusdam maiores modi consectetur tempore ipsum est laudantium ut sint optio ipsa unde, repellat, adipisci voluptatum.
+                    <p>
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit, sapiente odio ut recusandae, voluptas error suscipit consequuntur natus maxime quam sequi! Tempore sequi ratione, distinctio excepturi ducimus quaerat ex neque. 
+                    </p>
+                    <img src="img/info_1.jpg" alt="info_pic1" class="img-fluid rounded mx-auto d-block border-dark border">
+                    <p>
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia fugiat, veniam iusto odio ex quibusdam maiores modi consectetur tempore ipsum est laudantium ut sint optio ipsa unde, repellat, adipisci voluptatum.
+                    </p>
+                    <img src="img/info_1_markering.png" alt="info_pic2" class="img-fluid rounded mx-auto d-block border-dark border">
                 </div>
             </div>
         </div>
@@ -186,6 +191,8 @@
 </body>
 
 <script>
+
+
     window.addEventListener('DOMContentLoaded', init_api)
     // Scorebord - nog verder te ontwikkelen.
     var scorebord = []
@@ -223,6 +230,8 @@
         });
     }
 
+    var scorebord_arr
+
     function init_score(data_api) {
         Papa.parse(decodeURIComponent(link_sb), {
             download: true,
@@ -237,11 +246,20 @@
                     scorebord.push((({ Speler_c, Score, Groep, Betaald}) => ({ Speler_c, Score, Groep, Betaald}))(data_sb[i]))
                 }                
                 vueApp(data_api, data_score_player);
+
+                scorebord.sort(function(a,b){ return b.Score - a.Score; });
+                scorebord.forEach(function(player, i, arr) {
+                    player.rank = i === 0 || player.Score != arr[i-1].Score
+                                ? i + 1
+                                : arr[i-1].rank;
+                });
                 scoreApp(scorebord);
-                console.log(scorebord);
+                console.log(scorebord[0].Score);
             }
         });
     }
+
+
 
     // VUE app init
     function vueApp(data, score) {
@@ -279,19 +297,7 @@
         var app = new Vue({
             el: '#scoreApp',
             data: {
-                scores: scorebord.map(function(item, i) {
-                            if (i > 0) {
-                                var prevItem = scorebord[i - 1];
-                                if (prevItem.score == item.score) {
-                                    item.rank = prevItem.rank;
-                                } else {
-                                    item.rank = i + 1;
-                                }
-                            } else {
-                                item.rank = 1;
-                            }
-                            return item;
-                        })
+                scores: scorebord
             }
         })
     }

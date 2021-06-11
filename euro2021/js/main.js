@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', init_api)
     // Scorebord - nog verder te ontwikkelen.
     var scorebord = []
-
+    var poule = "Feest"
     // Haalt speler ID op uit de link (id). 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -43,12 +43,15 @@ window.addEventListener('DOMContentLoaded', init_api)
             header: true,
             complete: function (results) {
                 var data_sb = results.data
+                console.log(data_sb)
                 for (i = 0; i < data_sb.length; i++) {
-                    if (data_sb[i].Speler == player) {
-                        var data_score_player = data_sb[i]
-                    }
-                    data_sb[i].Speler_c = (data_sb[i].Speler).substr(6,99)
-                    scorebord.push((({ Speler_c, Score, Groep, Betaald}) => ({ Speler_c, Score, Groep, Betaald}))(data_sb[i]))
+                    if (data_sb[i].Groep === poule) {
+                        if (data_sb[i].Speler == player) {
+                            var data_score_player = data_sb[i]
+                        }
+                        data_sb[i].Speler_c = (data_sb[i].Speler).substr(6,99)
+                        scorebord.push((({ Speler_c, Score, Groep, Betaald}) => ({ Speler_c, Score, Groep, Betaald}))(data_sb[i]))
+                    } 
                 }                
                 vueApp(data_api, data_score_player);
 
@@ -59,7 +62,7 @@ window.addEventListener('DOMContentLoaded', init_api)
                                 : arr[i-1].rank;
                 });
                 scoreApp(scorebord);
-                console.log(scorebord[0].Score);
+                console.log(scorebord);
             }
         });
     }

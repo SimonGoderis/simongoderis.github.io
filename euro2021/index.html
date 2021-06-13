@@ -218,8 +218,8 @@
                             <th scope="col">Punten</th>
                           </tr>
                         </thead>
-                        <tbody v-for="score in scores">
-                          <tr>
+                        <tbody>
+                          <tr v-for="score in scores" :class="tablePlayer(score.Speler_c)">
                             <th scope="row">{{score.rank}}</th>
                             <td>{{score.Speler_c}}<span v-if="score.Betaald != ''" class="text-warning small"> &#9733;</span></td>
                             <td>{{score.Score}}</td>

@@ -61,7 +61,6 @@ window.addEventListener('DOMContentLoaded', init_api)
                                 : arr[i-1].rank;
                 });
                 scoreApp(scorebord);
-
                 data_sb_o = data_sb
             }
         });
@@ -118,7 +117,13 @@ window.addEventListener('DOMContentLoaded', init_api)
         var app = new Vue({
             el: '#scoreApp',
             data: {
-                scores: scorebord
+                scores: scorebord,
+                player: player
+            },
+            methods: {
+                tablePlayer(name) {
+                    if (name == player.substr(6,99)) {return 'table-warning'}
+                }
             }
         })
     }

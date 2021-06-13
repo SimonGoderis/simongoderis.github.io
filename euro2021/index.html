@@ -44,7 +44,7 @@
                     Hallo, {{player.substring(6, 99)}}! 
                     <span class="text-warning" v-if="score.Betaald == 'Ja'">&#9733;</span>
                     <br><span>Momenteel bedraagt je score {{score.Score}} punten.</span></p>
-                <p class='text-center alert alert-danger' v-if='player != null && score === undefined'>Foutieve persoonlijke URL. Gebruik zeker degene die je doorgestuurd kreeg.</p>
+                <p class='text-center alert alert-danger' v-if="player != null && score === undefined && player != 'watch'">Foutieve persoonlijke URL. Gebruik zeker degene die je doorgestuurd kreeg.</p>
                 <p class='text-center alert alert-warning' v-if='player === null'>Om mee te doen met de pronostieken heb
                     je een persoonlijke link nodig.</p>
                 <p class="text-center small">Laatste update scores: {{data[0].Script_update}}</p>
@@ -80,6 +80,8 @@
                                                 {{formatTime(da.dateTime)}}</span>
                                         </a>
                                     </div>
+
+
                                     <!-- past match prono -->
                                     <div v-else-if="formatTimeCalc(now) > formatTimeCalc(da.dateTime)">
                                         <a :id="da.CODE" onClick="pronoApp(this.id)">
@@ -96,6 +98,7 @@
                                         </a>
                                     </div>
 
+
                                     <!-- without link -->
                                     <div v-else>
                                         <h2 class="mb-2"><span
@@ -109,6 +112,18 @@
                                         <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} -
                                             {{formatTime(da.dateTime)}}</span>
                                     </div>
+                                </span>
+
+                                <span v-else-if="player == 'watch'">
+                                    <a :id="da.CODE" onClick="pronoApp(this.id)">
+                                        <h2 class="mb-2"><span
+                                            class="badge bg-primary p-2">{{da.score_total_home == null ? 0 : (da.score_total_home || '...')}}</span><span
+                                            class="small"> - </span><span
+                                            class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away || '...')}}</span>
+                                        </h2>
+                                        <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} -
+                                            {{formatTime(da.dateTime)}}</span>
+                                        </a>
                                 </span>
 
                                 <span v-else>

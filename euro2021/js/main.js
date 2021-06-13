@@ -35,15 +35,14 @@ window.addEventListener('DOMContentLoaded', init_api)
         });
     }
 
-    var scorebord_arr
+    var data_sb_o
 
     function init_score(data_api) {
         Papa.parse(decodeURIComponent(link_sb), {
             download: true,
             header: true,
             complete: function (results) {
-                var data_sb = results.data
-                console.log(data_sb)
+                data_sb = results.data
                 for (i = 0; i < data_sb.length; i++) {
                     if (data_sb[i].Groep === poule) {
                         if (data_sb[i].Speler == player) {
@@ -62,7 +61,8 @@ window.addEventListener('DOMContentLoaded', init_api)
                                 : arr[i-1].rank;
                 });
                 scoreApp(scorebord);
-                console.log(scorebord);
+
+                data_sb_o = data_sb
             }
         });
     }
@@ -101,6 +101,13 @@ window.addEventListener('DOMContentLoaded', init_api)
                         case '2': return 'success'
                         default: return 'danger'
                     }
+                },
+                borderCard(status) {
+                    switch(status) {
+                        case 'FINISHED': return ''
+                        case 'IN_PLAY': return 'border-danger'
+                        default: return ''
+                    }   
                 }
             }
         })
@@ -117,5 +124,19 @@ window.addEventListener('DOMContentLoaded', init_api)
         })
     }
 
+    function pronoApp(id) {
+
+        document.getElementById('pronoTable').innerHTML = "";
+
+        for(i=0; i < data_sb_o.length; i++) {
+            if(data_sb_o[i].Speler_c != null) {
+                document.getElementById('pronoTable').innerHTML += "<tr><td>" + data_sb_o[i].Speler_c + "</td><td>" + data_sb_o[i][id + '_h'] + "</td><td>" + data_sb_o[i][id + '_a'] + "</td><td>" + data_sb_o[i][id + '_s'] + "</td></tr>"
+            }
+        }
+
+        pronoModal.show()
+    }
+
     var infoModal = new bootstrap.Modal(document.getElementById('infoModal'))
     var scoreModal = new bootstrap.Modal(document.getElementById('scoreModal'))
+    var pronoModal = new bootstrap.Modal(document.getElementById('pronoModal'))

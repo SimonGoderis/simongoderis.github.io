@@ -11,6 +11,7 @@
 .score a:hover {
     color: #212529;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .rounded-circle {
@@ -24,4 +25,12 @@
 .mw-350 {
     max-width: 350px!important;
     width: 100%!important;
+}
+
+#pronoTable tr td:not(:first-child) {
+    text-align: center;
+}
+
+#pronoTable_head tr th:not(:first-child) {
+    text-align: center;
 }

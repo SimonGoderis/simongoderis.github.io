@@ -1,4 +1,6 @@
 window.addEventListener('DOMContentLoaded', init_api)
+
+console.log("v1.1")
     // Scorebord - nog verder te ontwikkelen.
     var scorebord = []
     var poule = "Daan"
@@ -35,15 +37,14 @@ window.addEventListener('DOMContentLoaded', init_api)
         });
     }
 
-    var scorebord_arr
+    var data_sb_o
 
     function init_score(data_api) {
         Papa.parse(decodeURIComponent(link_sb), {
             download: true,
             header: true,
             complete: function (results) {
-                var data_sb = results.data
-                console.log(data_sb)
+                data_sb = results.data
                 for (i = 0; i < data_sb.length; i++) {
                     if (data_sb[i].Groep === poule) {
                         if (data_sb[i].Speler == player) {
@@ -62,7 +63,7 @@ window.addEventListener('DOMContentLoaded', init_api)
                                 : arr[i-1].rank;
                 });
                 scoreApp(scorebord);
-                console.log(scorebord);
+                data_sb_o = data_sb
             }
         });
     }
@@ -101,6 +102,12 @@ window.addEventListener('DOMContentLoaded', init_api)
                         case '2': return 'success'
                         default: return 'danger'
                     }
+                },
+                borderCard(status, date) {
+                    switch(status) {
+                        case 'IN_PLAY': return 'border-danger'
+                        default: if (moment(date).format("YYYYMMDD") == moment(new Date()).format("YYYYMMDD")) { return 'border-dark' } else { return 'bg-light' }
+                    }   
                 }
             }
         })
@@ -112,10 +119,31 @@ window.addEventListener('DOMContentLoaded', init_api)
         var app = new Vue({
             el: '#scoreApp',
             data: {
-                scores: scorebord
+                scores: scorebord,
+                player: player
+            },
+            methods: {
+                tablePlayer(name) {
+                    if (name == player.substr(6,99)) {return 'table-warning'}
+                }
             }
         })
     }
 
+    function pronoApp(id) {
+
+        document.getElementById('pronoTable').innerHTML = "";
+        data_sb_o.sort(function(a,b){ return b[id + '_s'] -  a[id + '_s']});
+
+        for(i=0; i < data_sb_o.length; i++) {
+            if(data_sb_o[i].Speler_c != null) {
+                document.getElementById('pronoTable').innerHTML += "<tr><td><strong>" + data_sb_o[i].Speler_c + "</strong></td><td>" + data_sb_o[i][id + '_h'] + "</td><td>" + data_sb_o[i][id + '_a'] + "</td><td><strong>" + data_sb_o[i][id + '_s'] + "</strong></td></tr>"
+            }
+        }
+
+        pronoModal.show()
+    }
+
     var infoModal = new bootstrap.Modal(document.getElementById('infoModal'))
     var scoreModal = new bootstrap.Modal(document.getElementById('scoreModal'))
+    var pronoModal = new bootstrap.Modal(document.getElementById('pronoModal'))

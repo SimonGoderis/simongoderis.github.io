@@ -115,7 +115,7 @@
                                 </span>
 
                                 <span v-else-if="player == 'watch'">
-                                    <a v-if="formatTimeCalc(now) < formatTimeCalc(da.dateTime)" :id="da.CODE" onClick="pronoApp(this.id)">
+                                    <a v-if="formatTimeCalc(now) > formatTimeCalc(da.dateTime)" :id="da.CODE" onClick="pronoApp(this.id)">
                                         <h2 class="mb-2"><span
                                             class="badge bg-primary p-2">{{da.score_total_home == null ? 0 : (da.score_total_home || '...')}}</span><span
                                             class="small"> - </span><span

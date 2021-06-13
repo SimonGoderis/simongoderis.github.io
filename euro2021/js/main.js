@@ -127,10 +127,11 @@ window.addEventListener('DOMContentLoaded', init_api)
     function pronoApp(id) {
 
         document.getElementById('pronoTable').innerHTML = "";
+        data_sb_o.sort(function(a,b){ return b[id + '_s'] -  a[id + '_s']});
 
         for(i=0; i < data_sb_o.length; i++) {
             if(data_sb_o[i].Speler_c != null) {
-                document.getElementById('pronoTable').innerHTML += "<tr><td>" + data_sb_o[i].Speler_c + "</td><td>" + data_sb_o[i][id + '_h'] + "</td><td>" + data_sb_o[i][id + '_a'] + "</td><td>" + data_sb_o[i][id + '_s'] + "</td></tr>"
+                document.getElementById('pronoTable').innerHTML += "<tr><td><strong>" + data_sb_o[i].Speler_c + "</strong></td><td>" + data_sb_o[i][id + '_h'] + "</td><td>" + data_sb_o[i][id + '_a'] + "</td><td><strong>" + data_sb_o[i][id + '_s'] + "</strong></td></tr>"
             }
         }
 

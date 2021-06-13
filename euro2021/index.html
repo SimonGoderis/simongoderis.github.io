@@ -51,7 +51,7 @@
                 <hr>
                 </div>
                 <div v-for="da in data">
-                    <div class="bg-light card rounded p-3 mb-2 scorecard" :class="borderCard(da.status)">
+                    <div class="card rounded p-3 mb-2 scorecard" :class="borderCard(da.status, da.dateTime)">
                         <span v-if="formatYYYYMMDD(da.dateTime) > formatYYYYMMDD(Date.now())"></span>
                         <div class="text-center mb-2">
                             <span v-if="da.stage === 'FINAL'" class="badge bg-warning text-dark">{{da.title}}</span>

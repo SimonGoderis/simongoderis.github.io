@@ -102,11 +102,10 @@ window.addEventListener('DOMContentLoaded', init_api)
                         default: return 'danger'
                     }
                 },
-                borderCard(status) {
+                borderCard(status, date) {
                     switch(status) {
-                        case 'FINISHED': return ''
                         case 'IN_PLAY': return 'border-danger'
-                        default: return ''
+                        default: if (moment(date).format("YYYYMMDD") == moment(new Date()).format("YYYYMMDD")) { return 'border-dark' } else { return 'bg-light' }
                     }   
                 }
             }

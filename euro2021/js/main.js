@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded', init_api)
 
-console.log("v1.1")
+console.log("v1.2")
     // Scorebord - nog verder te ontwikkelen.
     var scorebord = []
     var poule = "Feest"
@@ -108,11 +108,15 @@ console.log("v1.1")
                         case 'IN_PLAY': return 'border-danger'
                         default: if (moment(date).format("YYYYMMDD") == moment(new Date()).format("YYYYMMDD")) { return 'border-dark' } else { return 'bg-light' }
                     }   
+                },
+                scroll(date) {
+                    if (moment(date).format("YYYYMMDD") > moment(new Date()).subtract(1,'days').format("YYYYMMDD")) { return "upcoming" } 
                 }
             }
         })
-        document.getElementById("spinner").classList.add("visually-hidden")
-        document.getElementById("app").classList.remove("visually-hidden")
+        document.getElementById("app").classList.remove("visually-hidden");
+        scrollToTargetAdjusted();
+        document.getElementById("spinner").classList.add("visually-hidden");
     }
 
     function scoreApp(scorebord) {
@@ -147,3 +151,20 @@ console.log("v1.1")
     var infoModal = new bootstrap.Modal(document.getElementById('infoModal'))
     var scoreModal = new bootstrap.Modal(document.getElementById('scoreModal'))
     var pronoModal = new bootstrap.Modal(document.getElementById('pronoModal'))
+
+
+    // Scroll into view
+    function scrollToTargetAdjusted(){
+        var element = document.getElementById('upcoming');
+        var headerOffset = document.getElementById('banner').offsetHeight + 8;
+        var elementPosition = element.getBoundingClientRect().top;
+        var offsetPosition = elementPosition - headerOffset;
+
+        console.log(headerOffset);
+    
+        window.scrollTo({
+             top: offsetPosition,
+             behavior: "instant",
+             duration: 0
+        });
+    }

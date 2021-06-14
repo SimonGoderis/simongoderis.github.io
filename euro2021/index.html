@@ -50,7 +50,7 @@
                         <p class="text-center small">Laatste update scores: {{data[0].Script_update}}</p>
                         </div>
                 </div>
-                
+                <span id="spacer"></span>
                 <div v-for="da in data" :id="scroll(da.dateTime)">
                     <div class="card rounded p-3 mb-2 scorecard" :class="borderCard(da.status, da.dateTime)">
                         <span v-if="formatYYYYMMDD(da.dateTime) > formatYYYYMMDD(Date.now())"></span>

@@ -157,14 +157,14 @@ console.log("v1.2")
     function scrollToTargetAdjusted(){
         var element = document.getElementById('upcoming');
         var headerOffset = document.getElementById('banner').offsetHeight + 8;
+        document.body.style.padding =  headerOffset +  "px 0 0 0 ";
         var elementPosition = element.getBoundingClientRect().top;
         var offsetPosition = elementPosition - headerOffset;
-
-        console.log(headerOffset);
     
         window.scrollTo({
              top: offsetPosition,
              behavior: "instant",
              duration: 0
         });
+        
     }

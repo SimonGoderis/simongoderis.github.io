@@ -39,18 +39,19 @@
         <div class="row">
             <div class="col-md-2 col-lg-3"></div>
             <div class="col-md-8 col-lg-6">
-                <div class="mt-3">
-                <p class='text-center ' v-if='player != null && score !== undefined'>
-                    Hallo, {{player.substring(6, 99)}}! 
-                    <span class="text-warning" v-if="score.Betaald == 'Ja'">&#9733;</span>
-                    <br><span>Momenteel bedraagt je score {{score.Score}} punten.</span></p>
-                <p class='text-center alert alert-danger' v-if="player != null && score === undefined && player != 'watch'">Foutieve persoonlijke URL. Gebruik zeker degene die je doorgestuurd kreeg.</p>
-                <p class='text-center alert alert-warning' v-if='player === null'>Om mee te doen met de pronostieken heb
-                    je een persoonlijke link nodig.</p>
-                <p class="text-center small">Laatste update scores: {{data[0].Script_update}}</p>
-                <hr>
+                <div class="fixed-top bg-dark text-white" id="banner">
+                    <div class="mt-3">
+                        <p class='text-center mb-0' v-if='player != null && score !== undefined'>
+                            Hallo, {{player.substring(6, 99)}} ({{score.Score}} pt)! 
+                            <span class="text-warning" v-if="score.Betaald == 'Ja'">&#9733;</span></p>
+                        <p class='text-center alert alert-danger' v-if="player != null && score === undefined && player != 'watch'">Foutieve persoonlijke URL. Gebruik zeker degene die je doorgestuurd kreeg.</p>
+                        <p class='text-center alert alert-warning' v-if='player === null'>Om mee te doen met de pronostieken heb
+                            je een persoonlijke link nodig.</p>
+                        <p class="text-center small">Laatste update scores: {{data[0].Script_update}}</p>
+                        </div>
                 </div>
-                <div v-for="da in data">
+                <span id="spacer"></span>
+                <div v-for="da in data" :id="scroll(da.dateTime)">
                     <div class="card rounded p-3 mb-2 scorecard" :class="borderCard(da.status, da.dateTime)">
                         <span v-if="formatYYYYMMDD(da.dateTime) > formatYYYYMMDD(Date.now())"></span>
                         <div class="text-center mb-2">

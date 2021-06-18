@@ -111,6 +111,18 @@ console.log("v1.2")
                 },
                 scroll(date) {
                     if (moment(date).format("YYYYMMDD") > moment(new Date()).subtract(1,'days').format("YYYYMMDD")) { return "upcoming" } 
+                }, 
+                matchTime(date) {
+                    var matchTime = moment(new Date()).format("HHmm") - moment(date).format("HHmm")
+                    if (matchTime <= 45) {
+                        return matchTime + "'"
+                    } else if (matchTime < 48) {
+                        return "45 + " + (matchTime - 45) + "'"
+                    } else if (matchTime <= 107) {
+                        return (matchTime - 17) + "'"
+                    } else {
+                        return "90 + " + (matchTime - 90) + "'"
+                    }
                 }
             }
         })

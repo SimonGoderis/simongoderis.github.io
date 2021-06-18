@@ -114,12 +114,13 @@ console.log("v1.3 - time update")
                 }, 
                 matchTime(date) {
                     var matchTime = moment(new Date()).format("HHmm") - moment(date).format("HHmm")
+                    console.log(matchTime)
                     if (matchTime <= 45) {
                         return matchTime + "'"
                     } else if (matchTime < 48) {
                         return "45 + " + (matchTime - 45) + "'"
                     } else if (matchTime <= 107) {
-                        return (matchTime - 17) + "'"
+                        return (matchTime - 17 - 40) + "'"
                     } else {
                         return "90 + " + (matchTime - 90) + "'"
                     }

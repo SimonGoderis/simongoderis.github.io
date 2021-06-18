@@ -54,8 +54,8 @@
                 <div v-for="da in data" :id="scroll(da.dateTime)">
                     <div class="card rounded p-3 mb-2 scorecard" :class="borderCard(da.status, da.dateTime)">
                         <span v-if="formatYYYYMMDD(da.dateTime) > formatYYYYMMDD(Date.now())"></span>
-                        <div v-if="da.status == 'IN_PLAY' || da.status == 'PAUSED'" class="text-center mb-2">
-                            <span v-if="da.status == 'IN_PLAY'" class="badge bg-warning text-dark">{{matchTime(da.dateTime)}}</span>
+                        <div v-if="da.status === 'IN_PLAY' || da.status === 'PAUSED'" class="text-center mb-2">
+                            <span v-if="da.status === 'IN_PLAY'" class="badge bg-warning text-dark">{{matchTime(da.dateTime)}}</span>
                             <span v-else class="badge bg-warning text-white">RUST</span>
                         </div>
                         <div v-else class="text-center mb-2">

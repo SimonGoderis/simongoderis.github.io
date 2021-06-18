@@ -110,7 +110,7 @@ console.log("v1.2")
                     }   
                 },
                 scroll(date) {
-                    if (moment(date).format("YYYYMMDD") > moment(new Date()).subtract(1,'days').format("YYYYMMDD")) { return "upcoming" } 
+                    if (moment(date).format("YYYYMMDDHHmm") > moment(new Date()).subtract(3,'hours').format("YYYYMMDDHHmm")) { return "upcoming" } 
                 }, 
                 matchTime(date) {
                     var matchTime = moment(new Date()).format("HHmm") - moment(date).format("HHmm")

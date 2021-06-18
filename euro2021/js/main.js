@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded', init_api)
 
-console.log("v1.2")
+console.log("v1.3 - time update")
     // Scorebord - nog verder te ontwikkelen.
     var scorebord = []
     var poule = "Feest"

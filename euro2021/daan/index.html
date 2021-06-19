@@ -54,7 +54,11 @@
                 <div v-for="da in data" :id="scroll(da.dateTime)">
                     <div class="card rounded p-3 mb-2 scorecard" :class="borderCard(da.status, da.dateTime)">
                         <span v-if="formatYYYYMMDD(da.dateTime) > formatYYYYMMDD(Date.now())"></span>
-                        <div class="text-center mb-2">
+                        <div v-if="da.status === 'IN_PLAY' || da.status === 'PAUSED'" class="text-center mb-2">
+                            <span v-if="da.status === 'IN_PLAY'" class="badge bg-warning text-dark">{{matchTime(da.dateTime)}}</span>
+                            <span v-else class="badge bg-warning text-dark">RUST</span>
+                        </div>
+                        <div v-else class="text-center mb-2">
                             <span v-if="da.stage === 'FINAL'" class="badge bg-warning text-dark">{{da.title}}</span>
                             <span v-else class="badge bg-secondary text-white">{{da.title}}</span>
                         </div>
@@ -262,10 +266,23 @@
             <div class="modal-content">
                 <div class="modal-header bg-warning">
                     <h5 class="modal-title">Prono</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+                    <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal" aria-label="Close"
                         onClick="scoreModal.hide()"></button>
                 </div>
                 <div class="modal-body ms-2 me-2">
+                    <table class="table table-sm text-center">
+                        <thead>
+                            <tr class="table-dark">
+                                <th style="width: 33.33%">Thuis</th>
+                                <th style="width: 33.33%">Gelijk</th>
+                                <th style="width: 33.33%">Uit</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pronoOverview">
+
+                        </tbody>
+                    </table>
+
                     <table class="table table-striped table-sm table-hover">
                         <thead id="pronoTable_head"> 
                           <tr class="table-dark">

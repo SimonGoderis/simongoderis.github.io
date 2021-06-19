@@ -150,13 +150,46 @@ console.log("v1.3 - time update")
     function pronoApp(id) {
 
         document.getElementById('pronoTable').innerHTML = "";
+        document.getElementById('pronoOverview').innerHTML = "";
         data_sb_o.sort(function(a,b){ return b[id + '_s'] -  a[id + '_s']});
+
+        var prono_thuis = 0
+        var prono_gelijk = 0
+        var prono_uit = 0
+        var pt_c = ''
+        var pg_c = ''
+        var pu_c = ''
 
         for(i=0; i < data_sb_o.length; i++) {
             if(data_sb_o[i].Speler_c != null) {
-                document.getElementById('pronoTable').innerHTML += "<tr><td><strong>" + data_sb_o[i].Speler_c + "</strong></td><td>" + data_sb_o[i][id + '_h'] + "</td><td>" + data_sb_o[i][id + '_a'] + "</td><td><strong>" + data_sb_o[i][id + '_s'] + "</strong></td></tr>"
+                if (data_sb_o[i].Speler === player) {
+                    document.getElementById('pronoTable').innerHTML += "<tr class='table-warning'><td><strong>" + data_sb_o[i].Speler_c + "</strong></td><td>" + data_sb_o[i][id + '_h'] + "</td><td>" + data_sb_o[i][id + '_a'] + "</td><td><strong>" + data_sb_o[i][id + '_s'] + "</strong></td></tr>"
+                    if (data_sb_o[i][id + '_h'] > data_sb_o[i][id + '_a']) {
+                        pt_c = 'table-warning'
+                    } else if (data_sb_o[i][id + '_h'] == data_sb_o[i][id + '_a']) {
+                        pg_c = 'table-warning'
+                    } else if (data_sb_o[i][id + '_h'] < data_sb_o[i][id + '_a']) {
+                        pu_c = 'table-warning'
+                    }
+                } else {
+                    document.getElementById('pronoTable').innerHTML += "<tr><td><strong>" + data_sb_o[i].Speler_c + "</strong></td><td>" + data_sb_o[i][id + '_h'] + "</td><td>" + data_sb_o[i][id + '_a'] + "</td><td><strong>" + data_sb_o[i][id + '_s'] + "</strong></td></tr>"
+                }
+                if (data_sb_o[i][id + '_h'] > data_sb_o[i][id + '_a']) {
+                    prono_thuis += 1
+                } else if (data_sb_o[i][id + '_h'] == data_sb_o[i][id + '_a']) {
+                    prono_gelijk += 1
+                } else if (data_sb_o[i][id + '_h'] < data_sb_o[i][id + '_a']) {
+                    prono_uit += 1 
+                }
             }
         }
+        var prono_tot = prono_thuis + prono_uit + prono_gelijk
+
+        var prono_string = "<tr><td class='" + pt_c + "'>" + prono_thuis + " <small>(" + (prono_thuis/prono_tot * 100).toFixed(1) + "%)</small></td>"
+        prono_string += "<td class='" + pg_c + "'>" + prono_gelijk + " <small>(" + (prono_gelijk/prono_tot * 100).toFixed(1) + "%)</small></td>" 
+        prono_string += "<td class='" + pu_c + "'>" + prono_uit + " <small>(" + (prono_uit/prono_tot * 100).toFixed(1) + "%)</small></td></tr>"
+
+        document.getElementById('pronoOverview').innerHTML += prono_string
 
         pronoModal.show()
     }

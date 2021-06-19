@@ -162,7 +162,7 @@ console.log("v1.3 - time update")
 
         for(i=0; i < data_sb_o.length; i++) {
             if(data_sb_o[i].Speler_c != null) {
-                if (data_sb_o[i].Speler === player) {
+                if (data_sb_o[i].Speler == player) {
                     document.getElementById('pronoTable').innerHTML += "<tr class='table-warning'><td><strong>" + data_sb_o[i].Speler_c + "</strong></td><td>" + data_sb_o[i][id + '_h'] + "</td><td>" + data_sb_o[i][id + '_a'] + "</td><td><strong>" + data_sb_o[i][id + '_s'] + "</strong></td></tr>"
                     if (data_sb_o[i][id + '_h'] > data_sb_o[i][id + '_a']) {
                         pt_c = 'table-warning'
@@ -174,11 +174,11 @@ console.log("v1.3 - time update")
                 } else {
                     document.getElementById('pronoTable').innerHTML += "<tr><td><strong>" + data_sb_o[i].Speler_c + "</strong></td><td>" + data_sb_o[i][id + '_h'] + "</td><td>" + data_sb_o[i][id + '_a'] + "</td><td><strong>" + data_sb_o[i][id + '_s'] + "</strong></td></tr>"
                 }
-                if (data_sb_o[i][id + '_h'] > data_sb_o[i][id + '_a']) {
+                if (data_sb_o[i][id + '_h'] > data_sb_o[i][id + '_a'] && data_sb_o[i][id + '_h'] != '') {
                     prono_thuis += 1
-                } else if (data_sb_o[i][id + '_h'] == data_sb_o[i][id + '_a']) {
+                } else if (data_sb_o[i][id + '_h'] == data_sb_o[i][id + '_a'] && data_sb_o[i][id + '_h'] != '') {
                     prono_gelijk += 1
-                } else if (data_sb_o[i][id + '_h'] < data_sb_o[i][id + '_a']) {
+                } else if (data_sb_o[i][id + '_h'] < data_sb_o[i][id + '_a'] && data_sb_o[i][id + '_h'] != '') {
                     prono_uit += 1 
                 }
             }

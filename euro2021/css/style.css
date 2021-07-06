@@ -34,3 +34,7 @@
 #pronoTable_head tr th:not(:first-child) {
     text-align: center;
 }
+
+.mb-10 {
+    margin-bottom: 6rem!important;
+}

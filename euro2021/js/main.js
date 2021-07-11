@@ -204,13 +204,15 @@ console.log("v1.3 - time update")
         var element = document.getElementById('upcoming');
         var headerOffset = document.getElementById('banner').offsetHeight + 8;
         document.body.style.padding =  headerOffset +  "px 0 0 0 ";
-        var elementPosition = element.getBoundingClientRect().top;
-        var offsetPosition = elementPosition - headerOffset;
-    
-        window.scrollTo({
-             top: offsetPosition,
-             behavior: "instant",
-             duration: 0
-        });
+        if (element != null) {
+            var elementPosition = element.getBoundingClientRect().top;
+            var offsetPosition = elementPosition - headerOffset;
+        
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "instant",
+                duration: 0
+            });
+        }
         
     }

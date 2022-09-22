@@ -22,9 +22,9 @@ console.log("v1.6 - WK2022 update")
 
     // API calls
     const link =
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vSjHuFYV7MC3K9OnGnIkYI4G4E19236B4Ur6GmpqKHFicEwwPS8YzuC2QDYv7jga4LMdUT4SbqZXbp6/pub?gid=2116746882&single=true&output=csv'
+        'https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2Fe%2F2PACX-1vSjHuFYV7MC3K9OnGnIkYI4G4E19236B4Ur6GmpqKHFicEwwPS8YzuC2QDYv7jga4LMdUT4SbqZXbp6%2Fpub%3Fgid%3D2116746882%26single%3Dtrue%26output%3Dcsv'
     const link_sb =
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vSPkPXPi8bYLHFeHIb_FTLl0esowodeGBxC45HdmY5QUqvZ5qw-Ol9hL_oMP15tFD-0FVxoM-jdpVa_/pub?gid=1677703325&single=true&output=csv'
+        'https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2Fe%2F2PACX-1vSPkPXPi8bYLHFeHIb_FTLl0esowodeGBxC45HdmY5QUqvZ5qw-Ol9hL_oMP15tFD-0FVxoM-jdpVa_%2Fpub%3Fgid%3D1677703325%26single%3Dtrue%26output%3Dcsv'
   
     function init_api() {
         Papa.parse(decodeURIComponent(link), {

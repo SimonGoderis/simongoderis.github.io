@@ -44,7 +44,6 @@ console.log("v1.6 - WK2022 update")
             download: true,
             header: true,
             complete: function (results) {
-                console.log(results.data);
                 data_sb = results.data
                 for (i = 0; i < data_sb.length; i++) {
                     if (data_sb[i].Groep === poule) {

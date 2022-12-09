@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded', init_api)
 
-console.log("v1.6 - WK2022 update")
+console.log("v1.7 - WK2022 update")
     // Scorebord - nog verder te ontwikkelen.
     var scorebord = []
     var poule = "Feest"

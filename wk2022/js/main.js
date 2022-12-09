@@ -151,7 +151,7 @@ console.log("v1.6 - WK2022 update")
 
         document.getElementById('pronoTable').innerHTML = "";
         document.getElementById('pronoOverview').innerHTML = "";
-        data_sb_o.sort(function(a,b){ return b[id + '_s'] -  a[id + '_s']});
+        data_sb_o.sort(function(a,b){ return b[id + '_s'] -  a[id + '_s'] || b[id + '_h'] -  a[id + '_h'] || b[id + '_a'] -  a[id + '_a']});
 
         var prono_thuis = 0
         var prono_gelijk = 0

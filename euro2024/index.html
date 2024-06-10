@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="apple-mobile-web-app-title" content="EK 2024">
+    <meta name="application-name" content="EK 2024">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EK 2024 - Pronostiek</title>
+    <link rel="apple-touch-icon" sizes="128x128" href="img/install_ico.png">
+    <link rel="icon" sizes="192x192" href="img/install_ico.png">
+
+    <link rel="shortcut icon" type="image/jpg" href="img/favicon.ico" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="css/flags/css/flag-icon.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src='js/papa.js'></script>
+    <script type="text/javascript" src='js/moment.js'></script>
+
+    <script src="js/bs/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-037DBLPQFQ"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-037DBLPQFQ');
+    </script>
+</head>
+
+<body>
+
+    <div id="spinner" style="position:fixed; top:50%; left:50%; margin-top: -2rem; margin-left: -2rem;">
+        <div class="spinner-border text-dark" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div class="container visually-hidden" id="app">
+        <div class="row">
+            <div class="col-md-2 col-lg-3"></div>
+            <div class="col-md-8 col-lg-6">
+                <div class="fixed-top bg-dark text-white" id="banner">
+                    <div class="mt-3">
+                        <p class='text-center mb-0' v-if='player != null && score !== undefined'>
+                            Hallo, {{player.substring(6, 99)}} ({{score.Score}} pt)! 
+                            <span class="text-warning" v-if="score.Betaald == 'Ja'">&#9733;</span></p>
+                        <p class='text-center alert alert-danger' v-if="player != null && score === undefined && player != 'watch'">Foutieve persoonlijke URL. Gebruik zeker degene die je doorgestuurd kreeg.</p>
+                        <p class='text-center alert alert-warning' v-if='player === null'>Om mee te doen met de pronostieken heb
+                            je een persoonlijke link nodig. Ook om het scorebord te zien heb je de correcte link nodig.</p>
+                        <p class="text-center small">Laatste update scores: {{data[0].Script_update}}</p>
+                        </div>
+                </div>
+                <span id="spacer"></span>
+                <div v-for="da in data" :id="scroll(da.dateTime)">
+                    <div class="card rounded p-3 mb-2 scorecard" :class="borderCard(da.status, da.dateTime)">
+                        <span v-if="formatYYYYMMDD(da.dateTime) > formatYYYYMMDD(Date.now())"></span>
+                        <div v-if="da.status === 'IN_PLAY' || da.status === 'PAUSED'" class="text-center mb-2">
+                            <span v-if="da.status === 'IN_PLAY'" class="badge bg-warning text-dark">{{matchTime(da.dateTime)}}</span>
+                            <span v-else class="badge bg-warning text-dark">RUST</span>
+                        </div>
+                        <div v-else class="text-center mb-2">
+                            <span v-if="da.stage === 'FINAL'" class="badge bg-warning text-dark">{{da.title}}</span>
+                            <span v-else class="badge bg-secondary text-white">{{da.title}}</span>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-4 text-start text-wrap pe-0">
+                                <span class="rounded flag-icon f-2x flag-icon-square text-xl mb-2"
+                                    :class="'flag-icon-'+da.flagHome"></span><br>
+                                <p class="lh-1 small">{{da.home_NL}}</p>
+                            </div>
+                            <div class="score col-4 text-center ps-0 pe-0">
+                                <span v-if='player != null && score !== undefined'>
+                                    <!-- with link -->
+                                    <div v-if="formatTimeCalc(now) < formatTimeCalc(da.dateTime) && da.link != ''">
+                                        <a :href="da.link + player">
+                                            <h2 class="mb-2"><span
+                                                    class="badge bg-primary p-2">{{da.score_total_home == null ? 0 : (da.score_total_home || '...')}}</span><span
+                                                    class="small"> - </span><span
+                                                    class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away || '...')}}</span>
+                                            </h2>
+                                            <div v-if="player != null && getScoreValue(da.CODE, '_h') != '' && getScoreValue(da.CODE, '_h') != null" class="mb-2"><span class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_h')}}</span>
+                                                <span class="badge p-2 fs-6 mw-32" :class='"bg-" + badgeScore(getScoreValue(da.CODE, "_s"))'>{{getScoreValue(da.CODE, '_s') == null ? 0 : (getScoreValue(da.CODE, '_s') || '...')}}</span> <span
+                                                    class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_a')}}</span></div>
+                                            <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} -
+                                                {{formatTime(da.dateTime)}}</span>
+                                        </a>
+                                    </div>
+
+
+                                    <!-- past match prono -->
+                                    <div v-else-if="formatTimeCalc(now) > formatTimeCalc(da.dateTime)">
+                                        <a :id="da.CODE" onClick="pronoApp(this.id)">
+                                        <h2 class="mb-2"><span
+                                            class="badge bg-primary p-2">{{da.score_total_home == null ? 0 : (da.score_total_home || '...')}}</span><span
+                                            class="small"> - </span><span
+                                            class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away || '...')}}</span>
+                                        </h2>
+                                        <div v-if="player != null && getScoreValue(da.CODE, '_h') != '' && getScoreValue(da.CODE, '_h') != null" class="mb-2"><span class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_h')}}</span>
+                                            <span class="badge p-2 fs-6 mw-32" :class='"bg-" + badgeScore(getScoreValue(da.CODE, "_s"))'>{{getScoreValue(da.CODE, '_s') == null ? 0 : (getScoreValue(da.CODE, '_s') || '...')}}</span> <span
+                                                class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_a')}}</span></div>
+                                        <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} -
+                                            {{formatTime(da.dateTime)}}</span>
+                                        </a>
+                                    </div>
+
+
+                                    <!-- without link -->
+                                    <div v-else>
+                                        <h2 class="mb-2"><span
+                                            class="badge bg-primary p-2">{{da.score_total_home == null ? 0 : (da.score_total_home || '...')}}</span><span
+                                            class="small"> - </span><span
+                                            class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away || '...')}}</span>
+                                        </h2>
+                                        <div v-if="player != null && getScoreValue(da.CODE, '_h') != '' && getScoreValue(da.CODE, '_h') != null" class="mb-2"><span class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_h')}}</span>
+                                            <span class="badge p-2 fs-6 mw-32" :class='"bg-" + badgeScore(getScoreValue(da.CODE, "_s"))'>{{getScoreValue(da.CODE, '_s') == null ? 0 : (getScoreValue(da.CODE, '_s') || '...')}}</span> <span
+                                                class="badge bg-dark p-2">{{getScoreValue(da.CODE, '_a')}}</span></div>
+                                        <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} -
+                                            {{formatTime(da.dateTime)}}</span>
+                                    </div>
+                                </span>
+
+                                <span v-else-if="player == 'watch'">
+                                    <a v-if="formatTimeCalc(now) > formatTimeCalc(da.dateTime)" :id="da.CODE" onClick="pronoApp(this.id)">
+                                        <h2 class="mb-2"><span
+                                            class="badge bg-primary p-2">{{da.score_total_home == null ? 0 : (da.score_total_home || '...')}}</span><span
+                                            class="small"> - </span><span
+                                            class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away || '...')}}</span>
+                                        </h2>
+                                        <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} -
+                                            {{formatTime(da.dateTime)}}</span>
+                                        </a>
+                                        <div v-else>
+                                            <h2 class="mb-2"><span
+                                                class="badge bg-primary p-2">{{da.score_total_home == null ? 0 : (da.score_total_home || '...')}}</span><span
+                                                class="small"> - </span><span
+                                                class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away || '...')}}</span>
+                                            </h2>
+                                            <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} -
+                                                {{formatTime(da.dateTime)}}</span>
+                                            </div>
+                                </span>
+
+                                <span v-else>
+                                    <h2 class="mb-2"><span
+                                            class="badge bg-primary p-2">{{da.score_total_home == null ? 0 : (da.score_total_home[1] || '...')}}</span><span
+                                            class="small"> - </span><span
+                                            class="badge bg-primary p-2">{{da.score_total_away == null ? 0 : (da.score_total_away[1] || '...')}}</span>
+                                    </h2>
+                                    <span class="badge bg-secondary text-white">{{formatDate(da.dateTime)}} -
+                                        {{formatTime(da.dateTime)}}</span>
+                                </span>
+                            </div>
+                            <div class="col-4 text-end text-wrap ps-0">
+                                <span class="rounded flag-icon f-2x flag-icon-square text-xl mb-2"
+                                    :class="'flag-icon-'+da.flagAway"></span><br>
+                                <p class="lh-1 small">{{da.away_NL}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mb-10" id='upcoming'></div>
+            </div>
+            <div class="col-md-2 col-lg-3"></div>
+        </div>
+
+        <span v-if="(player != null && score !== undefined) || player == 'watch'">
+            <button onClick="scoreModal.show()" class="btn btn-success rounded-circle p-3" style="position: fixed; bottom: 15px; left: 15px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-trophy" viewBox="0 0 16 16">
+                    <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33.076 33.076 0 0 1 2.5.5zm.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935zm10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935zM3.504 1c.007.517.026 1.006.056 1.469.13 2.028.457 3.546.87 4.667C5.294 9.48 6.484 10 7 10a.5.5 0 0 1 .5.5v2.61a1 1 0 0 1-.757.97l-1.426.356a.5.5 0 0 0-.179.085L4.5 15h7l-.638-.479a.501.501 0 0 0-.18-.085l-1.425-.356a1 1 0 0 1-.757-.97V10.5A.5.5 0 0 1 9 10c.516 0 1.706-.52 2.57-2.864.413-1.12.74-2.64.87-4.667.03-.463.049-.952.056-1.469H3.504z"/>
+                </svg>    
+            </button>
+        </span>
+        <span v-else>
+            <button onClick="" class="btn btn-light rounded-circle p-3" style="position: fixed; bottom: 15px; left: 15px;" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-trophy" viewBox="0 0 16 16">
+                    <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33.076 33.076 0 0 1 2.5.5zm.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935zm10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935zM3.504 1c.007.517.026 1.006.056 1.469.13 2.028.457 3.546.87 4.667C5.294 9.48 6.484 10 7 10a.5.5 0 0 1 .5.5v2.61a1 1 0 0 1-.757.97l-1.426.356a.5.5 0 0 0-.179.085L4.5 15h7l-.638-.479a.501.501 0 0 0-.18-.085l-1.425-.356a1 1 0 0 1-.757-.97V10.5A.5.5 0 0 1 9 10c.516 0 1.706-.52 2.57-2.864.413-1.12.74-2.64.87-4.667.03-.463.049-.952.056-1.469H3.504z"/>
+                </svg>    
+            </button>  
+        </span>
+        
+        <button onClick="infoModal.show()" class="btn btn-secondary rounded-circle p-3" style="position: fixed; bottom: 15px; right: 15px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-info-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+              </svg>
+        </button>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal" id="infoModal" tabindex="-1" aria-labelledby="gameModalLabel">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">Extra info</h5>
+                    <button type="button" class="btn-close-white btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        onClick="infoModal.hide()"></button>
+                </div>
+                <div class="modal-body ps-4 pe-4">
+                    <p>Om mee te doen aan de pronostiek heb je een <strong>persoonlijke link</strong> nodig. Met deze link kan je dan je pronostiek invullen. Je zal merken dat je naam en score bovenaan komt te staan van zodra je de correcte link gebruikt. Hou er wel rekening mee dat je op een nieuw apparaat steeds eerst met deze link naar de website zal moeten gaan vooraleer je aan je pronostiek kan.</p>
+                    <img src="img/info_groet.png" alt="info_pic1" class="img-fluid rounded mx-auto d-block border-dark border mw-350">
+                    <br>
+                    <h5>Matchoverzicht</h5>
+                    <p>
+                        Op de homepagina krijg je een overzicht van alle te spelen matchen. Hier krijg je per match het volgende te zien: 
+                        <ul>
+                            <li><strong>Landen</strong>: het thuis-land staat links, het uit-land rechts</li>
+                            <li><strong class="text-secondary">Fase van de competitie</strong>: groepsfase, zestiende finale, ...</li>
+                            <li><strong class="text-primary">Uitslag</strong>: de uitslag van de match komt in de blauwe vierkanten te staan</li>
+                            <li><strong class="text-dark">Gok</strong>: indien je je pronostiek hebt ingevuld, verschijnt deze in de zwarte vierkanten</li>
+                            <li><strong class="text-danger">Score</strong>: het aantal punten dat je scoort komt in de rode vierkanten te staan</li>
+                        </ul>
+                    </p>
+                    <img src="img/info_1.jpg" alt="info_pic1" class="img-fluid rounded mx-auto d-block border-dark border mw-350">
+                    <br>
+                    <h5>Pronostiek invullen</h5>
+                    <p>
+                        Om je pronostiek in te vullen, kan je op één van de <span class="text-warning">middelste velden</span> drukken (geel op de screenshot hieronder - uitslag, gok of score). Je zal zo doorverwezen worden naar een formulier (Google - je moet ingelogd zijn) waar je je pronostiek kan invullen. <span class="text-danger">Pas hierin je speler ID <strong>niet</strong> aan!</span> Deze wordt automatisch ingevuld en is nodig om je score te berekenen. Je hoeft zo enkel de score van de thuis- en uit-ploeg in te vullen (geel op de screenshot hieronder).
+                    </p>
+                    <img src="img/info_1_markering.png" alt="info_pic2" class="img-fluid rounded mx-auto d-block border-dark border mw-350">
+                    <img src="img/info_form.png" alt="info_pic2" class="img-fluid rounded mx-auto d-block border-dark border mw-350 mt-2">
+
+                    <p class="mt-3">
+                        Je kan hierna deze pronostiek blijven wijzigen tot de match begint. Vanaf dan zullen reacties automatisch uitgeschakeld worden. Je reactie wijzigen doe je door simpelweg opnieuw op één van de middelste velden te drukken.
+                    </p>
+                    <br>
+                    <h5>Puntentelling</h5>
+                    <p>De puntentelling werkt als volgt:
+                        <ul>
+                            <li>2 pt: volledig correcte score</li>
+                            <li>1 pt: correcte winnaar of gelijkspel</li>
+                            <li>0 pt: foutieve winnaar</li>
+                        </ul>
+                    </p>
+                    <br>
+                    <h5>Scorebord</h5>
+                    <p>Het scorebord kan je bekijken door linksonder op de groene knop met de trofee te drukken. Als hier een <span class="text-warning">&#9733;</span> bij je naam staat, wil dit zeggen dat je betaald hebt en meespeelt voor de pot.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL  SCORE -->
+    <div class="modal" id="scoreModal" tabindex="-1" aria-labelledby="gameModalLabel">
+        <div id="scoreApp" class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">Scorebord</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+                        onClick="scoreModal.hide()"></button>
+                </div>
+                <div class="modal-body ms-2 me-2">
+                    <table class="table table-hover">
+                        <thead>
+                          <tr class="table-dark">
+                            <th scope="col">#</th>
+                            <th scope="col">Naam</th>
+                            <th scope="col">Punten</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="score in scores" :class="tablePlayer(score.Speler_c)">
+                            <th scope="row">{{score.rank}}</th>
+                            <td>{{score.Speler_c}}<span v-if="score.Betaald != ''" class="text-warning small"> &#9733;</span></td>
+                            <td>{{score.Score}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL  PRONO-->
+    <div class="modal" id="pronoModal" tabindex="-1" aria-labelledby="gameModalLabel">
+        <div id="pronoApp" class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title">Prono</h5>
+                    <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal" aria-label="Close"
+                        onClick="scoreModal.hide()"></button>
+                </div>
+                <div class="modal-body ms-2 me-2">
+                    <table class="table table-sm text-center">
+                        <thead>
+                            <tr class="table-dark">
+                                <th style="width: 33.33%">Thuis</th>
+                                <th style="width: 33.33%">Gelijk</th>
+                                <th style="width: 33.33%">Uit</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pronoOverview">
+
+                        </tbody>
+                    </table>
+
+                    <table class="table table-striped table-sm table-hover">
+                        <thead id="pronoTable_head"> 
+                          <tr class="table-dark">
+                            <th scope="col">Naam</th>
+                            <th scope="col">Thuis</th>
+                            <th scope="col">Uit</th>
+                            <th scope="col">Score</th>
+                          </tr>
+                        </thead>
+                        <tbody id="pronoTable">
+                          
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+<script type="text/javascript" src='js/main.js'></script>
+
+</html>
